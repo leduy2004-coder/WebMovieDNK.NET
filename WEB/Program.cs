@@ -1,6 +1,5 @@
 using System.Net.Http.Headers;
-using WebGK;
-using WebGK.Api;
+using Web.Api;
 
 var builder = WebApplication.CreateBuilder(args);
 

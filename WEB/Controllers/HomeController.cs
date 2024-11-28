@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WebGK.Api;
+using Web.Api;
 
-namespace WebGK.Controllers
+
+namespace Web.Controllers
 {
     public class HomeController : Controller
     {

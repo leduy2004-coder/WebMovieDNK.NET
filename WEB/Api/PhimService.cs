@@ -1,7 +1,9 @@
-﻿using API.Data;
+﻿
+using WEB.Models;
 
 
-namespace WebGK.Api
+
+namespace Web.Api
 {
     public class PhimService
     {
