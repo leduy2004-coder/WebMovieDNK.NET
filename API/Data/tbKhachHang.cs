@@ -14,7 +14,7 @@ namespace API.Data
 
         [StringLength(10)]
         public string Sdt { get; set; }
-
+       
         public DateTime? NgaySinh { get; set; }
 
         [StringLength(50)]

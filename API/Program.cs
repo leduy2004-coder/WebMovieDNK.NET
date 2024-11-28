@@ -1,5 +1,7 @@
 using API.Model;
+using CloudinaryDotNet;
 using Microsoft.EntityFrameworkCore;
+
 using System;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,7 +17,18 @@ builder.Services.AddTransient<ISuatChieuRepository, SuatChieuRepository>();
 // 3. Thêm Controllers
 builder.Services.AddControllers();
 
-// 4. Thêm Swagger
+
+builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("CloudinarySettings"));
+
+// Cấu hình Cloudinary
+builder.Services.AddSingleton(x =>
+{
+    var config = builder.Configuration.GetSection("CloudinarySettings").Get<CloudinarySettings>();
+    var account = new Account(config.CloudName, config.ApiKey, config.ApiSecret);
+    return new Cloudinary(account);
+});
+
+
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
