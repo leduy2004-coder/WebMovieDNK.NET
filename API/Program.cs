@@ -1,0 +1,42 @@
+using API.Model;
+using Microsoft.EntityFrameworkCore;
+using System;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// 1. Cấu hình DbContext
+builder.Services.AddDbContextPool<AppDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DbConnection")));
+
+// 2. Thêm các repository với Dependency Injection
+builder.Services.AddTransient<IPhimRepository, PhimRepository>();
+builder.Services.AddTransient<ISuatChieuRepository, SuatChieuRepository>();
+
+// 3. Thêm Controllers
+builder.Services.AddControllers();
+
+// 4. Thêm Swagger
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+    {
+        Title = "KTCuoiKi",
+        Version = "v1"
+    });
+});
+
+var app = builder.Build();
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
+app.UseHttpsRedirection();
+
+app.UseAuthorization();
+
+app.MapControllers();
+
+app.Run();
