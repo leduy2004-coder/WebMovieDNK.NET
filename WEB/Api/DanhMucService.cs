@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using WebGK.Models;
-
-namespace WebGK.Api
+﻿namespace WebGK.Api
 {
     public class DanhMucService
     {

@@ -31,7 +31,30 @@ namespace API.Model
                 .ToListAsync(); // Thực hiện truy vấn và trả về danh sách suất chiếu theo mã phim
         }
 
-
         
+
+
+        public async Task<bool> deleteSuatChieu(string maSuat)
+        {
+            var suatChieu = await _context.SuatChieu.FindAsync(maSuat);
+            if (suatChieu == null)
+            {
+                return false;  // Nếu không tìm thấy suất chiếu, trả về false
+            }
+
+            _context.SuatChieu.Remove(suatChieu);  // Xóa suất chiếu khỏi cơ sở dữ liệu
+            await _context.SaveChangesAsync();  // Lưu thay đổi vào cơ sở dữ liệu
+            return true;  // Trả về true nếu xóa thành công
+        }
+
+        public Task<tbSuatChieu> addSuatChieu(string maSuat)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<tbSuatChieu> upadteSuatChieu(string maSuat)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
