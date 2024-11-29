@@ -26,7 +26,7 @@ namespace API.Model
         public DbSet<tbVe> Ve { get; set; }
         public DbSet<tbBookVe> BookVe { get; set; }
         public DbSet<tbBookGhe> BookGhe { get; set; }
-
+        public DbSet<tbMaPhim> MaPhim { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -50,6 +50,8 @@ namespace API.Model
             // Cấu hình khóa chính hợp thành cho tbBookGhe
             modelBuilder.Entity<tbBookGhe>()
                 .HasKey(b => new { b.MaGhe, b.MaBook }); // Chỉ định khóa chính hợp thành từ MaGhe và MaBook
+
+            modelBuilder.Entity<tbMaPhim>().HasNoKey();
         }
 
     }

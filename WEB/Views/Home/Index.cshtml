@@ -1,263 +1,289 @@
-﻿@model List<WEB.Models.PhimModel>
+﻿@model WEB.Models.HomeViewModel
 @{
     ViewData["Title"] = "Home Page";
 }
 @{
-	Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <section class="slider">
-	<img src="./img/banner.png" alt="" class="slider-img">
+    <img src="./img/banner.png" alt="" class="slider-img">
 </section>
 
 <section class="search-section">
-	<div class="container">
-		<div class="searchs row">
-			<div class="col-md-3 col-sm-3 col-xs-12">
-				<select>
-					<option>Chọn rạp</option>
-					<option>Tam Kỳ</option>
-					<option>Đà Nẵng</option>
-				</select>
-			</div>
-			<div class="col-md-3 col-sm-3 col-xs-12">
-				<select>
-					<option>Mai</option>
-					<option>Gặp lại vợ bầu</option>
-					<option>King</option>
-				</select>
-			</div>
-			<div class="col-md-3 col-sm-3 col-xs-12">
-				<select>
-					<option>Chọn ngày xem</option>
-					<option>11/11/1111</option>
-					<option>22/22/2222</option>
-				</select>
-			</div>
-			<div class="col-md-3 col-sm-3 col-xs-12">
-				<select>
-					<option>Chọn xuất chiếu</option>
-				</select>
-			</div>
-		</div>
-	</div>
+    <div class="container">
+        <div class="searchs row">
+            <div class="col-md-4 col-sm-3 col-xs-12">
+                <select id="select-phim">
+                    <option>Chọn phim</option>
+                    @foreach (var phim in Model.PhimDangChieu)
+                    {
+                        <option value="@phim.MaPhim">@phim.TenPhim</option>
+                    }
+                </select>
+            </div>
+
+            <div class="col-md-4 col-sm-3 col-xs-12">
+                <select id="select-ngay" disabled>
+     
+                    <!-- Các ngày sẽ được thêm vào sau khi chọn phim -->
+                </select>
+            </div>
+
+            <div class="col-md-4 col-sm-3 col-xs-12">
+                <select id="select-xuatchieu" disabled>
+
+                    <!-- Các suất chiếu sẽ được thêm vào sau khi chọn ngày -->
+                </select>
+            </div>
+        </div>
+    </div>
 </section>
 
 <section class="movie-section">
-	<div class="container">
-		<ul class="nav">
-			<li>
-				<a data-toggle="tab" class="nav-link active" href="#current">Phim Đang chiếu</a>
-			</li>
-			<li>
-				<a data-toggle="tab" class="nav-link" href="#coming">Phim Sắp chiếu</a>
-			</li>
-		</ul>
-		<div class="tab-pane">
-			<div class="movie-list row current active">
-				<div class="movie-item col-xl-3 col-lg-3 col-md-4 col-sm-6">
-					<div class="movie-box">
-						<a href="#" class="movie-link">
-							<img src="~/img/film-1.jpg" />
-						</a>
-					</div>
-					<div class="movie-content">
-						<h4 class="card-header movie-name">Mai</h4>
-						<p class="card-body movie-start">Khởi chiếu: 10/02/2024</p>
-					</div>
-				</div>
-				<div class="movie-item col-xl-3 col-lg-3 col-md-4 col-sm-6">
-					<div class="movie-box">
-						<a href="#" class="movie-link">
-							<img src="~/img/film-1.jpg" />
-						</a>
-					</div>
-					<div class="movie-content">
-						<h4 class="card-header movie-name">Mai</h4>
-						<p class="card-body movie-start">Khởi chiếu: 10/02/2024</p>
-					</div>
-				</div>
-				<div class="movie-item col-xl-3 col-lg-3 col-md-4 col-sm-6">
-					<div class="movie-box">
-						<a href="#" class="movie-link">
-							<img src="~/img/film-1.jpg" />
-						</a>
-					</div>
-					<div class="movie-content">
-						<h4 class="card-header movie-name">Mai</h4>
-						<p class="card-body movie-start">Khởi chiếu: 10/02/2024</p>
-					</div>
-				</div>
-			</div>
+    <div class="container">
+        <ul class="nav">
+            <li>
+                <a data-toggle="tab" class="nav-link active" href="#current">Phim Đang chiếu</a>
+            </li>
+            <li>
+                <a data-toggle="tab" class="nav-link" href="#coming">Phim Sắp chiếu</a>
+            </li>
+        </ul>
 
-			<div class="movie-list row coming">
-				<div class="movie-item col-xl-3 col-lg-3 col-md-4 col-sm-6">
-					<div class="movie-box">
-						<a href="#" class="movie-link">
-							<img src="~/img/film-1.jpg" />
-						</a>
-					</div>
-					<div class="movie-content">
-						<h4 class="card-header movie-name">Mai</h4>
-						<p class="card-body movie-start">Khởi chiếu: 10/02/2024</p>
-					</div>
-				</div>
-				<div class="movie-item col-xl-3 col-lg-3 col-md-4 col-sm-6">
-					<div class="movie-box">
-						<a href="#" class="movie-link">
-							<img src="~/img/film-1.jpg" />
-						</a>
-					</div>
-					<div class="movie-content">
-						<h4 class="card-header movie-name">Mai</h4>
-						<p class="card-body movie-start">Khởi chiếu: 10/02/2024</p>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+        <div class="tab-pane">
+            <div class="movie-list row current active">
+      
+                    @foreach (var phim in Model.PhimDangChieu)
+                    {
+                        <div class="movie-item col-xl-3 col-lg-3 col-md-4 col-sm-6">
+                            <div class="movie-box">
+                                <a href="#" class="movie-link">
+                                <img src="@phim.HinhDaiDien" class="card-img-top" />
+                                </a>
+                            </div>
+                            <div class="movie-content">
+                                <h4 class="card-header movie-name">@phim.TenPhim</h4>
+                                <p class="card-body movie-start">Khởi chiếu: @phim.NgayKhoiChieu.ToString("dd/MM/yyyy")</p>
+                            </div>
+                        </div>
+                    }
+                
+            </div>
+
+            <div class="movie-list row coming">
+         
+                    @foreach (var phim in Model.PhimSapChieu)
+                    {
+                        <div class="movie-item col-xl-3 col-lg-3 col-md-4 col-sm-6">
+                            <div class="movie-box">
+                                <a href="#" class="movie-link">
+                                    <img src="@phim.HinhDaiDien" class="card-img-top"/>
+                                </a>
+                            </div>
+                            <div class="movie-content">
+                                <h4 class="card-header movie-name">@phim.TenPhim</h4>
+                                <p class="card-body movie-start">Khởi chiếu: @phim.NgayKhoiChieu.ToString("dd/MM/yyyy")</p>
+                            </div>
+                        </div>
+                    }
+                
+            </div>
+        </div>
+    </div>
 </section>
 
 <section class="pricing-section">
-	<div class="container my-5">
-		<h2 style="text-align:center">
-			<a href="/uu-dai.html"
-			   style="color:#fff;text-transform:uppercase;text-decoration:none">Ưu Đãi</a>
-		</h2>
-		<div class="row">
-			<div class="owl-carousel owl-theme">
-				<div class="item">
-					<div class="card">
-						<img src="~/img/pricing-1.jpg" alt="img" class="card-img-top">
-						<div class="card-content">
-							<h4><a href="#">TUNG TĂNG TUỔI 22 - ĐỒNG GIÁ VÉ 45K</a></h4>
-							<div class="text">
-								💥 Các bạn T22 của RIO ơi! Thời tới rồi! Tin siêu hot cho các bạn đây:
-								Từ 20/09/2023, DNK đặc quyền thêm ưu đãi đối với lứa tuổi chúng mình ĐỒNG GIÁ 4 ...
-							</div>
-							<button class="btn">
-								<a href="#">Xem thêm </a>
-							</button>
-						</div>
-					</div>
-				</div>
-				<div class="item">
-					<div class="card">
-						<img src="~/img/pricing-2.jpg" alt="img" class="card-img-top">
-						<div class="card-content">
-							<h4><a href="#">TUNG TĂNG TUỔI 22 - ĐỒNG GIÁ VÉ 45K</a></h4>
-							<div class="text">
-								💥 Các bạn T22 của DNK ơi! Thời tới rồi! Tin siêu hot cho các bạn đây:
-								Từ 20/09/2023, DNK đặc quyền thêm ưu đãi đối với lứa tuổi chúng mình ĐỒNG GIÁ 4 ...
-							</div>
-							<button class="btn">
-								<a href="#">Xem thêm </a>
-							</button>
-						</div>
-					</div>
-				</div>
-				<div class="item">
-					<div class="card">
-						<img src="~/img/pricing-3.jpg" alt="img" class="card-img-top">
-						<div class="card-content">
-							<h4><a href="#">TUNG TĂNG TUỔI 22 - ĐỒNG GIÁ VÉ 45K</a></h4>
-							<div class="text">
-								💥 Các bạn T22 của DNK ơi! Thời tới rồi! Tin siêu hot cho các bạn đây:
-								Từ 20/09/2023, DNK đặc quyền thêm ưu đãi đối với lứa tuổi chúng mình ĐỒNG GIÁ 4 ...
-							</div>
-							<button class="btn">
-								<a href="#">Xem thêm </a>
-							</button>
-						</div>
-					</div>
-				</div>
-				<div class="item">
-					<div class="card">
-						<img src="~/img/pricing-2.jpg" alt="img" class="card-img-top">
-						<div class="card-content">
-							<h4><a href="#">TUNG TĂNG TUỔI 22 - ĐỒNG GIÁ VÉ 45K</a></h4>
-							<div class="text">
-								💥 Các bạn T22 của DNK ơi! Thời tới rồi! Tin siêu hot cho các bạn đây:
-								Từ 20/09/2023, DNK đặc quyền thêm ưu đãi đối với lứa tuổi chúng mình ĐỒNG GIÁ 4 ...
-							</div>
-							<button class="btn">
-								<a href="#">Xem thêm </a>
-							</button>
-						</div>
-					</div>
-				</div>
-				<div class="item">
-					<div class="card">
-						<img src="~/img/pricing-3.jpg" alt="img" class="card-img-top">
-						<div class="card-content">
-							<h4><a href="#">TUNG TĂNG TUỔI 22 - ĐỒNG GIÁ VÉ 45K</a></h4>
-							<div class="text">
-								💥 Các bạn T22 của DNK ơi! Thời tới rồi! Tin siêu hot cho các bạn đây:
-								Từ 20/09/2023, DNK đặc quyền thêm ưu đãi đối với lứa tuổi chúng mình ĐỒNG GIÁ 4 ...
-							</div>
-							<button class="btn">
-								<a href="#">Xem thêm </a>
-							</button>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="container my-5">
+        <h2 style="text-align:center">
+            <a href="/uu-dai.html"
+               style="color:#fff;text-transform:uppercase;text-decoration:none">Ưu Đãi</a>
+        </h2>
+        <div class="row">
+            <div class="owl-carousel owl-theme">
+                <div class="item">
+                    <div class="card">
+                        <img src="./img/pricing-1.jpg" alt="img" class="card-img-top-bottom">
+                        <div class="card-content">
+                            <h4><a href="#">TUNG TĂNG TUỔI 22 - ĐỒNG GIÁ VÉ 45K</a></h4>
+                            <div class="text">
+                                💥 Các bạn T22 của RIO ơi! Thời tới rồi! Tin siêu hot cho các bạn đây:
+                                Từ 20/09/2023, RIO đặc quyền thêm ưu đãi đối với lứa tuổi chúng mình ĐỒNG GIÁ 4 ...
+                            </div>
+                            <button class="btn">
+                                <a href="#">Xem thêm </a>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="card">
+                        <img src="./img/pricing-2.jpg" alt="img" class="card-img-top-bottom">
+                        <div class="card-content">
+                            <h4><a href="#">TUNG TĂNG TUỔI 22 - ĐỒNG GIÁ VÉ 45K</a></h4>
+                            <div class="text">
+                                💥 Các bạn T22 của RIO ơi! Thời tới rồi! Tin siêu hot cho các bạn đây:
+                                Từ 20/09/2023, RIO đặc quyền thêm ưu đãi đối với lứa tuổi chúng mình ĐỒNG GIÁ 4 ...
+                            </div>
+                            <button class="btn">
+                                <a href="#">Xem thêm </a>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="card">
+                        <img src="./img/pricing-3.jpg" alt="img" class="card-img-top-bottom">
+                        <div class="card-content">
+                            <h4><a href="#">TUNG TĂNG TUỔI 22 - ĐỒNG GIÁ VÉ 45K</a></h4>
+                            <div class="text">
+                                💥 Các bạn T22 của RIO ơi! Thời tới rồi! Tin siêu hot cho các bạn đây:
+                                Từ 20/09/2023, RIO đặc quyền thêm ưu đãi đối với lứa tuổi chúng mình ĐỒNG GIÁ 4 ...
+                            </div>
+                            <button class="btn">
+                                <a href="#">Xem thêm </a>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="card">
+                        <img src="./img/pricing-2.jpg" alt="img" class="card-img-top-bottom">
+                        <div class="card-content">
+                            <h4><a href="#">TUNG TĂNG TUỔI 22 - ĐỒNG GIÁ VÉ 45K</a></h4>
+                            <div class="text">
+                                💥 Các bạn T22 của RIO ơi! Thời tới rồi! Tin siêu hot cho các bạn đây:
+                                Từ 20/09/2023, RIO đặc quyền thêm ưu đãi đối với lứa tuổi chúng mình ĐỒNG GIÁ 4 ...
+                            </div>
+                            <button class="btn">
+                                <a href="#">Xem thêm </a>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="card">
+                        <img src="./img/pricing-3.jpg" alt="img" class="card-img-top-bottom">
+                        <div class="card-content">
+                            <h4><a href="#">TUNG TĂNG TUỔI 22 - ĐỒNG GIÁ VÉ 45K</a></h4>
+                            <div class="text">
+                                💥 Các bạn T22 của RIO ơi! Thời tới rồi! Tin siêu hot cho các bạn đây:
+                                Từ 20/09/2023, RIO đặc quyền thêm ưu đãi đối với lứa tuổi chúng mình ĐỒNG GIÁ 4 ...
+                            </div>
+                            <button class="btn">
+                                <a href="#">Xem thêm </a>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
 
-
-
 <script>
-	$('.owl-carousel').owlCarousel({
-		loop: true,
-		margin: 15,
-		nav: true,
-		// autoplay: true,
-		dots: false,
-		responsive: {
-			0: {
-				items: 1
-			},
-			768: {
-				items: 2
-			},
-			1000: {
-				items: 3
-			}
-		}
-	})
+    $('.owl-carousel').owlCarousel({
+        loop: true,
+        margin: 15,
+        nav: true,
+        dots: false,
+        responsive: {
+            0: {
+                items: 1
+            },
+            768: {
+                items: 2
+            },
+            1000: {
+                items: 3
+            }
+        }
+    });
 
-	const accoutImg = document.querySelector('.accout-img');
-	const accoutSelect = document.querySelector('.accout-select');
+    const accoutImg = document.querySelector('.accout-img');
+    const accoutSelect = document.querySelector('.accout-select');
 
-		accoutImg.addEventListener('click', function () {
-			// Kiểm tra nếu accout-select đã có lớp active thì xóa lớp active, ngược lại thêm lớp active
-			accoutSelect.classList.toggle('selected');
+    accoutImg.addEventListener('click', function () {
+        accoutSelect.classList.toggle('selected');
+    });
 
+    const tabs = document.querySelectorAll('.movie-section .nav .nav-link');
+    const tabPane = document.querySelectorAll('.tab-pane .movie-list');
+    console.log(tabPane);
 
-		});
+    tabs.forEach((tab, index) => {
+        tab.addEventListener('click', function () {
+            if (!tab.classList.contains('active')) {
+                tabs.forEach(item => {
+                    item.classList.remove('active');
+                });
+                tab.classList.add('active');
 
-		const tabs   = document.querySelectorAll('.movie-section .nav .nav-link')
-		const tabPane  = document.querySelectorAll('.tab-pane .movie-list')
-		console.log(tabPane )
+                tabPane.forEach(item => {
+                    item.classList.remove('active');
+                });
 
+                tabPane[index].classList.add('active');
+            }
+        });
+    });
 
-		tabs.forEach((tab, index) => {
-				tab.addEventListener('click', function () {
-					if (!tab.classList.contains('active')) {
-						tabs.forEach(item => {
-							item.classList.remove('active');
-						});
-						tab.classList.add('active');
+    // Khi chọn phim, cập nhật ngày xem
+    document.getElementById("select-phim").addEventListener("change", function() {
+        const phimId = this.value;
 
-						// Xóa lớp active từ tất cả các movie-list
-						tabPane.forEach(item => {
-							item.classList.remove('active');
-						});
+        // Nếu không chọn phim thì không làm gì
+        if (!phimId) {
+            return;
+        }
 
-						// Thêm lớp active vào movie-list tương ứng
-						tabPane[index].classList.add('active');
-					}
-				});
-			});
+        // Gửi yêu cầu Ajax để lấy ngày chiếu cho phim đã chọn
+        fetch(`/api/ngayxem/${phimId}`)
+            .then(response => response.json())
+            .then(data => {
+                // Xóa hết các option cũ
+                const ngaySelect = document.getElementById("select-ngay");
+                ngaySelect.innerHTML = '<option>Chọn ngày xem</option>';
+
+                // Thêm các option ngày xem mới
+                data.forEach(ngay => {
+                    const option = document.createElement("option");
+                    option.textContent = ngay.TenNgay;
+                    ngaySelect.appendChild(option);
+                });
+
+                // Kích hoạt select ngày
+                ngaySelect.disabled = false;
+            });
+    });
+
+    // Khi chọn ngày, cập nhật suất chiếu
+    document.getElementById("select-ngay").addEventListener("change", function() {
+        const phimId = document.getElementById("select-phim").value;
+        const ngay = this.value;
+
+        // Nếu không chọn ngày thì không làm gì
+        if (!ngay) {
+            return;
+        }
+
+        // Gửi yêu cầu Ajax để lấy suất chiếu cho phim và ngày đã chọn
+        fetch(`/api/xuatchieu/${phimId}/${ngay}`)
+            .then(response => response.json())
+            .then(data => {
+                // Xóa hết các option cũ
+                const xuatChieuSelect = document.getElementById("select-xuatchieu");
+                xuatChieuSelect.innerHTML = '<option>Chọn suất chiếu</option>';
+
+                // Thêm các option suất chiếu mới
+                data.forEach(xuatchieu => {
+                    const option = document.createElement("option");
+                    option.value = xuatchieu.MaCa;
+                    option.textContent = xuatchieu.ThoiGianBatDau;
+                    xuatChieuSelect.appendChild(option);
+                });
+
+                // Kích hoạt select suất chiếu
+                xuatChieuSelect.disabled = false;
+            });
+    });
 </script>

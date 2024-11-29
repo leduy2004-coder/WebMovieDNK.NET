@@ -8,86 +8,156 @@ namespace KTGiuaKi.Controllers
     [ApiController]
     public class PhimController : ControllerBase
     {
-        private readonly IPhimRepository phimRepository;
-         
-        public PhimController(IPhimRepository phimRepository)
+        private readonly IPhimRepository _phimRepository;
+        private readonly ISuatChieuRepository _suatChieuRepository;
+
+        public PhimController(IPhimRepository phimRepository, ISuatChieuRepository suatChieuRepository)
         {
-              this.phimRepository = phimRepository;
+            _phimRepository = phimRepository;
+            _suatChieuRepository = suatChieuRepository;
         }
-        [HttpGet]
-        public async Task<ActionResult> GetPHIMS()
+
+        // GET: api/Phim/all
+        [HttpGet("all")]
+        public async Task<IActionResult> GetPHIMS()
         {
             try
             {
-              
-                return Ok(await phimRepository.GetPHIMs());
-
+                var result = await _phimRepository.GetPHIMs();
+                return Ok(result);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "ERROR");
+                // Log the exception
+                Console.WriteLine($"Error: {ex.Message}");
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error retrieving data.");
             }
         }
 
+        // GET: api/Phim/dang-chieu
+        [HttpGet("dang-chieu")]
+        public async Task<IActionResult> GetPHIMDANGCHIEU()
+        {
+            try
+            {
+                var result = await _phimRepository.GetPhimDangChieu();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error retrieving data.");
+            }
+        }
+
+        // GET: api/Phim/sap-chieu
+        [HttpGet("sap-chieu")]
+        public async Task<IActionResult> GetPHIMSAPCHIEU()
+        {
+            try
+            {
+                var result = await _phimRepository.GetPhimChuaChieu();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error retrieving data.");
+            }
+        }
+
+        // GET: api/Phim/{maPhim}
         [HttpGet("{maPhim}")]
-        public async Task<ActionResult<tbPhim>> GetPHIM(string maPhim)
+        public async Task<IActionResult> GetPHIM(string maPhim)
         {
             try
             {
-                var result = await phimRepository.GetThongTinPhim(maPhim);
+                var result = await _phimRepository.GetThongTinPhim(maPhim);
                 if (result == null)
-                    return NotFound();
-                else
-                    return result;
+                    return NotFound($"Phim with ID {maPhim} not found.");
+
+                return Ok(result);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "ERROR");
+                Console.WriteLine($"Error: {ex.Message}");
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error retrieving data.");
             }
         }
 
+        // DELETE: api/Phim/{maPhim}
         [HttpDelete("{maPhim}")]
-        public async Task<ActionResult<bool>> DeletePHIM(string maPhim)
+        public async Task<IActionResult> DeletePHIM(string maPhim)
         {
             try
             {
-                var result = await phimRepository.DeletePHIM(maPhim);
-                return result ? Ok(true) : NotFound();
+                var result = await _phimRepository.DeletePHIM(maPhim);
+                if (!result)
+                    return NotFound($"Phim with ID {maPhim} not found.");
+
+                return Ok($"Phim with ID {maPhim} has been deleted.");
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "ERROR");
+                Console.WriteLine($"Error: {ex.Message}");
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error deleting data.");
             }
         }
 
+        // POST: api/Phim
         [HttpPost]
-        public async Task<ActionResult<tbPhim>> CreatePhim(tbPhim phim)
+        public async Task<IActionResult> CreatePhim([FromBody] tbPhim phim)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             try
             {
-                var createdPhim = await phimRepository.AddPHIM(phim);
+                var createdPhim = await _phimRepository.AddPHIM(phim);
                 return CreatedAtAction(nameof(GetPHIM), new { maPhim = createdPhim.MaPhim }, createdPhim);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "ERROR");
+                Console.WriteLine($"Error: {ex.Message}");
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error creating data.");
             }
         }
 
+        // PUT: api/Phim
         [HttpPut]
-        public async Task<ActionResult<tbPhim>> UpdatePhim(tbPhim phim)
+        public async Task<IActionResult> UpdatePhim([FromBody] tbPhim phim)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             try
             {
-                var updatedPhim = await phimRepository.UpdatePHIM(phim);
+                var updatedPhim = await _phimRepository.UpdatePHIM(phim);
+                if (updatedPhim == null)
+                    return NotFound($"Phim with ID {phim.MaPhim} not found.");
+
                 return Ok(updatedPhim);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "ERROR");
+                Console.WriteLine($"Error: {ex.Message}");
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error updating data.");
             }
         }
 
+        [HttpGet("/ngayxem/{phimId}")]
+        public IActionResult GetNgayXem(string phimId)
+        {
+            var ngayXem = _suatChieuRepository.GetNgayChieuTheoPhim(phimId);
+            return Ok(ngayXem);
+        }
+
+        [HttpGet("/xuatchieu/{phimId}/{ngay}")]
+        public IActionResult GetXuatChieu(string phimId, DateTime ngay)
+        {
+            var xuatChieu = _suatChieuRepository.GetCaChieuTheoPhimVaNgay(phimId, ngay);
+            return Ok(xuatChieu);
+        }
 
     }
 }

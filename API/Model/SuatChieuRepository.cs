@@ -24,14 +24,32 @@ namespace API.Model
         }
 
         // Phương thức lấy tất cả suất chiếu theo mã phim
-        public async Task<IEnumerable<tbSuatChieu>> GetSuatChieuTheoPhim(string maPhim)
+        public async Task<IEnumerable<DateTime>> GetNgayChieuTheoPhim(string maPhim)
         {
-            return await _context.SuatChieu
-                .Where(sc => sc.MaPhim == maPhim) // Điều kiện lọc: Suất chiếu của phim theo mã phim
-                .ToListAsync(); // Thực hiện truy vấn và trả về danh sách suất chiếu theo mã phim
+            // Gọi SQL function fXuatNgayChieu với tham số là mã phim
+            var ngayChieuList = await _context.Set<tbMaPhim>()
+                .FromSqlRaw("SELECT * FROM dbo.fXuatNgayChieu({0})", maPhim)
+                .ToListAsync();
+
+            // Trả về danh sách các ngày chiếu
+            return ngayChieuList.Select(n => n.NgayChieu);
         }
 
+        public Task<IEnumerable<tbSuatChieu>> GetSuatChieuTheoPhim(string maPhim)
+        {
+            throw new NotImplementedException();
+        }
 
-        
+        public async Task<IEnumerable<tbCaChieu>> GetCaChieuTheoPhimVaNgay(string maPhim, DateTime ngayChieu)
+        {
+            // Gọi SQL function fXuatThoiGianChieu với tham số là mã phim và ngày chiếu
+            var caChieuList = await _context.Set<tbCaChieu>()
+                .FromSqlRaw("SELECT * FROM dbo.fXuatThoiGianChieu({0}, {1})", maPhim, ngayChieu)
+                .ToListAsync();
+
+            // Trả về danh sách các suất chiếu
+            return caChieuList;
+        }
+
     }
 }

@@ -10,6 +10,9 @@ namespace API.Model
  
         Task<IEnumerable<tbSuatChieu>> GetSuatChuaChieu(string maPhim);
         Task<IEnumerable<tbSuatChieu>> GetSuatChieuTheoPhim(string maPhim);
-        
+        Task<IEnumerable<DateTime>> GetNgayChieuTheoPhim(string maPhim);
+        Task<IEnumerable<DateTime>> GetCaChieuTheoPhimVaNgay(string maPhim, DateTime ngayChieu);
+
+
     }
 }

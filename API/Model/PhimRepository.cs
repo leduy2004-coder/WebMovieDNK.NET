@@ -15,9 +15,20 @@ namespace API.Model
         // Lấy danh sách phim đang chiếu
         public async Task<IEnumerable<tbPhim>> GetPhimDangChieu()
         {
-            return await _context.Phim
-                .Where(p => p.TinhTrang == true) // Tình trạng đang chiếu
-                .ToListAsync();
+            // Lấy danh sách mã phim từ thủ tục
+            var movieIds = await _context.Set<tbMaPhim>()
+                .FromSqlRaw("EXEC GetSuatChieu")
+                .ToListAsync(); 
+
+            // Chuyển sang bộ nhớ và lấy chỉ mã phim
+            var movieIdList = movieIds.Select(m => m.MaPhim).ToList();  
+
+            // Dùng danh sách mã phim để lấy chi tiết phim
+            var movies = await _context.Phim
+                .Where(p => movieIdList.Contains(p.MaPhim)) 
+                .ToListAsync();  
+
+            return movies;
         }
 
         // Lấy tất cả phim
@@ -26,7 +37,7 @@ namespace API.Model
             return await _context.Phim.ToListAsync();
         }
 
-        // Lấy thông tin chi tiết một bộ phim
+        // Lấy chi tiết của một phim dựa trên mã phim
         public async Task<tbPhim> GetThongTinPhim(string maPhim)
         {
             return await _context.Phim
@@ -36,10 +47,22 @@ namespace API.Model
         // Lấy danh sách phim chưa chiếu
         public async Task<IEnumerable<tbPhim>> GetPhimChuaChieu()
         {
-            return await _context.Phim
-                .Where(p => (p.TinhTrang == null || p.TinhTrang == false) && p.NgayKhoiChieu > DateTime.Now)
+            // Gọi stored procedure trả về danh sách mã phim
+            var movieIds = await _context.Set<tbMaPhim>()
+                .FromSqlRaw("EXEC GetSuatChuaChieu")
                 .ToListAsync();
+
+            // Chuyển sang bộ nhớ và lấy chỉ mã phim
+            var movieIdList = movieIds.Select(m => m.MaPhim).ToList();
+
+            // Dùng mã phim để lấy chi tiết phim
+            var movies = await _context.Phim
+                .Where(p => movieIdList.Contains(p.MaPhim))
+                .ToListAsync();
+
+            return movies;
         }
+
 
         // Xóa một bộ phim dựa trên mã phim
         public async Task<bool> DeletePHIM(string maPhim)
@@ -108,5 +131,6 @@ namespace API.Model
             }
         }
 
+        
     }
 }

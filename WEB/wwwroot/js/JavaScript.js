@@ -8,67 +8,97 @@ var seats = document.querySelectorAll('.seat');
 
 // Lặp qua từng ghế và thêm sự kiện click
 seats.forEach(function (seat) {
-    seat.addEventListener('click', function () {
-        changeSeatColor(this); // Gọi hàm changeSeatColor khi ghế được nhấp vào
-    });
+	seat.addEventListener('click', function () {
+		changeSeatColor(this); // Gọi hàm changeSeatColor khi ghế được nhấp vào
+	});
 });
 
 // Hàm thay đổi màu ghế
 function changeSeatColor(seat) {
-    seat.classList.toggle("selected"); // Toggle 'selected' class
+	seat.classList.toggle("selected"); // Toggle 'selected' class
 }
 
 var seats = document.querySelectorAll('.seat');
 var ticketInfo = document.querySelector('.price');
 var selectedSeatInfo = document.querySelector('.title-seat');
 
+var liElement = document.querySelector('#money');
+
+
 seats.forEach(function (seat) {
-    seat.addEventListener('click', function () {
-        var imageElement = seat.querySelector('img');
-        var currentTicketPrice = parseInt(ticketInfo.textContent.match(/\d+/))
-        var spanText = seat.querySelector('span').textContent;
-        if (imageElement.src.endsWith('seat-standard.png')) {
-            // Lấy giá trị hiện tại
+	seat.addEventListener('click', function () {
+		var moneyValue = parseInt(liElement.textContent || liElement.innerText);
+		var imageElement = seat.querySelector('img');
+		var currentTicketPrice = parseInt(ticketInfo.textContent.match(/\d+/))
+		var spanText = seat.querySelector('span').textContent;
+		if (imageElement.src.endsWith('seat-standard.png')) {
+			// Lấy giá trị hiện tại
+			var newTicketPrice = currentTicketPrice + moneyValue; // Tăng giá vé lên 60.000 VNĐ
+			ticketInfo.innerHTML = '<b>Tổng tiền: </b>' + newTicketPrice + ' VNĐ'; // Cập nhật lại giá trị trong thẻ <li>
+			imageElement.src = './img/seat-selected.png';
+			selectedSeatInfo.innerHTML += ' ' + spanText;
+		} else if (imageElement.src.endsWith('seat-selected.png')) {
+			var newTicketPrice = currentTicketPrice - moneyValue; // Giảm giá vé đi 60.000 VNĐ
+			ticketInfo.innerHTML = '<b>Tổng tiền: </b>' + newTicketPrice + ' VNĐ'; // Cập nhật lại giá trị trong thẻ <li>
+			imageElement.src = './img/seat-standard.png';
+			selectedSeatInfo.innerHTML = selectedSeatInfo.innerHTML.replace(spanText, '');
+		}
+		document.getElementById("totalMoney").value = newTicketPrice;
+		var content = selectedSeatInfo.textContent;
+		var firstSpaceIndex = content.indexOf(' ');
+		if (firstSpaceIndex !== -1) {
+			var result = content.substring(firstSpaceIndex + 1);
+			document.getElementById("chairBook").value = result;
+		} else {
+			document.getElementById("chairBook").value = "";
+		}
 
-            imageElement.src = './img/seat-selected.png';
-            selectedSeatInfo.innerHTML += ' ' + spanText;
-        } else {
-
-            imageElement.src = './img/seat-standard.png';
-            selectedSeatInfo.innerHTML = selectedSeatInfo.innerHTML.replace(spanText, '');
-        }
-    });
+	});
 });
 
+const accoutImg = document.querySelector('.accout-img');
+const filmOp = document.querySelector('.film-option');
+const formFilm = document.querySelector('.film-option .form-option');
+const formAccout = document.querySelector('.accout .form-option');
 
-$('.numberInput').on('input', function () {
-    var input = $(this);
-    var itemName = input.data('name');
-    var quantity = input.val();
-    var filmDescList = $('#filmDescList');
-    var existingItem = filmDescList.find('li:contains("' + itemName + '")');
 
-    if (quantity > 0) {
-        if (existingItem.length > 0) {
-            existingItem.text(itemName + ': ' + quantity);
-        } else {
-            filmDescList.append('<li>' + itemName + ': ' + quantity + '</li>');
-        }
-    } else {
-        existingItem.remove();
-    }
-    updateTotalPrice();
+filmOp.addEventListener('click', function (event) {
+	// Ngăn chặn sự kiện "click" lan truyền lên các phần tử cha
+	event.stopPropagation();
+
+	// Thực hiện toggle lớp 'selected'
+	formFilm.classList.toggle('selected');
 });
 
-function updateTotalPrice() {
-    var totalPrice = 0;
-    $('.numberInput').each(function () {
-        var input = $(this);
-        var price = parseFloat(input.closest('.desc-col').find('p').eq(1).text().replace(/[^0-9.-]+/g, ""));
-        var quantity = parseInt(input.val());
-        if (!isNaN(quantity) && quantity > 0) {
-            totalPrice += price * quantity;
-        }
-    });
-    $('.price').text('Tổng tiền: ' + totalPrice.toLocaleString('vi-VN') + ' VNĐ');
+accoutImg.addEventListener('click', function () {
+	// Kiểm tra nếu accout-select đã có lớp active thì xóa lớp active, ngược lại thêm lớp active
+	formAccout.classList.toggle('selected');
+});
+
+function closeForm(form) {
+	form.classList.remove('selected');
 }
+
+// Thêm sự kiện "click" vào document
+document.addEventListener('click', function (event) {
+	const clickedElement = event.target;
+
+	// Kiểm tra nếu click không phải là trên formFilm
+	if (!formFilm.contains(clickedElement) && clickedElement !== filmOp) {
+		closeForm(formFilm);
+		console.log(1)
+	}
+
+	// Kiểm tra nếu click không phải là trên formAccout
+	if (!formAccout.contains(clickedElement) && clickedElement !== accoutImg) {
+		console.log(1)
+		closeForm(formAccout);
+
+	}
+});
+
+
+
+
+
+
