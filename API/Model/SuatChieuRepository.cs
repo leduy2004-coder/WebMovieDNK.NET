@@ -35,11 +35,32 @@ namespace API.Model
             return ngayChieuList.Select(n => n.NgayChieu);
         }
 
+<<<<<<< HEAD
         public Task<IEnumerable<tbSuatChieu>> GetSuatChieuTheoPhim(string maPhim)
+=======
+        
+
+
+        public async Task<bool> deleteSuatChieu(string maSuat)
+        {
+            var suatChieu = await _context.SuatChieu.FindAsync(maSuat);
+            if (suatChieu == null)
+            {
+                return false;  // Nếu không tìm thấy suất chiếu, trả về false
+            }
+
+            _context.SuatChieu.Remove(suatChieu);  // Xóa suất chiếu khỏi cơ sở dữ liệu
+            await _context.SaveChangesAsync();  // Lưu thay đổi vào cơ sở dữ liệu
+            return true;  // Trả về true nếu xóa thành công
+        }
+
+        public Task<tbSuatChieu> addSuatChieu(string maSuat)
+>>>>>>> 8eaeb1daa16f6932fc252a2af15f8339707d3519
         {
             throw new NotImplementedException();
         }
 
+<<<<<<< HEAD
         public async Task<IEnumerable<tbCaChieu>> GetCaChieuTheoPhimVaNgay(string maPhim, DateTime ngayChieu)
         {
             // Gọi SQL function fXuatThoiGianChieu với tham số là mã phim và ngày chiếu
@@ -51,5 +72,11 @@ namespace API.Model
             return caChieuList;
         }
 
+=======
+        public Task<tbSuatChieu> upadteSuatChieu(string maSuat)
+        {
+            throw new NotImplementedException();
+        }
+>>>>>>> 8eaeb1daa16f6932fc252a2af15f8339707d3519
     }
 }
