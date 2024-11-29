@@ -1,8 +1,6 @@
 ﻿using API.Data;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
 
 namespace API.Model
 {
@@ -27,7 +25,7 @@ namespace API.Model
         public async Task<IEnumerable<DateTime>> GetNgayChieuTheoPhim(string maPhim)
         {
             // Gọi SQL function fXuatNgayChieu với tham số là mã phim
-            var ngayChieuList = await _context.Set<tbMaPhim>()
+            var ngayChieuList = await _context.Set<GetNgayChieu>()
                 .FromSqlRaw("SELECT * FROM dbo.fXuatNgayChieu({0})", maPhim)
                 .ToListAsync();
 
@@ -73,6 +71,11 @@ namespace API.Model
         }
 
         public Task<tbSuatChieu> upadteSuatChieu(string maSuat)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<IEnumerable<DateTime>> ISuatChieuRepository.GetCaChieuTheoPhimVaNgay(string maPhim, DateTime ngayChieu)
         {
             throw new NotImplementedException();
         }

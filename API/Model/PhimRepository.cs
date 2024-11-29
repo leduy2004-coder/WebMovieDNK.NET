@@ -16,7 +16,7 @@ namespace API.Model
         public async Task<IEnumerable<tbPhim>> GetPhimDangChieu()
         {
             // Lấy danh sách mã phim từ thủ tục
-            var movieIds = await _context.Set<tbMaPhim>()
+            var movieIds = await _context.Set<GetPhimDangChieu>()
                 .FromSqlRaw("EXEC GetSuatChieu")
                 .ToListAsync(); 
 
@@ -48,7 +48,7 @@ namespace API.Model
         public async Task<IEnumerable<tbPhim>> GetPhimChuaChieu()
         {
             // Gọi stored procedure trả về danh sách mã phim
-            var movieIds = await _context.Set<tbMaPhim>()
+            var movieIds = await _context.Set<GetPhimDangChieu>()
                 .FromSqlRaw("EXEC GetSuatChuaChieu")
                 .ToListAsync();
 
