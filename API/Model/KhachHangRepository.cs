@@ -2,6 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using BCrypt.Net;
+using Microsoft.AspNetCore.Mvc;
 
 namespace API.Model
 {
@@ -67,5 +69,25 @@ namespace API.Model
             await _context.SaveChangesAsync(); // Lưu thay đổi vào cơ sở dữ liệu
             return existingKhachHang; // Trả về khách hàng đã cập nhật
         }
+
+        public async Task<tbKhachHang> Login(string email, string plainPassword)
+        {
+            // Tìm khách hàng dựa trên TenTK
+            var khachHang = await _context.KhachHang
+                .FirstOrDefaultAsync(kh => kh.TenTK == email);
+
+            if (khachHang == null)
+                return null; // Không tìm thấy người dùng
+
+            // So sánh mật khẩu băm
+            bool isPasswordValid = BCrypt.Net.BCrypt.Verify(plainPassword, khachHang.MatKhau);
+
+            if (!isPasswordValid)
+                return null; // Sai mật khẩu
+
+            return khachHang; // Trả về thông tin khách hàng nếu đăng nhập thành công
+        }
+
+
     }
 }

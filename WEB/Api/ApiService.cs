@@ -12,6 +12,7 @@ namespace Web.Api
         public ApiService(HttpClient httpClient)
         {
             _httpClient = httpClient;
+            _httpClient.BaseAddress = new Uri("https://localhost:7079/"); // Your API's base URL
         }
 
         // GET method

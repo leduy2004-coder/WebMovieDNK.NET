@@ -1,5 +1,6 @@
 using System.Net.Http.Headers;
 using Web.Api;
+using WEB.Api;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,7 +17,8 @@ builder.Services.AddHttpClient<ApiService>(client =>
 
 // Thêm các service khác vào Dependency Injection
 builder.Services.AddScoped<PhimService>();
-
+builder.Services.AddScoped<ApiService>();
+builder.Services.AddScoped<LoginService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

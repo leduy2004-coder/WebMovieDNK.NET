@@ -20,6 +20,7 @@ builder.Services.AddTransient<IVeRepository, VeRepository>();
 builder.Services.AddTransient<IQuanLiRepository, QuanLiRepository>();
 builder.Services.AddTransient<IPhongChieuRepository, PhongChieuRepository>();
 
+builder.Services.AddScoped<IKhachHangRepository, KhachHangRepository>();
 // 3. Thêm Controllers
 builder.Services.AddControllers();
 
