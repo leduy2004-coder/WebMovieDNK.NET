@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Model
 {
+
     public class KhachHangRepository : IKhachHangRepository
     {
         private readonly AppDbContext _context;
@@ -88,6 +89,9 @@ namespace API.Model
             return khachHang; // Trả về thông tin khách hàng nếu đăng nhập thành công
         }
 
-
+        public Task RegisterAsync(tbKhachHang khachHang)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

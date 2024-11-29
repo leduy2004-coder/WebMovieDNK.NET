@@ -20,7 +20,7 @@ namespace WEB.Api
         public async Task<KhachHangModel> LoginAsync(KhachHangModel loginRequest)
         {
             // Gửi yêu cầu POST đến API đăng nhập
-            var response = await _apiService.PostDataAsync<KhachHangModel>("/api/login", loginRequest);
+            var response = await _apiService.PostDataAsync<KhachHangModel>("/api/login/login", loginRequest);
 
             // Kiểm tra kết quả từ API
             if (response != null )

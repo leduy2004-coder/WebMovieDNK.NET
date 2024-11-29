@@ -18,7 +18,7 @@ namespace API.Controllers
 
         // Đăng nhập khách hàng
         [HttpPost("login")]
-        public async Task<IActionResult> LoginAsync([FromBody] tbKhachHang request)
+        public async Task<IActionResult> LoginAsync([FromBody] LoginRequest request)
         {
             // Kiểm tra nếu dữ liệu không hợp lệ
             if (request == null || string.IsNullOrEmpty(request.TenTK) || string.IsNullOrEmpty(request.MatKhau))
@@ -37,6 +37,11 @@ namespace API.Controllers
             // Trả về kết quả nếu đăng nhập thành công
             return Ok(khachHang);  // Có thể trả về thông tin khách hàng hoặc token nếu có
         }
-      
+        public class LoginRequest
+        {
+            public string TenTK { get; set; }
+            public string MatKhau { get; set; }
+        }
+
     }
 }

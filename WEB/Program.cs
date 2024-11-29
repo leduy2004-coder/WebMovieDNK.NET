@@ -17,7 +17,7 @@ builder.Services.AddHttpClient<ApiService>(client =>
 
 // Thêm các service khác vào Dependency Injection
 builder.Services.AddScoped<PhimService>();
-builder.Services.AddScoped<ApiService>();
+
 builder.Services.AddScoped<LoginService>();
 var app = builder.Build();
 
