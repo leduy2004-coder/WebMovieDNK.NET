@@ -35,9 +35,22 @@ namespace API.Model
             return ngayChieuList.Select(n => n.NgayChieu);
         }
 
-<<<<<<< HEAD
         public Task<IEnumerable<tbSuatChieu>> GetSuatChieuTheoPhim(string maPhim)
-=======
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<IEnumerable<tbCaChieu>> GetCaChieuTheoPhimVaNgay(string maPhim, DateTime ngayChieu)
+        {
+            // Gọi SQL function fXuatThoiGianChieu với tham số là mã phim và ngày chiếu
+            var caChieuList = await _context.Set<tbCaChieu>()
+                .FromSqlRaw("SELECT * FROM dbo.fXuatThoiGianChieu({0}, {1})", maPhim, ngayChieu)
+                .ToListAsync();
+
+            // Trả về danh sách các suất chiếu
+            return caChieuList;
+        }
+
         
 
 
@@ -55,28 +68,13 @@ namespace API.Model
         }
 
         public Task<tbSuatChieu> addSuatChieu(string maSuat)
->>>>>>> 8eaeb1daa16f6932fc252a2af15f8339707d3519
         {
             throw new NotImplementedException();
         }
 
-<<<<<<< HEAD
-        public async Task<IEnumerable<tbCaChieu>> GetCaChieuTheoPhimVaNgay(string maPhim, DateTime ngayChieu)
-        {
-            // Gọi SQL function fXuatThoiGianChieu với tham số là mã phim và ngày chiếu
-            var caChieuList = await _context.Set<tbCaChieu>()
-                .FromSqlRaw("SELECT * FROM dbo.fXuatThoiGianChieu({0}, {1})", maPhim, ngayChieu)
-                .ToListAsync();
-
-            // Trả về danh sách các suất chiếu
-            return caChieuList;
-        }
-
-=======
         public Task<tbSuatChieu> upadteSuatChieu(string maSuat)
         {
             throw new NotImplementedException();
         }
->>>>>>> 8eaeb1daa16f6932fc252a2af15f8339707d3519
     }
 }
