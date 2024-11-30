@@ -1,0 +1,61 @@
+﻿@model WEB.Models.KhachHangModel
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<link href="~/css/global.css" rel="stylesheet" />
+
+<section class="register-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 d-flex align-items-center py-5" style="margin:0 auto">
+                <div class="container my-auto py-4 shadow-lg bg-white">
+                    <div class="row">
+                        <div class="col-11 col-lg-10 mx-auto">
+                            <h3 class="text-9 fw-600 text-center my-3">Đăng ký tài khoản</h3>
+                            <p class="text-center mb-4">Đăng nhập? <a href="login.html"><u>tại đây</u></a></p>
+
+
+                            <form method="post" action="@Url.Action("Register", "Login")">
+                                <div class="mb-3">
+                                    <label asp-for="HoTen" class="form-label text-dark fw-600">Họ tên <b style="color:red">(*)</b></label>
+                                    <input asp-for="HoTen" name="HoTen" class="form-control rounded-0" placeholder="Họ tên" />
+                                    <span asp-validation-for="HoTen" class="text-danger"></span>
+                                </div>
+                                <div class="mb-3">
+                                    <label asp-for="TenTK" class="form-label text-dark fw-600">Tên tài khoản <b style="color:red">(*)</b></label>
+                                    <input asp-for="TenTK" name="TenTK" class="form-control rounded-0" placeholder="Tên tài khoản" />
+                                    <span asp-validation-for="TenTK" class="text-danger"></span>
+                                </div>
+                                <div class="mb-3">
+                                    <label asp-for="Email" class="form-label text-dark fw-600">Email <b style="color:red">(*)</b></label>
+                                    <input asp-for="Email" name="Email" class="form-control rounded-0" placeholder="Email" />
+                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                </div>
+                                <div class="mb-3">
+                                    <label asp-for="Sdt" class="form-label text-dark fw-600">SĐT <b style="color:red">(*)</b></label>
+                                    <input asp-for="Sdt" name="Sdt" class="form-control rounded-0" placeholder="SĐT" />
+                                    <span asp-validation-for="Sdt" class="text-danger"></span>
+                                </div>
+                                <div class="mb-3">
+                                    <label asp-for="MatKhau" class="form-label text-dark fw-600">Mật khẩu <b style="color:red">(*)</b></label>
+                                    <input asp-for="MatKhau" type="password" name="MatKhau" class="form-control rounded-0" placeholder="Nhập mật khẩu" />
+                                    <span asp-validation-for="MatKhau" class="text-danger"></span>
+                                </div>
+                                <p style="color: #333;">Vui lòng nhập đầy đủ thông tin vào các trường có đánh dấu <b style="color: red;">(*)</b></p>
+                                <div class="d-grid my-4">
+                                    <button type="submit" class="btn btn-dark rounded-0">Đăng ký</button>
+                                </div>
+                            </form>
+
+
+                            <p class="text-center"> <a href="#"><u>Quên mật khẩu</u></a>?</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

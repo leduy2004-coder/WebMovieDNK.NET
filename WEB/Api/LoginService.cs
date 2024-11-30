@@ -1,5 +1,5 @@
 ﻿
-using API.Data;
+
 using Newtonsoft.Json;
 using System.Text;
 using Web.Api;
@@ -29,6 +29,22 @@ namespace WEB.Api
             }
 
             return null;
+        }
+
+        public async Task<bool> RegisterAsync(KhachHangModel regisRequest)
+        {
+            try
+            {
+                var response = await _apiService.PostDataAsync<bool>("/api/login/register", regisRequest);
+                return response; // Đảm bảo trả về kết quả nếu không có lỗi
+            }
+            catch (Exception ex)
+            {
+                // Xử lý lỗi (nếu cần)
+                Console.WriteLine($"Error: {ex.Message}");
+                return false; // Trả về false khi có lỗi
+            }
+
         }
     }
 }

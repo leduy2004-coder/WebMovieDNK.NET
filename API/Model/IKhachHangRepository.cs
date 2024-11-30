@@ -13,6 +13,6 @@ namespace API.Model
         Task<tbKhachHang> UpdateKhachHang(tbKhachHang kh);
         Task<bool> DeleteKhachHang(string maKhachHang);
         Task<tbKhachHang> Login(string email, string password);
-        Task RegisterAsync(tbKhachHang khachHang);
+        Task<bool> RegisterAsync(tbKhachHang khachHang);
     }
 }

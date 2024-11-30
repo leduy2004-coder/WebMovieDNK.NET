@@ -7,7 +7,7 @@ namespace API.Data
     {
         [Key]
         [StringLength(20)]
-        public string MaKH { get; set; }
+        public string? MaKH { get; set; }
 
         [StringLength(50)]
         public string HoTen { get; set; }
