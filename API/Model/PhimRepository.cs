@@ -1,5 +1,8 @@
 ﻿using API.Data;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
+using System.Globalization;
 
 namespace API.Model
 {
@@ -18,15 +21,15 @@ namespace API.Model
             // Lấy danh sách mã phim từ thủ tục
             var movieIds = await _context.Set<GetPhimDangChieu>()
                 .FromSqlRaw("EXEC GetSuatChieu")
-                .ToListAsync(); 
+                .ToListAsync();
 
             // Chuyển sang bộ nhớ và lấy chỉ mã phim
-            var movieIdList = movieIds.Select(m => m.MaPhim).ToList();  
+            var movieIdList = movieIds.Select(m => m.MaPhim).ToList();
 
             // Dùng danh sách mã phim để lấy chi tiết phim
             var movies = await _context.Phim
-                .Where(p => movieIdList.Contains(p.MaPhim)) 
-                .ToListAsync();  
+                .Where(p => movieIdList.Contains(p.MaPhim))
+                .ToListAsync();
 
             return movies;
         }
@@ -87,7 +90,7 @@ namespace API.Model
 
                 await _context.SaveChangesAsync();
 
-                return phim; 
+                return phim;
             }
             catch (Exception ex)
             {
@@ -99,7 +102,7 @@ namespace API.Model
         {
             if (phim == null)
             {
-                throw new ArgumentNullException(nameof(phim)); 
+                throw new ArgumentNullException(nameof(phim));
             }
 
             try
@@ -123,7 +126,7 @@ namespace API.Model
 
                 await _context.SaveChangesAsync();
 
-                return existingPhim; 
+                return existingPhim;
             }
             catch (Exception ex)
             {
@@ -131,6 +134,8 @@ namespace API.Model
             }
         }
 
-        
+
+     
+
     }
 }

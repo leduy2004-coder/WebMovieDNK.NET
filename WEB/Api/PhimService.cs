@@ -29,5 +29,11 @@ namespace Web.Api
             string url = $"api/Phim/{maPhim}";
             return await _apiService.GetDataAsync<PhimModel>(url);
         }
+
+        public async Task<PhimModel> GetThongTinPhimAsync(string maPhim)
+        {
+            string url = $"api/Phim/{maPhim}";
+            return await _apiService.GetDataAsync<PhimModel>(url);
+        }
     }
 }

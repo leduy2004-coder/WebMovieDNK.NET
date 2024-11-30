@@ -33,7 +33,11 @@
 
             <div class="col-md-4 col-sm-3 col-xs-12">
                 <select id="select-ngay" disabled>
+<<<<<<< HEAD
                     <option>Chọn ngày</option>
+=======
+
+>>>>>>> movies
                     <!-- Các ngày sẽ được thêm vào sau khi chọn phim -->
                 </select>
             </div>
@@ -61,41 +65,41 @@
 
         <div class="tab-pane">
             <div class="movie-list row current active">
-      
-                    @foreach (var phim in Model.PhimDangChieu)
-                    {
-                        <div class="movie-item col-xl-3 col-lg-3 col-md-4 col-sm-6">
-                            <div class="movie-box">
-                                <a href="#" class="movie-link">
+
+                @foreach (var phim in Model.PhimDangChieu)
+                {
+                    <div class="movie-item col-xl-3 col-lg-3 col-md-4 col-sm-6">
+                        <div class="movie-box">
+                            <a href="@Url.Action("Index", "Phim", new { maPhim = phim.MaPhim })" class="movie-link">
                                 <img src="@phim.HinhDaiDien" class="card-img-top" />
-                                </a>
-                            </div>
-                            <div class="movie-content">
-                                <h4 class="card-header movie-name">@phim.TenPhim</h4>
-                                <p class="card-body movie-start">Khởi chiếu: @phim.NgayKhoiChieu.ToString("dd/MM/yyyy")</p>
-                            </div>
+                            </a>
                         </div>
-                    }
-                
+                        <div class="movie-content">
+                            <h4 class="card-header movie-name">@phim.TenPhim</h4>
+                            <p class="card-body movie-start">Khởi chiếu: @phim.NgayKhoiChieu.ToString("dd/MM/yyyy")</p>
+                        </div>
+                    </div>
+                }
+
             </div>
 
             <div class="movie-list row coming">
-         
-                    @foreach (var phim in Model.PhimSapChieu)
-                    {
-                        <div class="movie-item col-xl-3 col-lg-3 col-md-4 col-sm-6">
-                            <div class="movie-box">
-                                <a href="#" class="movie-link">
-                                    <img src="@phim.HinhDaiDien" class="card-img-top"/>
-                                </a>
-                            </div>
-                            <div class="movie-content">
-                                <h4 class="card-header movie-name">@phim.TenPhim</h4>
-                                <p class="card-body movie-start">Khởi chiếu: @phim.NgayKhoiChieu.ToString("dd/MM/yyyy")</p>
-                            </div>
+
+                @foreach (var phim in Model.PhimSapChieu)
+                {
+                    <div class="movie-item col-xl-3 col-lg-3 col-md-4 col-sm-6">
+                        <div class="movie-box">
+                            <a href="#" class="movie-link">
+                                <img src="@phim.HinhDaiDien" class="card-img-top" />
+                            </a>
                         </div>
-                    }
-                
+                        <div class="movie-content">
+                            <h4 class="card-header movie-name">@phim.TenPhim</h4>
+                            <p class="card-body movie-start">Khởi chiếu: @phim.NgayKhoiChieu.ToString("dd/MM/yyyy")</p>
+                        </div>
+                    </div>
+                }
+
             </div>
         </div>
     </div>

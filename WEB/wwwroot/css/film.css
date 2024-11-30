@@ -1,0 +1,84 @@
+@import url("./global.css");
+
+/* start film section  */
+.film-section {
+  padding: 110px 0px 70px;
+}
+
+.img-column img {
+  padding-left: 120px;
+}
+.content-column  {
+  flex: 1;
+}
+.content-column * {
+  margin-top: 10px;
+}
+
+.content-column h3 {
+  font-family: inherit;
+  font-weight: 500;
+}
+.content-column ul {
+  padding-left: 0;
+  margin-top: 40px;
+}
+.content-column ul li {
+  color: var(--main-color);
+  font-size: 15px;
+  font-weight: 600;
+}
+.content-column ul li a{
+  color: #505050 !important;
+  font-weight: 500;
+}
+
+.content-column ul li a:hover{
+  color: var(--main-color) !important;
+  cursor: pointer;
+}
+/* end film section  */
+
+/* start film-product-tab  */
+.film-product-tab {
+  margin-top: 70px;
+  margin-bottom: 40px;
+  max-width: 980px;
+}
+
+.film-product-tab h3{
+  color: var(--main-color);
+  font-weight: 600;
+  margin-bottom: 30px;
+}
+
+.tab-box {
+  padding: 25px 35px;
+}
+
+.tab-box .day {
+  background: #444444;
+  display: inline-flex;
+  width: 100%;
+  height: 100%;
+  align-content: center;
+  align-items: center;
+  min-height: 50px;
+  margin-bottom: 5px;
+  padding: 5px 10px;
+  border-radius: 2px;
+  color: white;
+}
+
+.tab-box .time {
+  background: #fc1b1b;
+  padding: 8px 10px;
+  border-radius: 2px;
+  color: #fbfbfb;
+  font-family: 'Roboto Condensed', sans-serif;
+  margin-right: 5px;
+  min-width: 67px;
+  line-height: 50px;
+  text-align: center;
+}
+/* end film-product-tab  */
