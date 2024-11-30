@@ -145,18 +145,15 @@ namespace KTGiuaKi.Controllers
             }
         }
 
-        [HttpGet("/ngayxem/{phimId}")]
-        public IActionResult GetNgayXem(string phimId)
+        [HttpGet("ngayxem/{phimId}")]
+        public async Task<IActionResult> GetNgayXem(string phimId)
         {
-            var ngayXem = _suatChieuRepository.GetNgayChieuTheoPhim(phimId);
-            return Ok(ngayXem);
-        }
+            var ngayXem = await _suatChieuRepository.GetNgayChieuTheoPhim(phimId);
 
-        [HttpGet("/xuatchieu/{phimId}/{ngay}")]
-        public IActionResult GetXuatChieu(string phimId, DateTime ngay)
-        {
-            var xuatChieu = _suatChieuRepository.GetCaChieuTheoPhimVaNgay(phimId, ngay);
-            return Ok(xuatChieu);
+            // Chuyển đổi DateTime sang string với định dạng dd/MM/yyyy
+            var formattedNgayXem = ngayXem.Select(n => n.ToString("dd/MM/yyyy"));
+
+            return Ok(formattedNgayXem.ToList());
         }
 
     }

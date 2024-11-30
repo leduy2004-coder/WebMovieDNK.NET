@@ -24,14 +24,14 @@
 
             <div class="col-md-4 col-sm-3 col-xs-12">
                 <select id="select-ngay" disabled>
-     
+                    <option>Chọn ngày</option>
                     <!-- Các ngày sẽ được thêm vào sau khi chọn phim -->
                 </select>
             </div>
 
             <div class="col-md-4 col-sm-3 col-xs-12">
                 <select id="select-xuatchieu" disabled>
-
+                    <option>Chọn ca</option>
                     <!-- Các suất chiếu sẽ được thêm vào sau khi chọn ngày -->
                 </select>
             </div>
@@ -237,8 +237,13 @@
         }
 
         // Gửi yêu cầu Ajax để lấy ngày chiếu cho phim đã chọn
-        fetch(`/api/ngayxem/${phimId}`)
-            .then(response => response.json())
+        fetch('https://localhost:7079/api/Phim/ngayxem/' + phimId)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
             .then(data => {
                 // Xóa hết các option cũ
                 const ngaySelect = document.getElementById("select-ngay");
@@ -247,27 +252,34 @@
                 // Thêm các option ngày xem mới
                 data.forEach(ngay => {
                     const option = document.createElement("option");
-                    option.textContent = ngay.TenNgay;
+                    option.textContent = ngay;
                     ngaySelect.appendChild(option);
                 });
 
                 // Kích hoạt select ngày
                 ngaySelect.disabled = false;
+            })
+            .catch(error => {
+                console.error('Có lỗi xảy ra khi lấy dữ liệu:', error);
             });
+
     });
 
     // Khi chọn ngày, cập nhật suất chiếu
-    document.getElementById("select-ngay").addEventListener("change", function() {
+        document.getElementById("select-ngay").addEventListener("change", function() {
         const phimId = document.getElementById("select-phim").value;
-        const ngay = this.value;
+        let ngay = this.value;
 
         // Nếu không chọn ngày thì không làm gì
         if (!ngay) {
             return;
         }
 
+        // Thay đổi dấu / thành dấu - nếu ngày có dấu /
+        ngay = ngay.replace(/\//g, '-');  // Đổi tất cả dấu / thành -
+
         // Gửi yêu cầu Ajax để lấy suất chiếu cho phim và ngày đã chọn
-        fetch(`/api/xuatchieu/${phimId}/${ngay}`)
+        fetch(`https://localhost:7079/api/suatchieu/${phimId}/${ngay}`)
             .then(response => response.json())
             .then(data => {
                 // Xóa hết các option cũ
@@ -275,15 +287,19 @@
                 xuatChieuSelect.innerHTML = '<option>Chọn suất chiếu</option>';
 
                 // Thêm các option suất chiếu mới
-                data.forEach(xuatchieu => {
+                data.forEach(suatchieu => {
                     const option = document.createElement("option");
-                    option.value = xuatchieu.MaCa;
-                    option.textContent = xuatchieu.ThoiGianBatDau;
+                    option.value = suatchieu.maSuat;
+                    option.textContent = suatchieu.thoiGianBatDau;
                     xuatChieuSelect.appendChild(option);
                 });
 
                 // Kích hoạt select suất chiếu
                 xuatChieuSelect.disabled = false;
+            })
+            .catch(error => {
+                console.error("Lỗi khi lấy dữ liệu:", error);
             });
     });
+
 </script>

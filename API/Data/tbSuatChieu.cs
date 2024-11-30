@@ -21,10 +21,6 @@ namespace API.Data
         public string MaPhong { get; set; }
         public virtual tbPhongChieu PhongChieu { get; set; }
 
-        [ForeignKey("CaChieu")]
-        public string MaCa { get; set; }
-        public virtual tbCaChieu CaChieu { get; set; }
-
         [Required]
         public DateTime NgayChieu { get; set; }
 

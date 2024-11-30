@@ -5,12 +5,21 @@ using Microsoft.EntityFrameworkCore;
 using System;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// 1. Cấu hình DbContext
+// Cấu hình CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowLocalhost7226", builder =>
+    {
+        builder.WithOrigins("https://localhost:7226")  // Cho phép truy cập từ localhost:7226
+               .AllowAnyHeader()
+               .AllowAnyMethod();
+    });
+});
+// Cấu hình DbContext
 builder.Services.AddDbContextPool<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DbConnection")));
 
-// 2. Thêm các repository với Dependency Injection
+// Thêm các repository với Dependency Injection
 builder.Services.AddTransient<IPhimRepository, PhimRepository>();
 builder.Services.AddTransient<ISuatChieuRepository, SuatChieuRepository>();
 builder.Services.AddTransient<IBinhLuanRepository, BinhLuanRepository>();
@@ -21,7 +30,7 @@ builder.Services.AddTransient<IQuanLiRepository, QuanLiRepository>();
 builder.Services.AddTransient<IPhongChieuRepository, PhongChieuRepository>();
 
 builder.Services.AddScoped<IKhachHangRepository, KhachHangRepository>();
-// 3. Thêm Controllers
+//  Thêm Controllers
 builder.Services.AddControllers();
 
 
@@ -58,5 +67,5 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
-
+app.UseCors("AllowLocalhost7226");
 app.Run();

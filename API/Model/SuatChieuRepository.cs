@@ -1,4 +1,5 @@
 ﻿using API.Data;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -21,15 +22,12 @@ namespace API.Model
                 .ToListAsync(); // Thực hiện truy vấn và trả về danh sách suất chiếu chưa chiếu
         }
 
-        // Phương thức lấy tất cả suất chiếu theo mã phim
         public async Task<IEnumerable<DateTime>> GetNgayChieuTheoPhim(string maPhim)
         {
-            // Gọi SQL function fXuatNgayChieu với tham số là mã phim
             var ngayChieuList = await _context.Set<GetNgayChieu>()
                 .FromSqlRaw("SELECT * FROM dbo.fXuatNgayChieu({0})", maPhim)
                 .ToListAsync();
 
-            // Trả về danh sách các ngày chiếu
             return ngayChieuList.Select(n => n.NgayChieu);
         }
 
@@ -38,19 +36,31 @@ namespace API.Model
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<tbCaChieu>> GetCaChieuTheoPhimVaNgay(string maPhim, DateTime ngayChieu)
+        public async Task<IEnumerable<tbCaChieu>> GetCaChieuTheoPhimVaNgay(string maPhim, string ngayChieu)
         {
-            // Gọi SQL function fXuatThoiGianChieu với tham số là mã phim và ngày chiếu
-            var caChieuList = await _context.Set<tbCaChieu>()
-                .FromSqlRaw("SELECT * FROM dbo.fXuatThoiGianChieu({0}, {1})", maPhim, ngayChieu)
-                .ToListAsync();
+            try
+            {
+                // Chuyển đổi định dạng ngày tháng từ chuỗi
+                DateTime parsedDate = DateTime.ParseExact(ngayChieu, "dd-MM-yyyy", System.Globalization.CultureInfo.InvariantCulture);
 
-            // Trả về danh sách các suất chiếu
-            return caChieuList;
+                // Tạo các tham số SqlParameter
+                var maPhimParam = new SqlParameter("@maPhim", maPhim);
+                var ngayChieuParam = new SqlParameter("@ngayChieu", parsedDate);
+
+                // Gọi SQL function với tham số truyền vào
+                var caChieuList = await _context.Set<tbCaChieu>()
+                    .FromSqlRaw("SELECT * FROM dbo.fXuatThoiGianChieu(@maPhim, @ngayChieu)", maPhimParam, ngayChieuParam)
+                    .ToListAsync();
+
+                return caChieuList;
+            }
+            catch (FormatException ex)
+            {
+                // Xử lý lỗi nếu định dạng ngày không hợp lệ
+                Console.WriteLine($"Lỗi định dạng ngày: {ex.Message}");
+                throw;
+            }
         }
-
-        
-
 
         public async Task<bool> deleteSuatChieu(string maSuat)
         {
@@ -75,9 +85,6 @@ namespace API.Model
             throw new NotImplementedException();
         }
 
-        Task<IEnumerable<DateTime>> ISuatChieuRepository.GetCaChieuTheoPhimVaNgay(string maPhim, DateTime ngayChieu)
-        {
-            throw new NotImplementedException();
-        }
+
     }
 }

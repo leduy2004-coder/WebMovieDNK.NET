@@ -12,8 +12,7 @@ namespace Web.Api
         public ApiService(HttpClient httpClient)
         {
             _httpClient = httpClient;
-            
-
+        
         }
 
         // GET method
