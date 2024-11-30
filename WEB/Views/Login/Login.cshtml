@@ -1,0 +1,46 @@
+﻿@{
+    ViewData["Title"] = "Đăng nhập";
+}
+
+
+<link href="~/css/global.css" rel="stylesheet" />
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 d-flex align-items-center py-5" style="margin: 0 auto;">
+            <div class="container my-auto py-4 shadow-lg bg-white">
+                <div class="row">
+                    <div class="col-11 col-lg-10 mx-auto">
+                        <h3 class="text-9 fw-600 text-center my-3">Đăng nhập</h3>
+                        <p class="text-center mb-4">Bạn chưa có tài khoản? <a href="@Url.Action("Register", "Account")"><u>Đăng ký tại đây</u></a></p>
+
+                        <!-- Hiển thị thông báo lỗi nếu có -->
+                        @if (TempData["ErrorMessage"] != null)
+                        {
+                            <div class="alert alert-danger text-center">
+                                @TempData["ErrorMessage"]
+                            </div>
+                        }
+
+                        <!-- Form đăng nhập -->
+                        <form method="post" action="@Url.Action("Login", "Login")">
+                            <div class="mb-3">
+                                <label class="form-label text-dark fw-600" for="TenTK">Tài khoản/Email</label>
+                                <input type="text" class="form-control rounded-0" id="TenTK" name="TenTK" placeholder="Nhập tài khoản/Email" required />
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label text-dark fw-600" for="MatKhau">Mật khẩu</label>
+                                <input type="password" class="form-control rounded-0" id="MatKhau" name="MatKhau" placeholder="Nhập mật khẩu" required />
+                            </div>
+                            <div class="d-grid my-4">
+                                <button class="btn btn-dark rounded-0" type="submit">Đăng nhập</button>
+                            </div>
+                        </form>
+
+                        <p class="text-center"><a href="@Url.Action("ForgotPassword", "Account")"><u>Quên mật khẩu</u></a>?</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

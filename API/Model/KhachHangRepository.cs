@@ -89,9 +89,25 @@ namespace API.Model
             return khachHang; // Trả về thông tin khách hàng nếu đăng nhập thành công
         }
 
-        public Task RegisterAsync(tbKhachHang khachHang)
+        public async Task<bool> RegisterAsync(tbKhachHang khachHang)
         {
-            throw new NotImplementedException();
+            // Kiểm tra xem tài khoản hoặc email đã tồn tại
+            var existingAccount = await _context.Set<tbKhachHang>()
+                .FirstOrDefaultAsync(x => x.TenTK == khachHang.TenTK || x.Email == khachHang.Email);
+
+            if (existingAccount != null)
+            {
+                return false; // Tài khoản hoặc email đã tồn tại
+            }
+
+            // Băm mật khẩu bằng BCrypt
+            khachHang.MatKhau = BCrypt.Net.BCrypt.HashPassword(khachHang.MatKhau);
+
+            // Thêm tài khoản mới vào cơ sở dữ liệu
+            await _context.Set<tbKhachHang>().AddAsync(khachHang);
+            await _context.SaveChangesAsync();
+
+            return true; // Đăng ký thành công
         }
     }
 }
