@@ -22,9 +22,8 @@ namespace Web.Controllers
             var model = new HomeViewModel
             {
                 PhimDangChieu = listPhimDC.ToList(),  
-                PhimSapChieu = listPhimSC.ToList(),   
-                DanhSachNgay = new List<DateTime>(),  
-                CaChieu = new List<CaChieuModel>()  
+                PhimSapChieu = listPhimSC.ToList() 
+              
             };
 
             return PartialView("Index", model);
