@@ -1,5 +1,6 @@
 ﻿
 using API.Data;
+using API.Dto;
 using Microsoft.EntityFrameworkCore;
 using static API.Model.SuatChieuRepository;
 
@@ -29,7 +30,7 @@ namespace API.Model
         public DbSet<tbBookGhe> BookGhe { get; set; }
         public DbSet<GetPhimDangChieu> getPhimDangChieuDTOs { get; set; }
         public DbSet<GetNgayChieu> getNgayChieus { get; set; }
-
+        public DbSet<LichSuKhachHangDTO> LichSuKH { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -56,7 +57,8 @@ namespace API.Model
 
             modelBuilder.Entity<GetPhimDangChieu>().HasNoKey();
             modelBuilder.Entity<GetNgayChieu>().HasNoKey();
-   
+            modelBuilder.Entity<LichSuKhachHangDTO>().HasNoKey();
+
         }
 
     }

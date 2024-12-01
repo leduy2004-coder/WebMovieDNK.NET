@@ -15,7 +15,9 @@
 .slider-img {
     width: 100%;
 }
-
+.accout-select .selected {
+    z-index: 1000;
+}
 .search-section {
     border-bottom: 10px solid #fc1b1b;
     padding: 42px 0px 36px;

@@ -27,7 +27,7 @@ namespace WEB.Controllers
                 if (loginResponse != null)
                 {
                     HttpContext.Session.SetString("UserName", loginResponse.TenTK);
-                    HttpContext.Session.SetString("UserEmail", loginResponse.Email);
+                    HttpContext.Session.SetString("UserId", loginResponse.MaKH);
 
                     TempData["SuccessMessage"] = "Đăng nhập thành công!";
                     return RedirectToAction("Index", "Home");
@@ -82,6 +82,14 @@ namespace WEB.Controllers
         public IActionResult RegisterView()
         {
             return View("Register");
+        }
+
+        [HttpGet("logout")]
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            TempData["SuccessMessage"] = "Đã đăng xuất thành công!";
+            return RedirectToAction("Index", "Home");
         }
     }
   

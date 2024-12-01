@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using BCrypt.Net;
 using Microsoft.AspNetCore.Mvc;
+using API.Dto;
 
 namespace API.Model
 {
@@ -109,5 +110,18 @@ namespace API.Model
 
             return true; // Đăng ký thành công
         }
+
+        [HttpGet("LichSu/{maKH}")]
+        public async Task<IEnumerable<LichSuKhachHangDTO>> GetLSKhachHang(string maKH)
+        {
+
+
+            var result = await _context.LichSuKH
+                .FromSqlInterpolated($"SELECT * FROM dbo.fLichSuKH({maKH})")
+                .ToListAsync();
+            return result;
+        }
+
+
     }
 }

@@ -10,6 +10,7 @@ namespace Web.Controllers
     {
 
         private readonly PhimService phimService;
+       
         public HomeController(PhimService phimService)
         {
             this.phimService = phimService;

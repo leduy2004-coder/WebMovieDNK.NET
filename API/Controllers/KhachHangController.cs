@@ -81,5 +81,14 @@ namespace API.Controllers
 
             return NoContent(); // Trả về 204 nếu xóa thành công
         }
+
+        [HttpGet("LichSu/{maKH}")]
+        public async Task<IActionResult> GetLSKhachHang(string maKH)
+        {
+            var lichSu = await _khachHangRepository.GetLSKhachHang(maKH);
+
+
+            return Ok(lichSu); // Trả về danh sách lịch sử
+        }
     }
 }

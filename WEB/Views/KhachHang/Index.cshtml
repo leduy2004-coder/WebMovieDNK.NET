@@ -1,0 +1,72 @@
+﻿@using WEB.Models
+
+
+@{
+    var khachHang = ViewBag.KhachHang as KhachHangModel;
+    var lichSu = ViewBag.LichSu as List<LichSuKhachHangDTO>;
+}
+
+<style>
+    .accout-section {
+        margin: 30px 0;
+    }
+
+    thead * {
+        color: var(--main-color);
+    }
+</style>
+
+<section class="accout-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="box-left">
+                    <div class="auth-box-right">
+                        <h3>Thông tin cá nhân</h3>
+                        <div class="information"></div>
+                        <p>Họ tên: @khachHang.TenTK</p>
+                        <p>Điện thoại: @khachHang.Sdt</p>
+                        @* <p>Địa chỉ: @Model.</p> *@
+                        <p>Email: @khachHang.Email</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="box-right">
+                    <h3>Lịch sử giao dịch</h3>
+                    <div class="login-box" style="text-align:left;padding:0 !important">
+                        <div>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Tên phim</th>
+                                        <th>Tổng tiền</th>
+                                        <th>Thời gian</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var ls in lichSu)
+                                    {
+                                        <tr>
+                                            <td>@ls.TenPhim</td>
+                                            <td>
+                                                @ls.TongTien.ToString();
+                                            </td>
+                                            <td>
+                                                @ls.NgayMua.ToString();
+                                            </td>
+                                        </tr>
+                                    }
+                                 
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    </div>
+</section>

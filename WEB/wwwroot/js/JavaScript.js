@@ -57,45 +57,15 @@ seats.forEach(function (seat) {
 });
 
 const accoutImg = document.querySelector('.accout-img');
-const filmOp = document.querySelector('.film-option');
-const formFilm = document.querySelector('.film-option .form-option');
-const formAccout = document.querySelector('.accout .form-option');
 
+const formAccout = document.querySelector('.accout-select');
 
-filmOp.addEventListener('click', function (event) {
-	// Ngăn chặn sự kiện "click" lan truyền lên các phần tử cha
-	event.stopPropagation();
-
-	// Thực hiện toggle lớp 'selected'
-	formFilm.classList.toggle('selected');
-});
 
 accoutImg.addEventListener('click', function () {
 	// Kiểm tra nếu accout-select đã có lớp active thì xóa lớp active, ngược lại thêm lớp active
 	formAccout.classList.toggle('selected');
 });
 
-function closeForm(form) {
-	form.classList.remove('selected');
-}
-
-// Thêm sự kiện "click" vào document
-document.addEventListener('click', function (event) {
-	const clickedElement = event.target;
-
-	// Kiểm tra nếu click không phải là trên formFilm
-	if (!formFilm.contains(clickedElement) && clickedElement !== filmOp) {
-		closeForm(formFilm);
-		console.log(1)
-	}
-
-	// Kiểm tra nếu click không phải là trên formAccout
-	if (!formAccout.contains(clickedElement) && clickedElement !== accoutImg) {
-		console.log(1)
-		closeForm(formAccout);
-
-	}
-});
 
 
 
