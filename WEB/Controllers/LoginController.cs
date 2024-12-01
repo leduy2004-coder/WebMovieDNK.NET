@@ -85,6 +85,14 @@ namespace WEB.Controllers
         {
             return View("Register");
         }
+
+        [HttpGet("logout")]
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            TempData["SuccessMessage"] = "Đã đăng xuất thành công!";
+            return RedirectToAction("Index", "Home");
+        }
     }
   
 }

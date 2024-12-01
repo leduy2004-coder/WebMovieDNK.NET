@@ -1,7 +1,9 @@
-﻿@model WEB.Models.MovieModel
+﻿@model WEB.Models.PhimViewModel
 
 @{
     ViewData["Title"] = "Thông tin phim";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 }
 
 <link href="~/css/film.css" rel="stylesheet" />
@@ -13,31 +15,45 @@
                 <div class="inner-column">
                     <div class="img">
                         <!-- Sử dụng hình ảnh từ đối tượng phim -->
-                        <img src="@Model.HinhDaiDien" alt="Hình ảnh phim" class="img">
+                        <img src="@Model.Phim.HinhDaiDien" alt="Hình ảnh phim" class="img">
                     </div>
                 </div>
             </div>
             <div class="content-column col-lg-4 col-md-4 col-sm-12">
                 <div class="inner-column">
-                    <h3>@Model.TenPhim</h3>
+                    <h3>@Model.Phim.TenPhim</h3>
                     @* <p class="type-film">@Model.TheLoai</p> *@
                     <ul class="inf-film">
-                        <li>Đạo diễn: <a>@Model.DaoDien</a></li>
-                        <li>Ngày chiếu: <a>@Model.NgayKhoiChieu.ToString("dd/MM/yyyy")</a></li>
-                        <li>Thời lượng: <a>@Model.ThoiLuong</a></li>
+                        <li>Đạo diễn: <a>@Model.Phim.DaoDien</a></li>
+                        <li>Ngày chiếu: <a>@Model.Phim.NgayKhoiChieu.ToString("dd/MM/yyyy")</a></li>
+                        <li>Thời lượng: <a>@Model.Phim.ThoiLuong</a></li>
                     </ul>
                 </div>
             </div>
         </div>
 
-        <div class="film-product-tab"> 
-             <h3>Mô tả</h3> 
-            <div class="tabs-content"> 
-                <div class="content"> 
-                     <p>@Model.MoTa</p> 
-                 </div> 
-             </div> 
-            
-         </div>
+        <div class="film-product-tab">
+            <h3>Mô tả</h3>
+            <div class="tabs-content">
+                <div class="content">
+                    <p>@Model.Phim.MoTa</p>
+                </div>
+            </div>
+
+            <div class="tab-box">
+                @foreach (var ngay in @Model.NgayChieu)
+                {
+                    <div class="tab-box-item">
+                        <span class="day">@ngay</span>
+                        <div class="d-flex">
+                            @foreach (var suat in Model.SuatChieuTheoNgay[ngay])
+                            {
+                                <a href="#"><span class="time">@suat.ThoiGianBatDau.ToString(@"hh\:mm")</span></a>
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
     </div>
 </section>

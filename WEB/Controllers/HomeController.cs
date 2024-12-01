@@ -24,7 +24,7 @@ namespace Web.Controllers
                 PhimDangChieu = listPhimDC.ToList(),  
                 PhimSapChieu = listPhimSC.ToList(),   
                 DanhSachNgay = new List<DateTime>(),  
-                CaChieu = new List<ShiftModel>()  
+                CaChieu = new List<CaChieuModel>()  
             };
 
             return PartialView("Index", model);

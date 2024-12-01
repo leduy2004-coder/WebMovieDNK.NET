@@ -1,4 +1,5 @@
 ﻿using API.Data;
+using API.Dto;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -14,5 +15,6 @@ namespace API.Model
         Task<bool> DeleteKhachHang(string maKhachHang);
         Task<tbKhachHang> Login(string email, string password);
         Task<bool> RegisterAsync(tbKhachHang khachHang);
+        Task<IEnumerable< LichSuKhachHangDTO>> GetLSKhachHang(string maKH);
     }
 }

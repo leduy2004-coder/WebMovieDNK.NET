@@ -14,9 +14,11 @@ builder.Services.AddHttpClient<ApiService>(client =>
     client.DefaultRequestHeaders.Accept.Clear();
     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 });
+
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddSession(options =>
 {
-    options.IdleTimeout = TimeSpan.FromMinutes(30); // Thời gian timeout
+    //options.IdleTimeout = TimeSpan.FromMinutes(30); // Thời gian timeout
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });
@@ -25,6 +27,8 @@ builder.Services.AddSession(options =>
 builder.Services.AddScoped<MovieService>();
 builder.Services.AddScoped<LoginService>();
 builder.Services.AddScoped<ScheduleService>();
+builder.Services.AddScoped<KhachHangService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -38,10 +42,9 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthorization();
-app.UseStaticFiles();
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
-app.UseSession();
+
 app.Run();

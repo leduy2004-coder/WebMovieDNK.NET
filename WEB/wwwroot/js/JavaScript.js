@@ -57,18 +57,9 @@ seats.forEach(function (seat) {
 });
 
 const accoutImg = document.querySelector('.accout-img');
-const filmOp = document.querySelector('.film-option');
-const formFilm = document.querySelector('.film-option .form-option');
-const formAccout = document.querySelector('.accout .form-option');
 
+const formAccout = document.querySelector('.accout-select');
 
-filmOp.addEventListener('click', function (event) {
-	// Ngăn chặn sự kiện "click" lan truyền lên các phần tử cha
-	event.stopPropagation();
-
-	// Thực hiện toggle lớp 'selected'
-	formFilm.classList.toggle('selected');
-});
 
 accoutImg.addEventListener('click', function () {
 	// Kiểm tra nếu accout-select đã có lớp active thì xóa lớp active, ngược lại thêm lớp active

@@ -15,5 +15,7 @@ namespace Web.Models
 
    
         public TimeSpan ThoiGianKetThuc { get; set; }
+      
+
     }
 }
