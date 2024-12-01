@@ -8,5 +8,6 @@ namespace API.Model
         Task<tbVe> UpdateVe(tbVe v);
         Task<bool> DeleteVe(string maVe);
         Task<IEnumerable<tbVe>> GetDanhSachVe();
+        Task<tbVe> GetThongTinVe(string maPhim);
     }
 }

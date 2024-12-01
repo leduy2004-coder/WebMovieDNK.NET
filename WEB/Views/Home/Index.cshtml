@@ -33,17 +33,14 @@
 
             <div class="col-md-4 col-sm-3 col-xs-12">
                 <select id="select-ngay" disabled>
-<<<<<<< HEAD
                     <option>Chọn ngày</option>
-=======
 
->>>>>>> movies
                     <!-- Các ngày sẽ được thêm vào sau khi chọn phim -->
                 </select>
             </div>
 
             <div class="col-md-4 col-sm-3 col-xs-12">
-                <select id="select-xuatchieu" disabled>
+                <select id="select-suatchieu" disabled>
                     <option>Chọn ca</option>
                     <!-- Các suất chiếu sẽ được thêm vào sau khi chọn ngày -->
                 </select>
@@ -191,6 +188,11 @@
             </div>
         </div>
     </div>
+    <form id="bookTicketForm" action="/BookTicket/GetBookTicket" method="get">
+        <input type="hidden" id="maSuat" name="maSuat">
+    </form>
+
+
 </section>
 
 <script>
@@ -296,23 +298,40 @@
             .then(response => response.json())
             .then(data => {
                 // Xóa hết các option cũ
-                const xuatChieuSelect = document.getElementById("select-xuatchieu");
-                xuatChieuSelect.innerHTML = '<option>Chọn suất chiếu</option>';
+                const suatChieuSelect = document.getElementById("select-suatchieu");
+                suatChieuSelect.innerHTML = '<option>Chọn suất chiếu</option>';
 
                 // Thêm các option suất chiếu mới
                 data.forEach(suatchieu => {
                     const option = document.createElement("option");
                     option.value = suatchieu.maSuat;
                     option.textContent = suatchieu.thoiGianBatDau;
-                    xuatChieuSelect.appendChild(option);
+                    suatChieuSelect.appendChild(option);
                 });
 
                 // Kích hoạt select suất chiếu
-                xuatChieuSelect.disabled = false;
+                suatChieuSelect.disabled = false;
             })
             .catch(error => {
                 console.error("Lỗi khi lấy dữ liệu:", error);
             });
     });
+
+    // Khi chọn ngày, suất chiếu và ca
+        document.getElementById("select-suatchieu").addEventListener("change", function() {
+        var selectedValue = this.value;
+
+        if (!selectedValue) {
+            return;
+        }
+
+        // Gán giá trị đã chọn vào input ẩn trong form
+        document.getElementById("maSuat").value = selectedValue;
+
+        // Submit form để gửi dữ liệu
+        document.getElementById("bookTicketForm").submit();
+    });
+
+
 
 </script>

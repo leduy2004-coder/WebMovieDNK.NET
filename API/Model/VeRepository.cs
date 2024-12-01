@@ -63,6 +63,11 @@ namespace API.Model
             return await _context.Ve.Include(v => v.Phim).Include(v => v.NhanVien).ToListAsync();
         }
 
-       
+        // Lấy chi tiết của một ve dựa trên mã phim
+        public async Task<tbVe> GetThongTinVe(string maPhim)
+        {
+            return await _context.Ve
+                .FirstOrDefaultAsync(p => p.MaPhim == maPhim);
+        }
     }
 }

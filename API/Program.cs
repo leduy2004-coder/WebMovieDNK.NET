@@ -27,7 +27,7 @@ builder.Services.AddTransient<IKhachHangRepository, KhachHangRepository>();
 builder.Services.AddTransient<INhanVienRepository, NhanVienRepository>();
 builder.Services.AddTransient<IVeRepository, VeRepository>();
 builder.Services.AddTransient<IQuanLiRepository, QuanLiRepository>();
-builder.Services.AddTransient<IPhongChieuRepository, PhongChieuRepository>();
+builder.Services.AddTransient<IDatVeRepository, DatVeRepository>();
 
 builder.Services.AddScoped<IKhachHangRepository, KhachHangRepository>();
 //  Thêm Controllers

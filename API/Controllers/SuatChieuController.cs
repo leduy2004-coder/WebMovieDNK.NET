@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using API.Model;
 using API.Data;
+using KTGiuaKi.Dto;
 
 namespace KTGiuaKi.Controllers
 {
@@ -25,5 +26,24 @@ namespace KTGiuaKi.Controllers
             return Ok(suatChieu);
         }
 
+        [HttpGet("laysuatchieu/{maSC}")]
+        public async Task<IActionResult> GetSuatChieuById(string maSC)
+        {
+            var suatChieu = await _suatChieuRepository.GetSuatChieuTheoMa(maSC);
+
+            suatChieu.Phim = await _phimRepository.GetThongTinPhim(suatChieu.MaPhim);
+            suatChieu.CaChieu = await _suatChieuRepository.GetCaChieuTheoMaCa(suatChieu.MaCa);
+
+            //var sanPhamDTOs = sanPhams.Adapt<List<MENUDTO>>();
+            //return Ok(sanPhamDTOs);
+            return Ok(suatChieu);
+        }
+
+        [HttpGet("laysoghedadat/{maSC}")]
+        public async Task<IActionResult> GetChairBooked(string maSC)
+        {
+            var gheDaDat = await _suatChieuRepository.GetGheDaDat(maSC);
+            return Ok(gheDaDat);
+        }
     }
 }

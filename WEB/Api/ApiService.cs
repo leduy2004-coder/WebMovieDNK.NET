@@ -26,8 +26,18 @@ namespace Web.Api
         public async Task<T> PostDataAsync<T>(string url, object data)
         {
             var response = await _httpClient.PostAsJsonAsync(url, data);
-            response.EnsureSuccessStatusCode();
+
+            // Nếu response không thành công, log lỗi chi tiết
+            if (!response.IsSuccessStatusCode)
+            {
+                var errorContent = await response.Content.ReadAsStringAsync();
+                Console.WriteLine($"Error Response: {errorContent}");
+                throw new HttpRequestException($"API Error: {response.StatusCode}, Details: {errorContent}");
+            }
+
             return await response.Content.ReadFromJsonAsync<T>();
+            //response.EnsureSuccessStatusCode();
+            //return await response.Content.ReadFromJsonAsync<T>();
         }
 
         // PUT method

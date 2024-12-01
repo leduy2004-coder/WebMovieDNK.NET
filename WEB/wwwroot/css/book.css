@@ -1,0 +1,141 @@
+﻿.leat-seat {
+    margin: 20px auto 10px;
+    width: 720px;
+    position: relative;
+    height: auto;
+    max-width: 100%;
+    min-width: 380px;
+}
+
+.screen-thump {
+    width: 100%;
+    max-width: 692px;
+    margin: 0 auto 30px;
+}
+
+
+    .screen-thump h4 {
+        text-align: center;
+        font-weight: 600;
+        font-size: 24px;
+        color: var(--main-color);
+    }
+
+.seat {
+    margin: 24px;
+    width: 60px;
+    height: 60px;
+    color: #333;
+    font-weight: 600;
+    line-height: 35px;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    position: relative;
+}
+
+    .seat img {
+        position: absolute;
+        width: 60px;
+        top: 0;
+        left: 0;
+        z-index: 1;
+    }
+
+    .seat span {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        z-index: 2;
+    }
+
+.leat-seat .row {
+    justify-content: space-around;
+}
+
+
+/* ------------------------ */
+.seat-desc {
+    width: 800px;
+    margin: 20px auto;
+}
+
+.desc-col {
+    display: flex;
+    justify-content: center;
+}
+
+    .desc-col p:first-child {
+        width: 20px;
+        height: 20px;
+        background-size: contain !important;
+        margin-right: 6px;
+    }
+
+/* ------------ */
+.book-content {
+    display: flex;
+    width: 80%;
+    margin: 0 auto 15px;
+    box-shadow: 0 0 5px #333;
+    border-radius: 5px;
+    padding: 16px 10px 0;
+}
+
+    .book-content > div:first-child {
+        padding: 0;
+        width: 10%;
+        margin: auto;
+    }
+
+    .book-content > div:nth-child(2) {
+        padding: 0;
+        width: 40%;
+    }
+
+    .book-content > div:nth-child(3) {
+        padding: 0;
+        width: 35%;
+    }
+
+    .book-content > div:last-child {
+        padding: 0;
+        width: 15%;
+        margin: auto;
+    }
+
+.btn-book {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    border-radius: 25px;
+    margin: 0;
+    background: #fc1b1b;
+    text-align: center;
+    line-height: 44px;
+    position: relative;
+    top: 45%;
+    color: #fff;
+    font-size: 20px;
+}
+
+.book-content > div:last-child a {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    height: 50px;
+    border-radius: 25px;
+    margin: 0;
+    background: #fc1b1b;
+    text-align: center;
+    line-height: 50px;
+    position: relative;
+    top: 45%;
+    color: #fff;
+    font-size: 20px;
+    text-transform: uppercase;
+}
+
+.book-content ul li {
+    padding: 5px 0;
+}

@@ -13,13 +13,20 @@ namespace API.Data
         [StringLength(20)]
         public string MaSuat { get; set; }
 
-        [ForeignKey("Phim")]
+        
         public string MaPhim { get; set; }
+
+        [ForeignKey("MaPhim")]
         public virtual tbPhim Phim { get; set; }
+
+        
+        public string MaCa { get; set; }
+
+        [ForeignKey("MaCa")]
+        public virtual tbCaChieu CaChieu { get; set; }
 
         [ForeignKey("PhongChieu")]
         public string MaPhong { get; set; }
-        public virtual tbPhongChieu PhongChieu { get; set; }
 
         [Required]
         public DateTime NgayChieu { get; set; }

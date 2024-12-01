@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace KTGiuaKi.Dto
 {
-    public class MENUDTO
+    public class PhimDTO
     {
         public int? IDMON { get; set; }
 
@@ -29,6 +29,6 @@ namespace KTGiuaKi.Dto
         public int IDDANHMUC { get; set; }
 
   
-        public DANHMUCDTO DANHMUC { get; set; } 
+        public SuatChieuDTO DANHMUC { get; set; } 
     }
 }

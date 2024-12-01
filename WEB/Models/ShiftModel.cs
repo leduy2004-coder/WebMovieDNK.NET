@@ -2,7 +2,7 @@
 
 namespace Web.Models
 {
-    public class CaChieuModel
+    public class ShiftModel
     {
 
         public string MaCa { get; set; }

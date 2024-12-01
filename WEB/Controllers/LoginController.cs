@@ -26,7 +26,9 @@ namespace WEB.Controllers
 
                 if (loginResponse != null)
                 {
+                    
                     HttpContext.Session.SetString("UserName", loginResponse.TenTK);
+                    HttpContext.Session.SetString("MaKH", loginResponse.MaKH);
                     HttpContext.Session.SetString("UserEmail", loginResponse.Email);
 
                     TempData["SuccessMessage"] = "Đăng nhập thành công!";

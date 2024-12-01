@@ -22,8 +22,9 @@ builder.Services.AddSession(options =>
 });
 
 // Thêm các service khác vào Dependency Injection
-builder.Services.AddScoped<PhimService>();
+builder.Services.AddScoped<MovieService>();
 builder.Services.AddScoped<LoginService>();
+builder.Services.AddScoped<ScheduleService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -37,6 +38,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthorization();
+app.UseStaticFiles();
 
 app.MapControllerRoute(
     name: "default",

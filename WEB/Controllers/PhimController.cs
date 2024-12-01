@@ -5,8 +5,8 @@ namespace WEB.Controllers
 {
     public class PhimController : Controller
     {
-        private readonly PhimService _phimService;
-        public PhimController(PhimService phimService)
+        private readonly MovieService _phimService;
+        public PhimController(MovieService phimService)
         {
             this._phimService = phimService;
         }

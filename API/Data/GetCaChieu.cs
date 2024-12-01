@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace API.Data
 {
-    public class tbCaChieu
+    public class GetCaChieu
     {
         [Key]
         [StringLength(20)]
@@ -13,10 +11,8 @@ namespace API.Data
         [StringLength(20)]
         public string TenCa { get; set; }
 
-        
-
+        public string? MaSuat { get; set; }
         // Thời gian bắt đầu là kiểu TimeSpan
         public TimeSpan ThoiGianBatDau { get; set; }
-
     }
 }
