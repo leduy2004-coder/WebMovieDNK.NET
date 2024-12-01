@@ -27,7 +27,7 @@ builder.Services.AddSession(options =>
 builder.Services.AddScoped<MovieService>();
 builder.Services.AddScoped<LoginService>();
 builder.Services.AddScoped<ScheduleService>();
-builder.Services.AddScoped<KhachHangService>();
+builder.Services.AddScoped<CustomerService>();
 
 var app = builder.Build();
 
@@ -41,6 +41,7 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
+app.UseSession();
 app.UseAuthorization();
 
 app.MapControllerRoute(

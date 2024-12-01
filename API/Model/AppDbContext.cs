@@ -42,7 +42,8 @@ namespace API.Model
 
             modelBuilder.Entity<GetPhimDangChieu>().HasNoKey();
             modelBuilder.Entity<GetNgayChieu>().HasNoKey();
-   
+            modelBuilder.Entity<LichSuKhachHangDTO>().HasNoKey();
+
         }
 
     }

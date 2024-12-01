@@ -66,27 +66,6 @@ accoutImg.addEventListener('click', function () {
 	formAccout.classList.toggle('selected');
 });
 
-function closeForm(form) {
-	form.classList.remove('selected');
-}
-
-// Thêm sự kiện "click" vào document
-document.addEventListener('click', function (event) {
-	const clickedElement = event.target;
-
-	// Kiểm tra nếu click không phải là trên formFilm
-	if (!formFilm.contains(clickedElement) && clickedElement !== filmOp) {
-		closeForm(formFilm);
-		console.log(1)
-	}
-
-	// Kiểm tra nếu click không phải là trên formAccout
-	//if (!formAccout.contains(clickedElement) && clickedElement !== accoutImg) {
-	//	console.log(1)
-	//	closeForm(formAccout);
-
-	//}
-});
 
 
 

@@ -58,7 +58,7 @@ namespace WEB.Controllers
             {
                 return NotFound("Không tìm thấy lịch chiếu.");
             }
-            var maKH = HttpContext.Session.GetString("MaKH");
+            var maKH = HttpContext.Session.GetString("UserId");
             // Xử lý đặt vé
             var isBooked = await _schedule.BookTicketsAsync(request, maKH);
             if (!isBooked)
