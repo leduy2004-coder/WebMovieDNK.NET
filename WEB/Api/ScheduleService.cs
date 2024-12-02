@@ -46,7 +46,7 @@ namespace Web.Api
             return await _apiService.GetDataAsync<List<ChairModel>>("api/ghe/all");
         }
 
-        public async Task<bool> BookTicketsAsync(BookTicketRequest request, string maKH)
+        public async Task<string> BookTicketsAsync(BookTicketRequest request, string maKH)
         {
             if (request == null || string.IsNullOrEmpty(request.maSC) || string.IsNullOrEmpty(request.chairBook))
             {
@@ -74,7 +74,7 @@ namespace Web.Api
             var responseBookVe = await _apiService.PostDataAsync<BookTicketModel>("/api/datve/bookve", bookVe);
             if (responseBookVe == null)
             {
-                return false;
+                return null;
             }
 
             // Tách danh sách ghế từ ChairBook
@@ -91,12 +91,19 @@ namespace Web.Api
                 var responseBookGhe = await _apiService.PostDataAsync<BookChairModel>("/api/DatVe/bookghe", bookGhe);
                 if (responseBookGhe == null)
                 {
-                    return false;
+                    return null;
                 }
             }
 
-            return true;
+            return responseBookVe.MaBook;
+        }
+
+        public async Task<BookingSuccessViewModel> GetInfoBookAsync(string maBook)
+        {
+            string url = $"api/DatVe/laythongtin/{maBook}";
+            return await _apiService.GetDataAsync<BookingSuccessViewModel>(url);
         }
 
     }
+
 }

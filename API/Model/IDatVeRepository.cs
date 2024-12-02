@@ -1,4 +1,5 @@
 ﻿using API.Data;
+using KTGiuaKi.Dto;
 
 namespace API.Model
 {
@@ -6,6 +7,7 @@ namespace API.Model
     {
         Task<tbBookGhe> ThemMoiBookGhe(tbBookGhe tbBookGhe);
         Task<tbBookVe> ThemMoiBookVe(tbBookVe tbBookVe);
-        
+        Task<DatVeThanhCongDTO> LayThongTinDat(string maBook);
+
     }
 }

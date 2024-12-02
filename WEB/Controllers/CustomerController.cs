@@ -7,11 +7,9 @@ namespace WEB.Controllers
     public class CustomerController : Controller
     {
         private readonly CustomerService _khachHangService;
-        private readonly IHttpContextAccessor _httpContextAccessor;
-        public CustomerController(CustomerService khachHangService, IHttpContextAccessor httpContextAccessor)
+        public CustomerController(CustomerService khachHangService)
         {
             this._khachHangService = khachHangService;
-            _httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<IActionResult> Index()

@@ -12,7 +12,7 @@ namespace KTGiuaKi.Dto
     {
         public string MaSuat { get; set; }
 
-        public virtual PhimDTO Phim { get; set; }
+        public virtual DatVeThanhCongDTO Phim { get; set; }
 
         public virtual tbCaChieu CaChieu { get; set; }
 

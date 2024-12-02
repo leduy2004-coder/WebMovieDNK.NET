@@ -41,7 +41,12 @@ namespace API.Controllers
             return Ok(createdBookGhe);
         }
 
-
+        [HttpGet("laythongtin/{maBook}")]
+        public async Task<IActionResult> GetInfoBooked(string maBook)
+        {
+            var ThongTin = await _datVeRepository.LayThongTinDat(maBook);
+            return Ok(ThongTin);
+        }
 
     }
 }

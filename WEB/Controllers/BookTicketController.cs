@@ -60,23 +60,23 @@ namespace WEB.Controllers
             }
             var maKH = HttpContext.Session.GetString("UserId");
             // Xử lý đặt vé
-            var isBooked = await _schedule.BookTicketsAsync(request, maKH);
-            if (!isBooked)
+            var maBook = await _schedule.BookTicketsAsync(request, maKH);
+            if (maBook == null)
             {
                 return BadRequest("Đặt vé không thành công.");
             }
 
             // Thành công, chuyển hướng đến trang xác nhận
-            return RedirectToAction("Confirm", new { ticket = request });
+            return RedirectToAction("Confirm", new { maBook = maBook});
         }
 
         // Trang xác nhận đặt vé
         [HttpGet("Confirm")]
-        public IActionResult Confirm(BookTicketRequest ticket)
+        public async Task<IActionResult> Confirm(string maBook)
         {
-            ViewBag.Message = "Đặt vé thành công!";
-            
-            return View("Confirm", ticket);
+            var model = await _schedule.GetInfoBookAsync(maBook);
+       
+            return View("Confirm", model);
         }
     }
 

@@ -11,7 +11,7 @@ namespace WEB.Models
         public string? MaVe { get; set; }
         public float? TongTien { get; set; }
         public int SuDungVoucher { get; set; } = 0;
-        public DateTime? NgayMua { get; set; }
+        public DateTime NgayMua { get; set; }
         public int SoLuongVeDaDat { get; set; } = 0;
     }
 
