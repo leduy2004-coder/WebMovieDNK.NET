@@ -20,5 +20,6 @@ namespace API.Model
         Task<tbSuatChieu> upadteSuatChieu(string maSuat);
 
         Task<bool> deleteSuatChieu(string maSuat);
+        Task<List<tbSuatChieu>> GetAllSuatChieu();
     }
 }

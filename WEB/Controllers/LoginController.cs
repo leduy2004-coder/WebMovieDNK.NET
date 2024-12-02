@@ -30,7 +30,7 @@ namespace WEB.Controllers
                     HttpContext.Session.SetString("UserId", loginResponse.MaKH);
 
                     TempData["SuccessMessage"] = "Đăng nhập thành công!";
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Login");
                 }
         
                 

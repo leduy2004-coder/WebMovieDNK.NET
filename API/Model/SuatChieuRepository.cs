@@ -2,7 +2,6 @@
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
-
 namespace API.Model
 {
     public class SuatChieuRepository : ISuatChieuRepository
@@ -85,6 +84,9 @@ namespace API.Model
             throw new NotImplementedException();
         }
 
-
+        public async Task<List<tbSuatChieu>> GetAllSuatChieu()
+        {
+            return await _context.SuatChieu.ToListAsync();
+        }
     }
 }

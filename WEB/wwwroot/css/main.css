@@ -1,0 +1,91 @@
+﻿
+#modal {
+    display: none; /* Ẩn modal khi không cần */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Nền mờ */
+    z-index: 999; /* Đặt phía trên các phần tử khác */
+}
+
+    #modal.show {
+        display: block; /* Hiện form khi cần */
+    }
+
+.modal-form {
+    display: none; /* Ẩn form khi không cần */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000; /* Đặt phía trên modal */
+}
+
+    .modal-form.show {
+        display: block; /* Hiện form khi cần */
+    }
+
+.container {
+    background: white; /* Nền trắng cho container */
+    padding: 20px; /* Khoảng cách bên trong */
+    border-radius: 8px; /* Bo góc cho container */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Đổ bóng cho container */
+    max-width: 500px; /* Chiều rộng tối đa cho biểu mẫu */
+    margin: 20px auto; /* Căn giữa và khoảng cách trên dưới */
+}
+
+h2 {
+    text-align: center; /* Căn giữa tiêu đề */
+    margin-bottom: 20px; /* Khoảng cách dưới tiêu đề */
+    font-size: 24px; /* Kích thước chữ */
+    color: #007bff; /* Màu chữ */
+}
+
+.form-group {
+    margin-bottom: 20px; /* Khoảng cách giữa các trường */
+}
+
+.label {
+    font-weight: bold;
+    color: #555;
+}
+
+.form-control {
+    width: 100%; /* Đảm bảo chiều rộng 100% */
+    padding: 10px; /* Khoảng cách bên trong */
+    border: 1px solid #ccc; /* Đường viền */
+    border-radius: 4px; /* Bo góc */
+    transition: border-color 0.3s; /* Hiệu ứng chuyển tiếp */
+}
+
+    .form-control:focus {
+        border-color: #007bff; /* Đổi màu đường viền khi focus */
+        outline: none; /* Bỏ viền ngoài */
+    }
+
+.form-check {
+    display: flex; /* Sử dụng flexbox cho radio button */
+    align-items: center; /* Căn giữa theo chiều dọc */
+}
+
+.form-check-label {
+    margin-left: 5px; /* Khoảng cách bên trái nhãn radio */
+}
+
+.btn {
+    width: 100%; /* Đảm bảo nút có chiều rộng 100% */
+    padding: 10px; /* Khoảng cách bên trong nút */
+    background-color: #007bff; /* Màu nền nút */
+    color: white; /* Màu chữ nút */
+    border: none; /* Bỏ đường viền */
+    border-radius: 4px; /* Bo góc */
+    cursor: pointer; /* Con trỏ khi di chuột vào nút */
+    font-size: 16px; /* Kích thước chữ nút */
+    transition: background-color 0.3s; /* Hiệu ứng chuyển tiếp */
+}
+
+    .btn:hover {
+        background-color: #0056b3; /* Màu nền khi hover */
+    }
