@@ -26,12 +26,6 @@ namespace API.Data
 
         public bool TinhTrang { get; set; } = true;  // Mặc định là true (tương ứng với 1)
 
-        // Khóa ngoại - Mối quan hệ với Phim
-        [ForeignKey("MaPhim")]  // Định nghĩa khóa ngoại liên kết với bảng Phim
-        public virtual tbPhim Phim { get; set; }  // Đối tượng Phim liên kết
 
-        // Khóa ngoại - Mối quan hệ với KhachHang
-        [ForeignKey("MaKH")]  // Định nghĩa khóa ngoại liên kết với bảng KhachHang
-        public virtual tbKhachHang KhachHang { get; set; }  // Đối tượng KhachHang liên kết
     }
 }

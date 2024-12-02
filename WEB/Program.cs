@@ -28,6 +28,7 @@ builder.Services.AddScoped<MovieService>();
 builder.Services.AddScoped<LoginService>();
 builder.Services.AddScoped<ScheduleService>();
 builder.Services.AddScoped<CustomerService>();
+builder.Services.AddScoped<CommentService>();
 
 var app = builder.Build();
 

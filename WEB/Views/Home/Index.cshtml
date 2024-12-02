@@ -5,7 +5,9 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+@{
+    var userName = Context.Session.GetString("UserName");
+}
 <!-- Hiển thị thông báo lỗi nếu có -->
 @* @if (TempData["SuccessMessage"] != null) *@
 @* { *@
@@ -67,9 +69,18 @@
                 {
                     <div class="movie-item col-xl-3 col-lg-3 col-md-4 col-sm-6">
                         <div class="movie-box">
+                            @if (@userName != null)
+                            {
                             <a href="@Url.Action("Index", "Movie", new { maPhim = phim.MaPhim })" class="movie-link">
                                 <img src="@phim.HinhDaiDien" class="card-img-top" />
                             </a>
+                            }
+                            else
+                            {
+                                <a href="@Url.Action("loginView", "login")" class="movie-link">
+                                    <img src="@phim.HinhDaiDien" class="card-img-top" />
+                                </a>
+                            }
                         </div>
                         <div class="movie-content">
                             <h4 class="card-header movie-name">@phim.TenPhim</h4>
@@ -86,9 +97,18 @@
                 {
                     <div class="movie-item col-xl-3 col-lg-3 col-md-4 col-sm-6">
                         <div class="movie-box">
-                            <a href="#" class="movie-link">
-                                <img src="@phim.HinhDaiDien" class="card-img-top" />
-                            </a>
+                            @if (@userName != null)
+                            {
+                                <a href="@Url.Action("Index", "Movie", new { maPhim = phim.MaPhim })" class="movie-link">
+                                    <img src="@phim.HinhDaiDien" class="card-img-top" />
+                                </a>
+                            }
+                            else
+                            {
+                                <a href="@Url.Action("loginView", "login")" class="movie-link">
+                                    <img src="@phim.HinhDaiDien" class="card-img-top" />
+                                </a>
+                            }
                         </div>
                         <div class="movie-content">
                             <h4 class="card-header movie-name">@phim.TenPhim</h4>

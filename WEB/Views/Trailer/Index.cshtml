@@ -1,0 +1,62 @@
+﻿@model WEB.Models.TrailerViewModel
+@{
+    ViewData["Title"] = "Trailer Phim";
+}
+<link href="~/css/trailer.css" rel="stylesheet" />
+<section class="trailer-section">
+    <div class="trailer-container">
+        <!-- Thông tin phim -->
+        <h1 class="movie-title">@Model.movie.TenPhim - Trailer</h1>
+
+        <!-- Video YouTube -->
+        <div class="video-container">
+            <iframe class="video-frame"
+                    src="https://www.youtube.com/embed/@Model.movie.Video"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen
+                    title="YouTube video player"></iframe>
+        </div>
+
+        <!-- Số lượng bình luận -->
+        <div class="comments-header">
+            <h3>@Model.Comments.Count Bình luận</h3>
+        </div>
+
+        <!-- Form thêm bình luận -->
+        <form method="post" action="/Trailer/AddComment" class="add-comment-form">
+            <div class="avatar-placeholder">
+				<img src="~/img/usser-comment.jpg" />
+            </div>
+            <div class="comment-input-group">
+                <textarea id="noiDung"
+                          name="noiDung"
+                          class="comment-textarea"
+                          placeholder="Thêm bình luận của bạn..."
+                          rows="3"
+                          required></textarea>
+                <input type="hidden" id="MaPhim" name="MaPhim" value="@Model.movie.MaPhim" />
+                <input type="hidden" id="TenPhim" name="TenPhim" value="@Model.movie.TenPhim" />
+                <input type="hidden" id="Video" name="Video" value="@Model.movie.Video" />
+                <button type="submit" class="btn-submit">Bình luận</button>
+            </div>
+        </form>
+
+        <!-- Danh sách bình luận -->
+        <div class="comments-list">
+            @foreach (var comment in Model.Comments)
+            {
+                <div class="comment-item">
+                    <div class="avatar-placeholder">
+						<img src="~/img/logo.jpg" />
+                    
+                    </div>
+                    <div class="comment-content">
+                        <p class="comment-author">@comment.KhachHang.HoTen <small>@comment.Gio.ToString("dd/MM/yyyy HH:mm")</small></p>
+                        <p class="comment-text">@comment.NoiDung</p>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
