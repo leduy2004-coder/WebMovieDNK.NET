@@ -24,13 +24,13 @@ builder.Services.AddSession(options =>
 });
 
 // Thêm các service khác vào Dependency Injection
-builder.Services.AddScoped<PhimService>();
+//builder.Services.AddScoped<PhimService>();
 builder.Services.AddScoped<NhanVienService>();
 builder.Services.AddScoped<Admin_SuatChieuService>();
 builder.Services.AddScoped<Admin_ThongKeService>();
 builder.Services.AddScoped<MovieService>();
 builder.Services.AddScoped<LoginService>();
-builder.Services.AddScoped<KhachHangService>();
+//builder.Services.AddScoped<KhachHangService>();
 builder.Services.AddScoped<Admin_QLKhachHangService>();
 
 builder.Services.AddScoped<ScheduleService>();

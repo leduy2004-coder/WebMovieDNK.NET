@@ -17,10 +17,10 @@ namespace WEB.Api
         }
 
         // Phương thức gọi API để lấy dữ liệu thống kê
-        public async Task<List<PhimModel>> GetThongKeAsync()
+        public async Task<List<MovieModel>> GetThongKeAsync()
         {
             // Gửi yêu cầu GET đến API Thống kê
-            var response = await _apiService.GetDataAsync<List<PhimModel>>("/api/thongke");
+            var response = await _apiService.GetDataAsync<List<MovieModel>>("/api/thongke");
 
             // Kiểm tra phản hồi từ API
             if (response != null)
@@ -28,7 +28,7 @@ namespace WEB.Api
                 return response; // Trả về danh sách phim nếu thành công
             }
 
-            return new List<PhimModel>(); // Trả về danh sách rỗng nếu thất bại
+            return new List<MovieModel>(); // Trả về danh sách rỗng nếu thất bại
         }
     }
 }
