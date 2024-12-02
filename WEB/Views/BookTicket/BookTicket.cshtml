@@ -1,0 +1,91 @@
+﻿@model WEB.Models.BookTicketViewModel
+<link href="~/css/book.css" rel="stylesheet" />
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<section class="book-section">
+    <div class="container">
+        <div class="leat-seat">
+            <div class="screen-thump">
+                <h4>MÀN HÌNH</h4>
+                <img src="~/img/screen.webp" alt="" class="screen">
+            </div>
+
+            @{
+                // Tạo HashSet để kiểm tra nhanh các ghế đã đặt
+                var bookedChairs = new HashSet<string>(Model.ListChairBook.Select(ch => ch.MaGhe));
+                int chairCount = Model.ListChair.Count;
+                int seatsPerRow = 5; // Mỗi hàng sẽ có 5 ghế
+            }
+
+            <div class="seat-container">
+                @for (int i = 0; i < chairCount; i += seatsPerRow)
+                {
+                    <div class="row">
+                        @for (int j = i; j < i + seatsPerRow && j < chairCount; j++)
+                        {
+                            var chair = Model.ListChair[j];
+                            bool isBooked = bookedChairs.Contains(chair.MaGhe);
+
+                            <div class="seat" data-seat="@chair.MaGhe">
+                                <span>@chair.MaGhe</span>
+                                <img src="~/img/@(isBooked ? "seat-selled.png" : "seat-standard.png")" alt="">
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+
+
+
+        </div>
+
+        <div class="seat-desc row">
+            <div class="desc-col col-xl-4 col-lg-4 col-md-4 col-sm-4">
+                <p><img src="~/img/seat-standard.png" alt=""></p>
+                <p>Ghế chưa bán</p>
+            </div>
+            <div class="desc-col col-xl-4 col-lg-4 col-md-4 col-sm-4">
+                <p><img src="~/img/seat-selled.png" alt=""></p>
+                <p>Ghế đã bán</p>
+            </div>
+            <div class="desc-col col-xl-4 col-lg-4 col-md-4 col-sm-4">
+                <p><img src="~/img/seat-selected.png" alt=""></p>
+                <p>Ghế đang chọn</p>
+            </div>
+        </div>
+
+        <div class="book-content col-lg-12">
+            <div class="book-thump">
+                <img src="@Model.Movie.HinhDaiDien" alt="">
+            </div>
+            <div class="film-desc">
+                <ul>
+                <li><b>Phim: </b>@Model.Movie.TenPhim</li>
+                    <li><b>Rạp: </b>DnK</li>
+                    <li><b>Phòng: </b>@Model.Sche.MaPhong</li>
+                    <li><b>Ngày chiếu: </b>@Model.NgayChieu</li>
+                    <li><b>Suất: </b>@Model.ThoiGian</li>
+                </ul>
+            </div>
+            <div>
+                <ul>
+                    <li class="title-seat"><b>Ghế: </b></li>
+                    <li class="price"><b>Tổng tiền: </b>0 VNĐ</li>
+                    <li><b>Tiền vé: </b> @Model.Money VNĐ</li>
+                    <li id="money" style="display: none;">@Model.Money</li>
+                </ul>
+            </div>
+            <div>
+            <form action="@Url.Action("Book", "BookTicket")" method="post" id="myForm" name="myForm">
+                <input type="hidden" id="chairBook" name="chairBook" />
+                <input type="hidden" id="totalMoney" name="totalMoney" value="0" />
+                 <input type="hidden" id="maPhim" name="maPhim" value="@Model.Movie.MaPhim" />
+                    <input type="hidden" id="maSC" name="maSC" value="@Model.Sche?.MaSuat" />
+                <button value="submit" class="btn-book">Đặt vé</button>
+            </form>
+
+            </div>
+        </div>
+    </div>
+</section>

@@ -21,7 +21,6 @@ namespace API.Model
         public DbSet<tbQuanLi> QuanLi { get; set; }
         public DbSet<tbTheLoaiPhim> TheLoaiPhim { get; set; }
         public DbSet<tbBinhLuan> BinhLuan { get; set; }
-        public DbSet<tbPhongChieu> PhongChieu { get; set; }
         public DbSet<tbCaChieu> CaChieu { get; set; }
         public DbSet<tbSuatChieu> SuatChieu { get; set; }
         public DbSet<tbGhe> Ghe { get; set; }
@@ -30,26 +29,12 @@ namespace API.Model
         public DbSet<tbBookGhe> BookGhe { get; set; }
         public DbSet<GetPhimDangChieu> getPhimDangChieuDTOs { get; set; }
         public DbSet<GetNgayChieu> getNgayChieus { get; set; }
+        public DbSet<GetCaChieu> getCaChieus { get; set; }
+
         public DbSet<LichSuKhachHangDTO> LichSuKH { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
-            // Định nghĩa index
-            modelBuilder.Entity<tbNhanVien>()
-                .HasIndex(nv => new { nv.TenTK, nv.MatKhau })
-                .IsUnique()
-                .HasDatabaseName("U_nv_user");
-
-            modelBuilder.Entity<tbNhanVien>()
-                .HasIndex(nv => nv.Sdt)
-                .IsUnique()
-                .HasDatabaseName("U_nv_sdt");
-
-            modelBuilder.Entity<tbNhanVien>()
-                .HasIndex(nv => nv.Cccd)
-                .IsUnique()
-                .HasDatabaseName("U_nv_cccd");
 
             // Cấu hình khóa chính hợp thành cho tbBookGhe
             modelBuilder.Entity<tbBookGhe>()

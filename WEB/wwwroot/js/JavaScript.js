@@ -35,12 +35,12 @@ seats.forEach(function (seat) {
 			// Lấy giá trị hiện tại
 			var newTicketPrice = currentTicketPrice + moneyValue; // Tăng giá vé lên 60.000 VNĐ
 			ticketInfo.innerHTML = '<b>Tổng tiền: </b>' + newTicketPrice + ' VNĐ'; // Cập nhật lại giá trị trong thẻ <li>
-			imageElement.src = './img/seat-selected.png';
+			imageElement.src = '/img/seat-selected.png';
 			selectedSeatInfo.innerHTML += ' ' + spanText;
 		} else if (imageElement.src.endsWith('seat-selected.png')) {
 			var newTicketPrice = currentTicketPrice - moneyValue; // Giảm giá vé đi 60.000 VNĐ
 			ticketInfo.innerHTML = '<b>Tổng tiền: </b>' + newTicketPrice + ' VNĐ'; // Cập nhật lại giá trị trong thẻ <li>
-			imageElement.src = './img/seat-standard.png';
+			imageElement.src = '/img/seat-standard.png';
 			selectedSeatInfo.innerHTML = selectedSeatInfo.innerHTML.replace(spanText, '');
 		}
 		document.getElementById("totalMoney").value = newTicketPrice;

@@ -9,9 +9,8 @@ namespace Web.Controllers
     public class HomeController : Controller
     {
 
-        private readonly PhimService phimService;
-       
-        public HomeController(PhimService phimService)
+        private readonly MovieService phimService;
+        public HomeController(MovieService phimService)
         {
             this.phimService = phimService;
         }
@@ -23,8 +22,9 @@ namespace Web.Controllers
             var model = new HomeViewModel
             {
                 PhimDangChieu = listPhimDC.ToList(),  
-                PhimSapChieu = listPhimSC.ToList() 
-              
+                PhimSapChieu = listPhimSC.ToList(),   
+                DanhSachNgay = new List<DateTime>(),  
+                CaChieu = new List<ShiftModel>()  
             };
 
             return PartialView("Index", model);

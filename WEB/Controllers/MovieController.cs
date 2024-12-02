@@ -6,10 +6,10 @@ using WEB.Models;
 
 namespace WEB.Controllers
 {
-    public class PhimController : Controller
+    public class MovieController : Controller
     {
-        private readonly PhimService _phimService;
-        public PhimController(PhimService phimService)
+        private readonly MovieService _phimService;
+        public MovieController(MovieService phimService)
         {
             this._phimService = phimService;
         }
@@ -20,8 +20,8 @@ namespace WEB.Controllers
         {
             var phim = await _phimService.GetThongTinPhimAsync(maPhim);
             var listNgay = await _phimService.GetNgayXem(maPhim);  // Giả sử đây là List<string> chứa ngày tháng dưới dạng dd/MM/yyyy
-            var listCaChieu = new List<CaChieuModel>();
-            var suatChieuTheoNgay = new Dictionary<string, List<CaChieuModel>>();
+            var listCaChieu = new List<ShiftModel>();
+            var suatChieuTheoNgay = new Dictionary<string, List<ShiftModel>>();
 
             foreach (var ngay in listNgay)
             {
@@ -33,7 +33,7 @@ namespace WEB.Controllers
                     var caChieu = await _phimService.GetSuatChieu(maPhim, ngayChieu);
                     if (!suatChieuTheoNgay.ContainsKey(ngayChieu))
                     {
-                        suatChieuTheoNgay[ngayChieu] = new List<CaChieuModel>();
+                        suatChieuTheoNgay[ngayChieu] = new List<ShiftModel>();
                     }
                     suatChieuTheoNgay[ngayChieu].AddRange(caChieu);
                 }

@@ -18,7 +18,7 @@ namespace WEB.Controllers
 
         //login
         [HttpPost("login")]
-        public async Task<IActionResult> Login(KhachHangModel loginRequest)
+        public async Task<IActionResult> Login(CustomerModel loginRequest)
         {
             try
             {
@@ -26,8 +26,10 @@ namespace WEB.Controllers
 
                 if (loginResponse != null)
                 {
+                    
                     HttpContext.Session.SetString("UserName", loginResponse.TenTK);
                     HttpContext.Session.SetString("UserId", loginResponse.MaKH);
+                    HttpContext.Session.SetString("UserEmail", loginResponse.Email);
 
                     TempData["SuccessMessage"] = "Đăng nhập thành công!";
                     return RedirectToAction("Index", "Login");
@@ -51,7 +53,7 @@ namespace WEB.Controllers
 
         //register
         [HttpPost("register")]
-        public async Task<IActionResult> Register( KhachHangModel regisRequest)
+        public async Task<IActionResult> Register(CustomerModel regisRequest)
         {
             if (regisRequest == null || string.IsNullOrWhiteSpace(regisRequest.TenTK) ||
                 string.IsNullOrWhiteSpace(regisRequest.MatKhau) ||

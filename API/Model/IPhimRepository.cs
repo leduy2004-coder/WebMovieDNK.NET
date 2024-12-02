@@ -13,6 +13,7 @@ namespace API.Model
         Task<tbPhim> AddPHIM(tbPhim phim);
 
         Task<tbPhim> UpdatePHIM(tbPhim phim);
+
       
     }
 }

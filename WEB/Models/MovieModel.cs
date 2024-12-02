@@ -1,6 +1,6 @@
 ﻿namespace WEB.Models
 {
-    public class PhimModel
+    public class MovieModel
     {
         public string? MaPhim { get; set; }
 

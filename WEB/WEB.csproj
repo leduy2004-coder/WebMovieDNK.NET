@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="Models\PhimModel.cs" />
+    <None Include="Models\MovieModel.cs" />
   </ItemGroup>
 
   <ItemGroup>

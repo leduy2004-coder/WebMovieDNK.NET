@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace WEB.Models
 {
-    public class KhachHangModel
+    public class CustomerModel
     {
         internal bool IsSuccessStatusCode;
 

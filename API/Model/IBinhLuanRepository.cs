@@ -6,7 +6,6 @@ namespace API.Model
     {
         Task<tbBinhLuan> GetBinhLuan(string maPhim);
         Task<tbBinhLuan> AddBinhLuan(tbBinhLuan bl);
-        Task<tbBinhLuan> UpdateBinhLuan(tbBinhLuan bl);
         Task<bool> DeleteBinhLuan(string maBinhLuan);
         Task<IEnumerable<tbBinhLuan>> GetAllBinhLuan(string maPhim);
     }

@@ -1,0 +1,140 @@
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+}
+
+.booking-success {
+    max-width: 900px;
+    margin: 50px auto;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.content {
+    margin-top: 100px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+/* Thông tin phim */
+.movie-info {
+    flex: 1;
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.movie-image {
+    width: 150px;
+    height: 200px;
+    border-radius: 8px;
+    object-fit: cover;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.movie-details {
+    flex: 1;
+}
+
+    .movie-details h2 {
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+        color: #2c3e50;
+    }
+
+    .movie-details p {
+        font-size: 1rem;
+        color: #34495e;
+        margin: 5px 0;
+    }
+
+        .movie-details p strong {
+            color: #2980b9;
+        }
+
+/* Thông tin người dùng */
+.user-info {
+    flex: 1;
+    background-color: #f4f4f4;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+    .user-info h3 {
+        font-size: 1.3rem;
+        color: #2c3e50;
+        margin-bottom: 15px;
+        border-bottom: 2px solid #2980b9;
+        padding-bottom: 5px;
+    }
+
+    .user-info p {
+        font-size: 1rem;
+        color: #34495e;
+        margin: 10px 0;
+    }
+
+        .user-info p strong {
+            color: #2980b9;
+        }
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.title {
+    color: #27ae60;
+    font-size: 2.5rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.movie-details p {
+    font-size: 1rem;
+    margin: 5px 0;
+}
+
+.payment-info {
+    margin-top: 50px;
+    text-align: center;
+}
+
+.payment-success {
+    color: #27ae60;
+    font-size: 1.2rem;
+    font-weight: bold;
+    background-color: #e8f5e9;
+    padding: 10px;
+    border: 2px solid #27ae60;
+    border-radius: 5px;
+    display: inline-block;
+}
+.img-success {
+    width: 50px;
+    height: 50px;
+}
+
+.total-money {
+    font-size: 20px;
+    color: red;
+}

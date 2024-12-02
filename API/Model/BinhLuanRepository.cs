@@ -19,28 +19,11 @@ namespace API.Model
         // Thêm bình luận
         public async Task<tbBinhLuan> AddBinhLuan(tbBinhLuan bl)
         {
-            _context.BinhLuan.Add(bl); // Thêm bình luận vào DbSet BinhLuan
-            await _context.SaveChangesAsync(); // Lưu thay đổi vào cơ sở dữ liệu
-            return bl; // Trả về bình luận đã thêm
+            _context.BinhLuan.Add(bl); 
+            await _context.SaveChangesAsync(); 
+            return bl;
         }
 
-        // Cập nhật bình luận
-        public async Task<tbBinhLuan> UpdateBinhLuan(tbBinhLuan bl)
-        {
-            var existingBinhLuan = await _context.BinhLuan.FindAsync(bl.MaBinhLuan);
-            if (existingBinhLuan == null)
-            {
-                return null; // Nếu không tìm thấy bình luận, trả về null
-            }
-
-            // Cập nhật nội dung
-            existingBinhLuan.NoiDung = bl.NoiDung;
-            existingBinhLuan.Gio = bl.Gio;
-            existingBinhLuan.TinhTrang = bl.TinhTrang;
-
-            await _context.SaveChangesAsync(); // Lưu thay đổi vào cơ sở dữ liệu
-            return existingBinhLuan; // Trả về bình luận đã cập nhật
-        }
 
         // Xóa bình luận
         public async Task<bool> DeleteBinhLuan(string maBinhLuan)
@@ -60,23 +43,20 @@ namespace API.Model
         {
             if (string.IsNullOrEmpty(maPhim))
             {
-                return Enumerable.Empty<tbBinhLuan>(); // Trả về danh sách rỗng nếu mã phim không hợp lệ
+                return Enumerable.Empty<tbBinhLuan>(); 
             }
 
             return await _context.BinhLuan
-                                 .Where(bl => bl.MaPhim == maPhim && bl.TinhTrang) // Lọc theo mã phim và tình trạng
+                                 .Where(bl => bl.MaPhim == maPhim && bl.TinhTrang) 
                                  .ToListAsync();
         }
-
-
-
 
         // Lấy bình luận theo mã
         public async Task<tbBinhLuan> GetBinhLuan(string maPhim)
         {
             return await _context.BinhLuan
-                .Include(bl => bl.Phim)
-                .Include(bl => bl.KhachHang)
+                .Include(bl => bl.MaPhim)
+                .Include(bl => bl.MaKH)
                 .FirstOrDefaultAsync(bl => bl.MaBinhLuan == int.Parse(maPhim));
         }
 

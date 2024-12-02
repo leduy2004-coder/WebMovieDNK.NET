@@ -15,6 +15,6 @@ namespace API.Model
         Task<bool> DeleteKhachHang(string maKhachHang);
         Task<tbKhachHang> Login(string email, string password);
         Task<bool> RegisterAsync(tbKhachHang khachHang);
-        Task<IEnumerable< LichSuKhachHangDTO>> GetLSKhachHang(string maKH);
+        Task<IEnumerable<LichSuKhachHangDTO>> GetLSKhachHang(string maKH);
     }
 }

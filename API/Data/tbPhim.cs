@@ -39,5 +39,6 @@ namespace API.Data
         public string HinhDaiDien { get; set; }
         public string Video { get; set; }
         public string MoTa { get; set; }
+
     }
 }

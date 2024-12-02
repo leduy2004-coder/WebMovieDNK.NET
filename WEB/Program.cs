@@ -28,10 +28,14 @@ builder.Services.AddScoped<PhimService>();
 builder.Services.AddScoped<NhanVienService>();
 builder.Services.AddScoped<Admin_SuatChieuService>();
 builder.Services.AddScoped<Admin_ThongKeService>();
+builder.Services.AddScoped<MovieService>();
 builder.Services.AddScoped<LoginService>();
 builder.Services.AddScoped<KhachHangService>();
 builder.Services.AddScoped<Admin_QLKhachHangService>();
 
+builder.Services.AddScoped<ScheduleService>();
+builder.Services.AddScoped<CustomerService>();
+builder.Services.AddScoped<CommentService>();
 
 var app = builder.Build();
 
@@ -45,8 +49,9 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
-app.UseAuthorization();
 app.UseSession();
+app.UseAuthorization();
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");

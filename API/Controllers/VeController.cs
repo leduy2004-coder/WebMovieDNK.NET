@@ -69,18 +69,13 @@ namespace API.Controllers
             return Ok(veList);
         }
 
-        // Lấy thông tin vé theo mã vé
-        [HttpGet("{maVe}")]
-        public async Task<ActionResult<tbVe>> GetVe(string maVe)
+        // Lấy thông tin vé theo mã phim
+        [HttpGet("{maPhim}")]
+        public async Task<ActionResult<tbVe>> GetVe(string maPhim)
         {
-            var ve = await _veRepository.GetDanhSachVe();  // Nếu cần lấy 1 vé, sử dụng phương thức khác.
-            var selectedVe = ve.FirstOrDefault(v => v.MaVe == maVe);
-            if (selectedVe == null)
-            {
-                return NotFound("Vé không tìm thấy.");
-            }
+            var ve = await _veRepository.GetThongTinVe(maPhim);  
 
-            return Ok(selectedVe);
+            return Ok(ve);
         }
     }
 }

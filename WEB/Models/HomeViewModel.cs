@@ -4,9 +4,9 @@ namespace WEB.Models
 {
     public class HomeViewModel
     {
-        public List<PhimModel> PhimDangChieu { get; set; }
-        public List<PhimModel> PhimSapChieu { get; set; }
+        public List<MovieModel> PhimDangChieu { get; set; }
+        public List<MovieModel> PhimSapChieu { get; set; }
         public List<DateTime> DanhSachNgay { get; set; }
-        public List<CaChieuModel> CaChieu { get; set; }
+        public List<ShiftModel> CaChieu { get; set; }
     }
 }

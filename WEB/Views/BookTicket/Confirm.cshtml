@@ -1,0 +1,43 @@
+﻿@model WEB.Models.BookingSuccessViewModel
+<link href="~/css/confirm.css" rel="stylesheet" />
+
+<div class="booking-success">
+    <div class="header">
+        <h1 class="title">
+            <img src="~/img/checksuss.png" class="img-success"/>
+            ĐẶT VÉ THÀNH CÔNG
+        </h1>
+    </div>
+    <div class="content">
+        <div class="movie-info">
+            <img src="@Model.Phim.HinhDaiDien" alt="Poster phim" class="movie-image" />
+            <div class="movie-details">
+                <h2>@Model.Phim.TenPhim</h2>
+                <p><strong>Rạp:</strong> DNK CINEMA</p>
+                <p><strong>Suất chiếu:</strong> @Model.SuatChieu.MaCa</p>
+                <p><strong>Ghế:</strong> @Model.GheDat</p>
+                <p><strong>Ngày chiếu:</strong> @Model.SuatChieu.NgayChieu.ToString("dd/MM/yyyy")</p>
+            </div>
+        </div>
+
+        <div class="user-info">
+            <h3>Thông tin người dùng</h3>
+            <p><strong>Họ và tên:</strong> @Model.KhachHang.TenTK</p>
+            <p><strong>Email:</strong> @Model.KhachHang.Email</p>
+            <p><strong>SDT:</strong> @Model.KhachHang.Sdt</p>
+            <p><strong>Ngày đặt:</strong> @Model.BookVe.NgayMua.ToString("dd/MM/yyyy")</p>
+            
+        </div>
+
+        
+    </div>
+
+    <div class="payment-info">
+
+        <p class="total-money"><strong>Tổng tiền:</strong> @Model.BookVe.TongTien</p>
+
+        <p class="payment-success">
+            <strong>Đã thanh toán thành công!</strong>
+        </p>
+    </div>
+</div>

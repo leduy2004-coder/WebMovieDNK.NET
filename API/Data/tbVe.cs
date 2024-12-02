@@ -24,6 +24,6 @@ namespace API.Data
         public bool? TinhTrang { get; set; } = true;
         public int SoLuongToiDa { get; set; } = 1;
         public int SoLuongDaBan { get; set; } = 1;
-        public float? Tien { get; set; }
+        public double? Tien { get; set; }
     }
 }

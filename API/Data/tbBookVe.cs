@@ -13,23 +13,17 @@ namespace API.Data
         [StringLength(20)]
         public string MaBook { get; set; }
 
-        [ForeignKey("KhachHang")]
-        public string MaKH { get; set; }
-        public virtual tbKhachHang KhachHang { get; set; }
+        public string? MaKH { get; set; }
 
-        [ForeignKey("NhanVien")]
-        public string MaNV { get; set; }
-        public virtual tbNhanVien NhanVien { get; set; }
+        public string? MaNV { get; set; }
 
-        [ForeignKey("SuatChieu")]
+
         public string MaSuat { get; set; }
-        public virtual tbSuatChieu SuatChieu { get; set; }
 
-        [ForeignKey("Ve")]
+
         public string MaVe { get; set; }
-        public virtual tbVe Ve { get; set; }
 
-        public float? TongTien { get; set; }
+        public double? TongTien { get; set; }
         public int SuDungVoucher { get; set; } = 0;
         public DateTime? NgayMua { get; set; }
         public int SoLuongVeDaDat { get; set; } = 0;

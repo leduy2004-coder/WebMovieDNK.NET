@@ -35,7 +35,7 @@ namespace API.Model
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<tbCaChieu>> GetCaChieuTheoPhimVaNgay(string maPhim, string ngayChieu)
+        public async Task<IEnumerable<GetCaChieu>> GetCaChieuTheoPhimVaNgay(string maPhim, string ngayChieu)
         {
             try
             {
@@ -47,7 +47,7 @@ namespace API.Model
                 var ngayChieuParam = new SqlParameter("@ngayChieu", parsedDate);
 
                 // Gọi SQL function với tham số truyền vào
-                var caChieuList = await _context.Set<tbCaChieu>()
+                var caChieuList = await _context.Set<GetCaChieu>()
                     .FromSqlRaw("SELECT * FROM dbo.fXuatThoiGianChieu(@maPhim, @ngayChieu)", maPhimParam, ngayChieuParam)
                     .ToListAsync();
 
@@ -84,9 +84,41 @@ namespace API.Model
             throw new NotImplementedException();
         }
 
+        public async Task<tbSuatChieu> GetSuatChieuTheoMa(string maSC)
+        {
+            return await _context.SuatChieu
+                .Where(SC => SC.MaSuat == maSC)
+                .FirstOrDefaultAsync();  
+        }
+
         public async Task<List<tbSuatChieu>> GetAllSuatChieu()
         {
             return await _context.SuatChieu.ToListAsync();
+        }
+
+
+        public async Task<IEnumerable<tbGhe>> GetGheDaDat(string maSC)
+        {
+            var maSuat = new SqlParameter("@maSuat", maSC);
+
+            // Gọi SQL function với tham số truyền vào
+            var gheList = await _context.Set<tbGhe>()
+                .FromSqlRaw("SELECT * FROM dbo.fSoGheDaDat(@maSuat)", maSuat)
+                .ToListAsync();
+
+            return gheList;
+        }
+
+        public async Task<tbCaChieu> GetCaChieuTheoMaCa(string maCa)
+        {
+            return await _context.CaChieu
+                .Where(SC => SC.MaCa == maCa)
+                .FirstOrDefaultAsync();
+        }
+
+        public async Task<IEnumerable<tbGhe>> GetAllGhe()
+        {
+            return await _context.Ghe.ToListAsync();
         }
     }
 }

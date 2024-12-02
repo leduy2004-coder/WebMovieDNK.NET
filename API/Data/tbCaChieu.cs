@@ -13,10 +13,10 @@ namespace API.Data
         [StringLength(20)]
         public string TenCa { get; set; }
 
-        [StringLength(20)]
-        public string MaSuat { get; set; }
+        
 
         // Thời gian bắt đầu là kiểu TimeSpan
         public TimeSpan ThoiGianBatDau { get; set; }
+
     }
 }

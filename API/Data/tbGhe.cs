@@ -10,9 +10,7 @@ namespace API.Data
     {
         [Key]
         [StringLength(20)]
-        public string MaGhe { get; set; } // Primary Key
+        public string MaGhe { get; set; } 
 
-        [Required]
-        public bool TinhTrang { get; set; } // Not null
     }
 }

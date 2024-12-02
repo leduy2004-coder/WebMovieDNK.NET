@@ -2,7 +2,7 @@
 
 
 @{
-    var khachHang = ViewBag.KhachHang as KhachHangModel;
+    var khachHang = ViewBag.KhachHang as CustomerModel;
     var lichSu = ViewBag.LichSu as List<LichSuKhachHangDTO>;
 }
 
@@ -12,6 +12,10 @@
     }
 
     thead * {
+        color: var(--main-color);
+    }
+
+    .seen-detail {
         color: var(--main-color);
     }
 </style>
@@ -43,6 +47,7 @@
                                         <th>Tên phim</th>
                                         <th>Tổng tiền</th>
                                         <th>Thời gian</th>
+                                        <th>Chi tiết</th> <!-- Thêm cột chi tiết -->
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -51,20 +56,24 @@
                                         <tr>
                                             <td>@ls.TenPhim</td>
                                             <td>
-                                                @ls.TongTien.ToString();
+                                                @ls.TongTien.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("vi-VN"))
                                             </td>
                                             <td>
-                                                @ls.NgayMua.ToString();
+                                                @ls.NgayMua.ToString("dd/MM/yyyy HH:mm")
+                                            </td>
+                                            <td>
+
+                                                <a class="seen-detail" href="@Url.Action("Confirm", "BookTicket", new { maBook = ls.MaBook })">Xem chi tiết</a>
                                             </td>
                                         </tr>
                                     }
-                                 
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
             </div>
+
         </div>
 
     </div>
