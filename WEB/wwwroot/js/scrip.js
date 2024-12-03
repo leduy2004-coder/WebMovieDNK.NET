@@ -10,24 +10,35 @@ function getUrlParameter(name) {
 }
 
 $(document).ready(function () {
-    if (window.location.href.indexOf('SaveProductSuccess') > -1) {
-        const actionType = getUrlParameter('actionType');
+    const actionType = getUrlParameter('actionType');
+    const saveSuccess = getUrlParameter('SaveSuccess'); // Lấy giá trị SaveSuccess từ URL
+    console.log(actionType, saveSuccess);
+    setTimeout(function () {
+        removeUrl(); // Xóa tham số URL sau khi xử lý
 
-        setTimeout(function () {
-            removeUrl();
-
+        if (saveSuccess === "True") { // Xử lý khi thành công
             if (actionType === "create") {
                 $('.nav-link[data-url="/SanPham"]').click();
-                showCustomAlert("Thêm sản phẩm thành công !!", "success");
+                showCustomAlert("Thêm thành công !!", "success");
             } else if (actionType === "update") {
                 $('.nav-link[data-url="/SanPham"]').click();
-                showCustomAlert("Cập nhật sản phẩm thành công !!", "success");
+                showCustomAlert("Cập nhật thành công !!", "success");
             } else if (actionType === "delete") {
                 $('.nav-link[data-url="/SanPham"]').click();
-                showCustomAlert("Xóa sản phẩm thành công !!", "success");
+                showCustomAlert("Xóa thành công !!", "success");
             }
-        }, 100); // Đợi 100ms trước khi thực hiện click
-    }
+        } else if (saveSuccess === "False") { // Xử lý khi thất bại
+            if (actionType === "create") {
+                showCustomAlert("Thêm thất bại. Vui lòng thử lại!", "error");
+            } else if (actionType === "update") {
+                showCustomAlert("Cập nhật thất bại. Vui lòng thử lại!", "error");
+            } else if (actionType === "delete") {
+                showCustomAlert("Xóa thất bại. Vui lòng thử lại!", "error");
+            }
+        }
+    }, 100); // Đợi 100ms trước khi thực hiện click
+});
+
 
     $(document).on('click', '.nav-link', function (e) {
 
@@ -48,7 +59,6 @@ $(document).ready(function () {
         });
 
     });
-});
 
 function removeUrl() {
     // Xóa 'CreateSuccess' khỏi URL

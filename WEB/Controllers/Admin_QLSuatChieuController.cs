@@ -41,5 +41,24 @@ namespace WEB.Controllers
                 return RedirectToAction("", new { actionType = "create", SaveProductSuccess = true });
             }
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteSuatChieu(string maNV)
+        {
+            if (string.IsNullOrEmpty(maNV))
+            {
+                return RedirectToAction("Index", "Admin_QLSuatChieu", new { actionType = "delete", SaveSuccess = false });
+            }
+
+            bool deleteSuccess = await scService.DeleteSuatChieuAsync(maNV);
+
+            if (deleteSuccess)
+            {
+                return RedirectToAction("Index", "Admin_QLSuatChieu", new { actionType = "delete", SaveSuccess = true });
+            }
+
+            return RedirectToAction("Index", "Admin_QLSuatChieu", new { actionType = "delete", SaveSuccess = false });
+        }
     }
 }

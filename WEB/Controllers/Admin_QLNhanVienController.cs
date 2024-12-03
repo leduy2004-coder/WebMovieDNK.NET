@@ -1,112 +1,60 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Web.Api;
 using WEB.Api;
 using WEB.Models;
 
-
-namespace WEB.Controllers
+[Route("Admin_QLNhanVien")]
+public class Admin_QLNhanVienController : Controller
 {
-    public class Admin_QLNhanVienController : Controller
+    private readonly NhanVienService nvService;
+    public Admin_QLNhanVienController(NhanVienService nvService)
     {
-        private readonly NhanVienService nvService;
-        public Admin_QLNhanVienController(NhanVienService nvService)
+        this.nvService = nvService;
+    }
+
+    // Phương thức này sẽ đáp ứng yêu cầu GET cho "Admin_QLNhanVien/Index"
+    [HttpGet]
+    [Route("Index")]
+    public async Task<IActionResult> IndexAsync()
+    {
+        var listNV = await nvService.GetNhanVienListAsync();
+        return PartialView("Index", listNV.ToList());
+    }
+
+    // Phương thức này sẽ đáp ứng yêu cầu POST cho "Admin_QLNhanVien/LuuNhanVien"
+    [HttpPost]
+    [Route("LuuNhanVien")]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> LuuNhanVien(Admin_NhanVienModel sp)
+    {
+        if (sp.MaNV != null)
         {
-            this.nvService = nvService;
+            var NhanVien = nvService.UpdateNhanVienAsync(sp);
+            return RedirectToAction("Index", "Admin_QLNhanVien", new { actionType = "update", SaveSuccess = true });
+        }
+        else
+        {
+            var sanPham = nvService.LuuNhanVienListAsync(sp);
+            return RedirectToAction("Index", "Admin_QLNhanVien", new { actionType = "create", SaveSuccess = true });
+        }
+    }
+
+    // Phương thức này sẽ đáp ứng yêu cầu POST cho "Admin_QLNhanVien/DeleteNhanVien"
+    [HttpPost]
+    [Route("DeleteNhanVien")]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> DeleteNhanVien(string maNV)
+    {
+        if (string.IsNullOrEmpty(maNV))
+        {
+            return RedirectToAction("Index", "Admin_QLNhanVien", new { actionType = "delete", SaveSuccess = false });
         }
 
-        public async Task<IActionResult> IndexAsync()
+        bool deleteSuccess = await nvService.DeleteNhanVienAsync(maNV);
+        if (deleteSuccess)
         {
-            var listNV = await nvService.GetNhanVienListAsync();
-
-
-            
-            return PartialView("Index", listNV.ToList());
+            return RedirectToAction("Index", "Admin_QLNhanVien", new { actionType = "delete", SaveSuccess = true });
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> LuuNhanVien(Admin_NhanVienModel sp)
-        {
-
-            var existingNhanVien = await nvService.GetNhanVienAsync(sp.MaNV);
-
-
-            if (existingNhanVien != null)
-            {
-                var NhanVien = nvService.UpdateNhanVienAsync(sp);
-
-                // Chuyển hướng đến trang Index với thông báo thành công
-                return RedirectToAction("", new { actionType = "update", SaveProductSuccess = true });
-            }
-            else
-            {
-                var sanPham = nvService.LuuNhanVienListAsync(sp);
-                // Chuyển hướng đến trang Index với thông báo thành công
-                return RedirectToAction("", new { actionType = "create", SaveProductSuccess = true });
-            }
-        }
-        //public async Task<IActionResult> Product()
-        //{
-        //    var listSanPham = await sanPhamService.GetSanPhamListAsync();
-        //    var listDanhMuc = await danhMucService.GetDanhMucListAsync();
-        //    var viewModel = new SanPhamViewModel
-        //    {
-        //        DanhSachSanPham = listSanPham,
-        //        SanPhamMoi = new SanPham(),
-        //        DanhSachDM = listDanhMuc
-        //    };
-        //    return PartialView("Product", viewModel);
-        //}
-
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> LuuNhanVien(SanPhamViewModel sp)
-        //{
-
-        //    var existingSanPham = await sanPhamService.GetSanPhamAsync(sp.SanPhamMoi.MaSanPhamID);
-
-        //    if (existingSanPham != null)
-        //    {
-        //        var sanPham = sanPhamService.PutSanPhamAsync(sp.SanPhamMoi);
-
-        //        // Chuyển hướng đến trang Index với thông báo thành công
-        //        return RedirectToAction("", new { actionType = "update", SaveProductSuccess = true });
-        //    }
-        //    else
-        //    {
-        //        var sanPham = sanPhamService.PostSanPhamAsync(sp.SanPhamMoi);
-        //        // Chuyển hướng đến trang Index với thông báo thành công
-        //        return RedirectToAction("", new { actionType = "create", SaveProductSuccess = true });
-        //    }
-        //}
-
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult XoaSanPham(int maSanPhamXoa)
-        //{
-
-        //    var existingSanPham = sanPhamService.GetSanPhamAsync(maSanPhamXoa);
-
-        //    if (existingSanPham.Result != null)
-        //    {
-        //        var check = sanPhamService.DeleteSanPhamAsync(maSanPhamXoa);
-        //    }
-
-        //    return RedirectToAction("", new { actionType = "delete", SaveProductSuccess = true });
-        //}
-
-        //[HttpGet]
-        //public async Task<IActionResult> TimSanPham(string searchTerm)
-        //{
-        //    var listSanPham = await sanPhamService.SearchSanPhamListAsync(searchTerm);
-        //    var listDanhMuc = await danhMucService.GetDanhMucListAsync();
-        //    var viewModel = new SanPhamViewModel
-        //    {
-        //        DanhSachSanPham = listSanPham,
-        //        SanPhamMoi = new SanPham(),
-        //        DanhSachDM = listDanhMuc
-        //    };
-        //    return PartialView("Product", viewModel);
-        //}
+        return RedirectToAction("Index", "Admin_QLNhanVien", new { actionType = "delete", SaveSuccess = false });
     }
 }

@@ -28,6 +28,7 @@ builder.Services.AddSession(options =>
 builder.Services.AddScoped<NhanVienService>();
 builder.Services.AddScoped<Admin_SuatChieuService>();
 builder.Services.AddScoped<Admin_ThongKeService>();
+builder.Services.AddScoped<Admin_QLPhimService>();
 builder.Services.AddScoped<MovieService>();
 builder.Services.AddScoped<LoginService>();
 //builder.Services.AddScoped<KhachHangService>();

@@ -38,5 +38,20 @@ namespace WEB.Api
             string url = $"api/suatchieu/{md.MaSuat}";
             return await _apiService.PutDataAsync<Admin_SuatChieuModel>(url, md);
         }
+        public async Task<bool> DeleteSuatChieuAsync(string maNV)
+        {
+            if (string.IsNullOrEmpty(maNV))
+            {
+                throw new ArgumentException("Mã suất chiếu không hợp lệ.");
+            }
+
+            // Xây dựng URL API
+            string url = $"api/suatchieu/{maNV}";
+
+            // Gọi API để xóa nhân viên
+            bool deleteSuccess = await _apiService.DeleteDataAsync(url);
+
+            return deleteSuccess;
+        }
     }
 }

@@ -1,4 +1,7 @@
-﻿@model IEnumerable<WEB.Models.Admin_NhanVienModel>
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model IEnumerable<WEB.Models.Admin_QLPhimModel>
 
 
 
@@ -10,9 +13,9 @@
 
 
 <div class="app-content-header">
-    <h1 class="app-content-headerText">Trang quản lý nhân viên</h1>
+    <h1 class="app-content-headerText">Trang quản lý phim</h1>
 
-    <button class="app-content-headerButton" onclick="showNhanVienForm(null,null,null,null,null,null,null,null,null,null)">Thêm nhân viên</button>
+    <button class="app-content-headerButton" onclick="showPhimForm(null,null,null,null,null,null,null)">Thêm khách hàng</button>
 </div>
 
 <div class="app-content-actions">
@@ -44,67 +47,79 @@
 
 <div class="products-area-wrapper tableView">
     <div class="products-header">
-        
+
         <div class="product-cell category">
-            Mã nhân viên<button class="sort-button">
+            Mã phim<button class="sort-button">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 512 512"><path fill="currentColor" d="M496.1 138.3L375.7 17.9c-7.9-7.9-20.6-7.9-28.5 0L226.9 138.3c-7.9 7.9-7.9 20.6 0 28.5 7.9 7.9 20.6 7.9 28.5 0l85.7-85.7v352.8c0 11.3 9.1 20.4 20.4 20.4 11.3 0 20.4-9.1 20.4-20.4V81.1l85.7 85.7c7.9 7.9 20.6 7.9 28.5 0 7.9-7.8 7.9-20.6 0-28.5zM287.1 347.2c-7.9-7.9-20.6-7.9-28.5 0l-85.7 85.7V80.1c0-11.3-9.1-20.4-20.4-20.4-11.3 0-20.4 9.1-20.4 20.4v352.8l-85.7-85.7c-7.9-7.9-20.6-7.9-28.5 0-7.9 7.9-7.9 20.6 0 28.5l120.4 120.4c7.9 7.9 20.6 7.9 28.5 0l120.4-120.4c7.8-7.9 7.8-20.7-.1-28.5z" /></svg>
             </button>
         </div>
-        
+
         <div class="product-cell category">
-            Tên nhân viên<button class="sort-button">
+            Mã loại phim <button class="sort-button">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 512 512"><path fill="currentColor" d="M496.1 138.3L375.7 17.9c-7.9-7.9-20.6-7.9-28.5 0L226.9 138.3c-7.9 7.9-7.9 20.6 0 28.5 7.9 7.9 20.6 7.9 28.5 0l85.7-85.7v352.8c0 11.3 9.1 20.4 20.4 20.4 11.3 0 20.4-9.1 20.4-20.4V81.1l85.7 85.7c7.9 7.9 20.6 7.9 28.5 0 7.9-7.8 7.9-20.6 0-28.5zM287.1 347.2c-7.9-7.9-20.6-7.9-28.5 0l-85.7 85.7V80.1c0-11.3-9.1-20.4-20.4-20.4-11.3 0-20.4 9.1-20.4 20.4v352.8l-85.7-85.7c-7.9-7.9-20.6-7.9-28.5 0-7.9 7.9-7.9 20.6 0 28.5l120.4 120.4c7.9 7.9 20.6 7.9 28.5 0l120.4-120.4c7.8-7.9 7.8-20.7-.1-28.5z" /></svg>
             </button>
         </div>
-       
+
         <div class="product-cell category">
-            Số điện thoại<button class="sort-button">
+            Tên phim<button class="sort-button">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 512 512"><path fill="currentColor" d="M496.1 138.3L375.7 17.9c-7.9-7.9-20.6-7.9-28.5 0L226.9 138.3c-7.9 7.9-7.9 20.6 0 28.5 7.9 7.9 20.6 7.9 28.5 0l85.7-85.7v352.8c0 11.3 9.1 20.4 20.4 20.4 11.3 0 20.4-9.1 20.4-20.4V81.1l85.7 85.7c7.9 7.9 20.6 7.9 28.5 0 7.9-7.8 7.9-20.6 0-28.5zM287.1 347.2c-7.9-7.9-20.6-7.9-28.5 0l-85.7 85.7V80.1c0-11.3-9.1-20.4-20.4-20.4-11.3 0-20.4 9.1-20.4 20.4v352.8l-85.7-85.7c-7.9-7.9-20.6-7.9-28.5 0-7.9 7.9-7.9 20.6 0 28.5l120.4 120.4c7.9 7.9 20.6 7.9 28.5 0l120.4-120.4c7.8-7.9 7.8-20.7-.1-28.5z" /></svg>
             </button>
         </div>
-       
+
         <div class="product-cell category">
-            Giới tính<button class="sort-button">
+            Đạo diễn<button class="sort-button">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 512 512"><path fill="currentColor" d="M496.1 138.3L375.7 17.9c-7.9-7.9-20.6-7.9-28.5 0L226.9 138.3c-7.9 7.9-7.9 20.6 0 28.5 7.9 7.9 20.6 7.9 28.5 0l85.7-85.7v352.8c0 11.3 9.1 20.4 20.4 20.4 11.3 0 20.4-9.1 20.4-20.4V81.1l85.7 85.7c7.9 7.9 20.6 7.9 28.5 0 7.9-7.8 7.9-20.6 0-28.5zM287.1 347.2c-7.9-7.9-20.6-7.9-28.5 0l-85.7 85.7V80.1c0-11.3-9.1-20.4-20.4-20.4-11.3 0-20.4 9.1-20.4 20.4v352.8l-85.7-85.7c-7.9-7.9-20.6-7.9-28.5 0-7.9 7.9-7.9 20.6 0 28.5l120.4 120.4c7.9 7.9 20.6 7.9 28.5 0l120.4-120.4c7.8-7.9 7.8-20.7-.1-28.5z" /></svg>
             </button>
         </div>
-        
+
         <div class="product-cell category">
-            Ngày sinh<button class="sort-button">
+            Độ tuổi yêu cầu<button class="sort-button">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 512 512"><path fill="currentColor" d="M496.1 138.3L375.7 17.9c-7.9-7.9-20.6-7.9-28.5 0L226.9 138.3c-7.9 7.9-7.9 20.6 0 28.5 7.9 7.9 20.6 7.9 28.5 0l85.7-85.7v352.8c0 11.3 9.1 20.4 20.4 20.4 11.3 0 20.4-9.1 20.4-20.4V81.1l85.7 85.7c7.9 7.9 20.6 7.9 28.5 0 7.9-7.8 7.9-20.6 0-28.5zM287.1 347.2c-7.9-7.9-20.6-7.9-28.5 0l-85.7 85.7V80.1c0-11.3-9.1-20.4-20.4-20.4-11.3 0-20.4 9.1-20.4 20.4v352.8l-85.7-85.7c-7.9-7.9-20.6-7.9-28.5 0-7.9 7.9-7.9 20.6 0 28.5l120.4 120.4c7.9 7.9 20.6 7.9 28.5 0l120.4-120.4c7.8-7.9 7.8-20.7-.1-28.5z" /></svg>
             </button>
         </div>
-       
+
         <div class="product-cell category">
-            Địa chỉ<button class="sort-button">
+            Ngày khởi chiếu<button class="sort-button">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 512 512"><path fill="currentColor" d="M496.1 138.3L375.7 17.9c-7.9-7.9-20.6-7.9-28.5 0L226.9 138.3c-7.9 7.9-7.9 20.6 0 28.5 7.9 7.9 20.6 7.9 28.5 0l85.7-85.7v352.8c0 11.3 9.1 20.4 20.4 20.4 11.3 0 20.4-9.1 20.4-20.4V81.1l85.7 85.7c7.9 7.9 20.6 7.9 28.5 0 7.9-7.8 7.9-20.6 0-28.5zM287.1 347.2c-7.9-7.9-20.6-7.9-28.5 0l-85.7 85.7V80.1c0-11.3-9.1-20.4-20.4-20.4-11.3 0-20.4 9.1-20.4 20.4v352.8l-85.7-85.7c-7.9-7.9-20.6-7.9-28.5 0-7.9 7.9-7.9 20.6 0 28.5l120.4 120.4c7.9 7.9 20.6 7.9 28.5 0l120.4-120.4c7.8-7.9 7.8-20.7-.1-28.5z" /></svg>
             </button>
         </div>
-        
+
         <div class="product-cell category">
-            CCCD<button class="sort-button">
+            Thời lượng<button class="sort-button">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 512 512"><path fill="currentColor" d="M496.1 138.3L375.7 17.9c-7.9-7.9-20.6-7.9-28.5 0L226.9 138.3c-7.9 7.9-7.9 20.6 0 28.5 7.9 7.9 20.6 7.9 28.5 0l85.7-85.7v352.8c0 11.3 9.1 20.4 20.4 20.4 11.3 0 20.4-9.1 20.4-20.4V81.1l85.7 85.7c7.9 7.9 20.6 7.9 28.5 0 7.9-7.8 7.9-20.6 0-28.5zM287.1 347.2c-7.9-7.9-20.6-7.9-28.5 0l-85.7 85.7V80.1c0-11.3-9.1-20.4-20.4-20.4-11.3 0-20.4 9.1-20.4 20.4v352.8l-85.7-85.7c-7.9-7.9-20.6-7.9-28.5 0-7.9 7.9-7.9 20.6 0 28.5l120.4 120.4c7.9 7.9 20.6 7.9 28.5 0l120.4-120.4c7.8-7.9 7.8-20.7-.1-28.5z" /></svg>
             </button>
         </div>
-        
+
         <div class="product-cell category">
             Tình trạng<button class="sort-button">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 512 512"><path fill="currentColor" d="M496.1 138.3L375.7 17.9c-7.9-7.9-20.6-7.9-28.5 0L226.9 138.3c-7.9 7.9-7.9 20.6 0 28.5 7.9 7.9 20.6 7.9 28.5 0l85.7-85.7v352.8c0 11.3 9.1 20.4 20.4 20.4 11.3 0 20.4-9.1 20.4-20.4V81.1l85.7 85.7c7.9 7.9 20.6 7.9 28.5 0 7.9-7.8 7.9-20.6 0-28.5zM287.1 347.2c-7.9-7.9-20.6-7.9-28.5 0l-85.7 85.7V80.1c0-11.3-9.1-20.4-20.4-20.4-11.3 0-20.4 9.1-20.4 20.4v352.8l-85.7-85.7c-7.9-7.9-20.6-7.9-28.5 0-7.9 7.9-7.9 20.6 0 28.5l120.4 120.4c7.9 7.9 20.6 7.9 28.5 0l120.4-120.4c7.8-7.9 7.8-20.7-.1-28.5z" /></svg>
             </button>
         </div>
-        
+
         <div class="product-cell category">
-            Tên tài khoản<button class="sort-button">
+            Hình đại diện<button class="sort-button">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 512 512"><path fill="currentColor" d="M496.1 138.3L375.7 17.9c-7.9-7.9-20.6-7.9-28.5 0L226.9 138.3c-7.9 7.9-7.9 20.6 0 28.5 7.9 7.9 20.6 7.9 28.5 0l85.7-85.7v352.8c0 11.3 9.1 20.4 20.4 20.4 11.3 0 20.4-9.1 20.4-20.4V81.1l85.7 85.7c7.9 7.9 20.6 7.9 28.5 0 7.9-7.8 7.9-20.6 0-28.5zM287.1 347.2c-7.9-7.9-20.6-7.9-28.5 0l-85.7 85.7V80.1c0-11.3-9.1-20.4-20.4-20.4-11.3 0-20.4 9.1-20.4 20.4v352.8l-85.7-85.7c-7.9-7.9-20.6-7.9-28.5 0-7.9 7.9-7.9 20.6 0 28.5l120.4 120.4c7.9 7.9 20.6 7.9 28.5 0l120.4-120.4c7.8-7.9 7.8-20.7-.1-28.5z" /></svg>
             </button>
         </div>
-       
-        
+
+        <div class="product-cell category">
+            Video<button class="sort-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 512 512"><path fill="currentColor" d="M496.1 138.3L375.7 17.9c-7.9-7.9-20.6-7.9-28.5 0L226.9 138.3c-7.9 7.9-7.9 20.6 0 28.5 7.9 7.9 20.6 7.9 28.5 0l85.7-85.7v352.8c0 11.3 9.1 20.4 20.4 20.4 11.3 0 20.4-9.1 20.4-20.4V81.1l85.7 85.7c7.9 7.9 20.6 7.9 28.5 0 7.9-7.8 7.9-20.6 0-28.5zM287.1 347.2c-7.9-7.9-20.6-7.9-28.5 0l-85.7 85.7V80.1c0-11.3-9.1-20.4-20.4-20.4-11.3 0-20.4 9.1-20.4 20.4v352.8l-85.7-85.7c-7.9-7.9-20.6-7.9-28.5 0-7.9 7.9-7.9 20.6 0 28.5l120.4 120.4c7.9 7.9 20.6 7.9 28.5 0l120.4-120.4c7.8-7.9 7.8-20.7-.1-28.5z" /></svg>
+            </button>
+        </div>
+
+        <div class="product-cell category">
+            Mô tả<button class="sort-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 512 512"><path fill="currentColor" d="M496.1 138.3L375.7 17.9c-7.9-7.9-20.6-7.9-28.5 0L226.9 138.3c-7.9 7.9-7.9 20.6 0 28.5 7.9 7.9 20.6 7.9 28.5 0l85.7-85.7v352.8c0 11.3 9.1 20.4 20.4 20.4 11.3 0 20.4-9.1 20.4-20.4V81.1l85.7 85.7c7.9 7.9 20.6 7.9 28.5 0 7.9-7.8 7.9-20.6 0-28.5zM287.1 347.2c-7.9-7.9-20.6-7.9-28.5 0l-85.7 85.7V80.1c0-11.3-9.1-20.4-20.4-20.4-11.3 0-20.4 9.1-20.4 20.4v352.8l-85.7-85.7c-7.9-7.9-20.6-7.9-28.5 0-7.9 7.9-7.9 20.6 0 28.5l120.4 120.4c7.9 7.9 20.6 7.9 28.5 0l120.4-120.4c7.8-7.9 7.8-20.7-.1-28.5z" /></svg>
+            </button>
+        </div>
+
         <div class="product-cell sales">
             Chỉnh sửa<button class="sort-button">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 512 512"><path fill="currentColor" d="M496.1 138.3L375.7 17.9c-7.9-7.9-20.6-7.9-28.5 0L226.9 138.3c-7.9 7.9-7.9 20.6 0 28.5 7.9 7.9 20.6 7.9 28.5 0l85.7-85.7v352.8c0 11.3 9.1 20.4 20.4 20.4 11.3 0 20.4-9.1 20.4-20.4V81.1l85.7 85.7c7.9 7.9 20.6 7.9 28.5 0 7.9-7.8 7.9-20.6 0-28.5zM287.1 347.2c-7.9-7.9-20.6-7.9-28.5 0l-85.7 85.7V80.1c0-11.3-9.1-20.4-20.4-20.4-11.3 0-20.4 9.1-20.4 20.4v352.8l-85.7-85.7c-7.9-7.9-20.6-7.9-28.5 0-7.9 7.9-7.9 20.6 0 28.5l120.4 120.4c7.9 7.9 20.6 7.9 28.5 0l120.4-120.4c7.8-7.9 7.8-20.7-.1-28.5z" /></svg>
             </button>
         </div>
+
         <div class="product-cell sales">
             Xóa<button class="sort-button">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 512 512"><path fill="currentColor" d="M496.1 138.3L375.7 17.9c-7.9-7.9-20.6-7.9-28.5 0L226.9 138.3c-7.9 7.9-7.9 20.6 0 28.5 7.9 7.9 20.6 7.9 28.5 0l85.7-85.7v352.8c0 11.3 9.1 20.4 20.4 20.4 11.3 0 20.4-9.1 20.4-20.4V81.1l85.7 85.7c7.9 7.9 20.6 7.9 28.5 0 7.9-7.8 7.9-20.6 0-28.5zM287.1 347.2c-7.9-7.9-20.6-7.9-28.5 0l-85.7 85.7V80.1c0-11.3-9.1-20.4-20.4-20.4-11.3 0-20.4 9.1-20.4 20.4v352.8l-85.7-85.7c-7.9-7.9-20.6-7.9-28.5 0-7.9 7.9-7.9 20.6 0 28.5l120.4 120.4c7.9 7.9 20.6 7.9 28.5 0l120.4-120.4c7.8-7.9 7.8-20.7-.1-28.5z" /></svg>
@@ -112,44 +127,27 @@
         </div>
     </div>
 
-    @foreach (var nv in Model)
+    @foreach (var phim in Model)
     {
         <div class="products-row">
-            <div class="product-cell category"><span class="cell-label">Mã nhân viên:</span>@nv.MaNV</div>
-            <div class="product-cell sales"><span class="cell-label">Họ tên:</span>@nv.HoTen</div>
-            <div class="product-cell sales"><span class="cell-label">Số điện thoại:</span>@nv.Sdt</div>
-            <div class="product-cell status-cell">
-                <span class="cell-label">Giới tính:</span>
-                @if (nv.GioiTinh.HasValue)
-                {
-                    @if (nv.GioiTinh.Value)
-                    {
-                        @:Nam
-                    }
-                    else
-                    {
-                        @:Nữ
-                    }
-                }
-                else
-                {
-                    @:Chưa xác định
-                }
-            </div>
-            <div class="product-cell sales"><span class="cell-label">Ngày sinh:</span>@nv.NgaySinh?.ToString("dd/MM/yyyy")</div>
-            <div class="product-cell"><span class="cell-label">Địa chỉ:</span>@nv.DiaChi</div>
-            <div class="product-cell"><span class="cell-label">CCCD:</span>@nv.Cccd</div>
-            <div class="product-cell">
+            <div class="product-cell category"><span class="cell-label">Mã phim:</span>@phim.MaPhim</div>
+            <div class="product-cell sales"><span class="cell-label">Mã loại phim:</span>@phim.MaLPhim</div>
+            <div class="product-cell sales"><span class="cell-label">Tên phim:</span>@phim.TenPhim</div>
+            <div class="product-cell sales"><span class="cell-label">Đạo diễn:</span>@phim.DaoDien</div>
+            <div class="product-cell sales"><span class="cell-label">Độ tuổi yêu cầu:</span>@phim.DoTuoiYeuCau</div>
+            <div class="product-cell sales"><span class="cell-label">Ngày khởi chiếu:</span>@phim.NgayKhoiChieu?.ToString("dd/MM/yyyy")</div>
+            <div class="product-cell sales"><span class="cell-label">Thời lượng (phút):</span>@phim.ThoiLuong</div>
+            <div class="product-cell sales">
                 <span class="cell-label">Tình trạng:</span>
-                @if (nv.TinhTrang.HasValue)
+                @if (phim.TinhTrang.HasValue)
                 {
-                    @if (nv.TinhTrang.Value)
+                    @if (phim.TinhTrang.Value)
                     {
-                        @:Đang làm
+                        @:Đang chiếu
                     }
                     else
                     {
-                        @:Đã Nghĩ
+                        @:Không chiếu
                     }
                 }
                 else
@@ -157,30 +155,40 @@
                     @:Chưa xác định
                 }
             </div>
-            <div class="product-cell"><span class="cell-label">Tên tài khoản:</span>@nv.TenTK</div>
+            <div class="product-cell sales">
+                <span class="cell-label">Hình đại diện:</span>
+                @if (!string.IsNullOrEmpty(phim.HinhDaiDien))
+                {
+                    <img src="@phim.HinhDaiDien" alt="Hình đại diện" width="50" height="50" />
+                }
+                else
+                {
+                    @:Chưa có hình
+                }
+            </div>
+            <div class="product-cell sales"><span class="cell-label">Video:</span>@phim.Video</div>
             <div class="product-cell stock">
                 <span class="cell-label">Chỉnh sửa:</span>
-                <a onclick="showNhanVienForm('@nv.MaNV', '@nv.HoTen', '@nv.Sdt', '@nv.GioiTinh', '@nv.DiaChi', '@nv.Cccd',
-                                            '@nv.TinhTrang', '@nv.TenTK', '@nv.MatKhau')">
+                <a onclick="showPhimForm('@phim.MaPhim', '@phim.MaLPhim', '@phim.TenPhim', '@phim.DaoDien', '@phim.DoTuoiYeuCau',
+                                      '@phim.NgayKhoiChieu', '@phim.ThoiLuong', '@phim.TinhTrang', '@phim.HinhDaiDien',
+                                      '@phim.Video', '@phim.MoTa')">
                     <i class="fa fa-edit"></i>
                 </a>
             </div>
             <div class="product-cell stock">
-                @using (Html.BeginForm("DeleteNhanVien", "Admin_QLNhanVien", FormMethod.Post, new { onsubmit = "return confirmDelete()" }))
+                @using (Html.BeginForm("DeletePhim", "Admin_QLPhim", FormMethod.Post, new { onsubmit = "return confirmDelete()" }))
                 {
                     @Html.AntiForgeryToken()
-                    @Html.Hidden("maNV", nv.MaNV)
+                    @Html.Hidden("maPhim", phim.MaPhim)
                     <button type="submit" class="btn btn-danger">
                         <i class="fa fa-remove"></i> Xóa
                     </button>
                 }
             </div>
-
-
         </div>
-
-
     }
+
+
 </div>
 
 
@@ -188,85 +196,75 @@
 <main id="product-form" class="modal-form">
     <div class="d-flex justify-content-center">
         <div class="container">
-            <h2 class="text-uppercase" id="title-form">
-            </h2>
+            <h2 class="text-uppercase" id="title-form"></h2>
 
-            <form method="post" action="@Url.Action("LuuNhanVien", "Admin_QLNhanVien")" id="productForm">
+            <form method="post" action="@Url.Action("LuuPhim", "Admin_QLPhim")" id="productForm">
                 @Html.AntiForgeryToken()
-                <div class="row form-row">
-                    <!-- Cột 1 -->
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label asp-for="MaNV" class="form-label text-dark fw-600" id="labelnhanvien">Mã nhân viên</label>
-                            <input asp-for="MaNV" name="MaNV" class="form-control" placeholder="Nhập mã nhân viên" id="maNhanVien" />
-                            <span asp-validation-for="MaNV" class="text-danger"></span>
-                        </div>
 
-                        <div class="mb-3">
-                            <label asp-for="HoTen" class="form-label text-dark fw-600">Tên nhân viên</label>
-                            <input asp-for="HoTen" name="HoTen" class="form-control" placeholder="Nhập tên nhân viên" id="tenNhanVien" />
-                            <span asp-validation-for="HoTen" class="text-danger"></span>
-                        </div>
+                <div class="mb-3">
+                    <label asp-for="MaPhim" class="form-label text-dark fw-600" id="labelphim">Mã phim</label>
+                    <input asp-for="MaPhim" name="MaPhim" class="form-control" placeholder="Nhập mã phim" id="maPhim" />
+                    <span asp-validation-for="MaPhim" class="text-danger"></span>
+                </div>
 
-                        <div class="mb-3">
-                            <label asp-for="Sdt" class="form-label text-dark fw-600">Số điện thoại</label>
-                            <input asp-for="Sdt" name="Sdt" class="form-control" placeholder="Nhập số điện thoại" id="sdt" />
-                            <span asp-validation-for="Sdt" class="text-danger"></span>
-                        </div>
+                <div class="mb-3">
+                    <label asp-for="MaLoaiPhim" class="form-label text-dark fw-600" >Mã loại phim</label>
+                    <input asp-for="MaLoaiPhim" name="MaLoaiPhim" class="form-control" placeholder="Nhập mã  loại phim" id="maLoaiPhim" />
+                    <span asp-validation-for="MaPhim" class="text-danger"></span>
+                </div>
 
-                        <div class="mb-3">
-                            <label asp-for="GioiTinh" class="form-label text-dark fw-600">Giới tính</label>
-                            <div>
-                                <input asp-for="GioiTinh" type="radio" value="true" id="man" name="GioiTinh" /> Nam
-                            </div>
-                            <div>
-                                <input asp-for="GioiTinh" type="radio" value="false" id="woman" name="GioiTinh" /> Nữ
-                            </div>
-                        </div>  
+                <div class="mb-3">
+                    <label asp-for="TenPhim" class="form-label text-dark fw-600">Tên phim</label>
+                    <input asp-for="TenPhim" name="TenPhim" class="form-control" placeholder="Nhập tên phim" id="tenPhim" />
+                    <span asp-validation-for="TenPhim" class="text-danger"></span>
+                </div>
 
-                        <div class="mb-3">
-                            <label asp-for="NgaySinh" class="form-label text-dark fw-600">Ngày sinh</label>
-                            <input asp-for="NgaySinh" name="NgaySinh" type="date" class="form-control" id="ngaySinh" />
-                            <span asp-validation-for="NgaySinh" class="text-danger"></span>
-                        </div>
-                    </div>
+                <div class="mb-3">
+                    <label asp-for="DaoDien" class="form-label text-dark fw-600">Đạo diễn</label>
+                    <input asp-for="DaoDien" name="DaoDien" class="form-control" placeholder="Nhập tên đạo diễn" id="daoDien" />
+                    <span asp-validation-for="DaoDien" class="text-danger"></span>
+                </div>
 
-                    <!-- Cột 2 -->
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label asp-for="DiaChi" class="form-label text-dark fw-600">Địa chỉ</label>
-                            <input asp-for="DiaChi" name="DiaChi" class="form-control" placeholder="Nhập địa chỉ" id="diaChi" />
-                            <span asp-validation-for="DiaChi" class="text-danger"></span>
-                        </div>
+                <div class="mb-3">
+                    <label asp-for="DoTuoiYeuCau" class="form-label text-dark fw-600">Độ tuổi yêu cầu</label>
+                    <input asp-for="DoTuoiYeuCau" name="DoTuoiYeuCau" type="number" class="form-control" placeholder="Nhập độ tuổi yêu cầu" id="doTuoiYeuCau" />
+                    <span asp-validation-for="DoTuoiYeuCau" class="text-danger"></span>
+                </div>
 
-                        <div class="mb-3">
-                            <label asp-for="Cccd" class="form-label text-dark fw-600">Căn cước công dân</label>
-                            <input asp-for="Cccd" name="Cccd" class="form-control" placeholder="Nhập căn cước công dân" id="cccd" />
-                            <span asp-validation-for="Cccd" class="text-danger"></span>
-                        </div>
+                <div class="mb-3">
+                    <label asp-for="NgayKhoiChieu" class="form-label text-dark fw-600">Ngày khởi chiếu</label>
+                    <input asp-for="NgayKhoiChieu" name="NgayKhoiChieu" type="date" class="form-control" id="ngayKhoiChieu" />
+                    <span asp-validation-for="NgayKhoiChieu" class="text-danger"></span>
+                </div>
 
-                        
-                        <div class="mb-3">
-                            <label asp-for="TenTK" class="form-label text-dark fw-600">Tên tài khoản</label>
-                            <input asp-for="TenTK" name="TenTK" class="form-control" placeholder="Nhập tên tài khoản" id="tenTaiKhoan" />
-                            <span asp-validation-for="TenTK" class="text-danger"></span>
-                        </div>
+                <div class="mb-3">
+                    <label asp-for="ThoiLuong" class="form-label text-dark fw-600">Thời lượng (phút)</label>
+                    <input asp-for="ThoiLuong" name="ThoiLuong" type="number" class="form-control" placeholder="Nhập thời lượng phim" id="thoiLuong" />
+                    <span asp-validation-for="ThoiLuong" class="text-danger"></span>
+                </div>
 
-                        <div class="mb-3">
-                            <label asp-for="MatKhau" class="form-label text-dark fw-600">Mật khẩu</label>
-                            <input asp-for="MatKhau" name="MatKhau" type="password" class="form-control" placeholder="Nhập mật khẩu" id="matKhau" />
-                            <span asp-validation-for="MatKhau" class="text-danger"></span>
-                        </div>
+                <div class="status-cus">
+                    <label asp-for="TinhTrang" class="form-label text-dark fw-600">Tình trạng</label>
+                    <input asp-for="TinhTrang" type="checkbox" class="form-check-input" id="tinhTrang" checked />
+                    <span asp-validation-for="TinhTrang" class="text-danger"></span>
+                </div>
 
-                        <div class="status-cus">
-                            <label asp-for="TinhTrang" class="form-label text-dark fw-600">Tình trạng</label>
-                            <input asp-for="TinhTrang" type="checkbox" class="form-check-input" id="tinhTrang" checked />
-                            <span asp-validation-for="TinhTrang" class="text-danger"></span>
-                        </div>
+                <div class="mb-3">
+                    <label asp-for="HinhDaiDien" class="form-label text-dark fw-600">Hình đại diện</label>
+                    <input asp-for="HinhDaiDien" name="HinhDaiDien" class="form-control" placeholder="Nhập URL hình đại diện" id="hinhDaiDien" />
+                    <span asp-validation-for="HinhDaiDien" class="text-danger"></span>
+                </div>
 
-                        <input asp-for="MaQL" name="MaQL" type="hidden" id="MaQL" value="QL1"/>
+                <div class="mb-3">
+                    <label asp-for="Video" class="form-label text-dark fw-600">Video</label>
+                    <input asp-for="Video" name="Video" class="form-control" placeholder="Nhập URL video" id="video" />
+                    <span asp-validation-for="Video" class="text-danger"></span>
+                </div>
 
-                    </div>
+                <div class="mb-3">
+                    <label asp-for="MoTa" class="form-label text-dark fw-600">Mô tả</label>
+                    <textarea asp-for="MoTa" name="MoTa" class="form-control" placeholder="Nhập mô tả phim" id="moTa"></textarea>
+                    <span asp-validation-for="MoTa" class="text-danger"></span>
                 </div>
 
                 <div class="d-grid my-4">
@@ -274,10 +272,11 @@
                 </div>
             </form>
 
-
-
         </div>
     </div>
 </main>
 
-<script src="~/js/nhanvien.js"></script>
+
+<script src="~/js/phim.js"></script>
+
+

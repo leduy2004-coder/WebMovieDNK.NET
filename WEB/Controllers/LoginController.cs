@@ -32,7 +32,7 @@ namespace WEB.Controllers
                     HttpContext.Session.SetString("UserEmail", loginResponse.Email);
 
                     TempData["SuccessMessage"] = "Đăng nhập thành công!";
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Admin_QLPhim");
                 }
         
                 

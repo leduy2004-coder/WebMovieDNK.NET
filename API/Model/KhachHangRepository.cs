@@ -46,7 +46,9 @@ namespace API.Model
         // Lấy thông tin khách hàng theo mã
         public async Task<tbKhachHang> GetKhachHangById(string maKhachHang)
         {
-            return await _context.KhachHang.FindAsync(maKhachHang); // Tìm khách hàng theo mã và trả về
+            var khachHang = await _context.KhachHang
+                .FirstOrDefaultAsync(nv => nv.MaKH == maKhachHang);  // Tìm nhân viên theo mã
+            return khachHang; // Tìm khách hàng theo mã và trả về
         }
 
         // Cập nhật thông tin khách hàng
