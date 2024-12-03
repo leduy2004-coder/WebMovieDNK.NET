@@ -1,0 +1,40 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+.ticket-info {
+    background-color: #ffffff;
+    border: 1px solid #dedede;
+}
+
+    .ticket-info h3 {
+        color: #28a745;
+        font-weight: bold;
+    }
+
+.drink-item {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+    .drink-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+    }
+
+.card-img-top {
+    height: 200px;
+    object-fit: cover;
+    border-bottom: 2px solid #28a745;
+}
+
+.btn-add {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+    .btn-add:hover {
+        background-color: #0056b3;
+        border-color: #0056b3;
+    }

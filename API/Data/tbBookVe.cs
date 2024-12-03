@@ -24,7 +24,7 @@ namespace API.Data
         public string MaVe { get; set; }
 
         public double? TongTien { get; set; }
-        public int SuDungVoucher { get; set; } = 0;
+        public int SuDungDoUong { get; set; } = 0;
         public DateTime? NgayMua { get; set; }
         public int SoLuongVeDaDat { get; set; } = 0;
     }

@@ -19,6 +19,11 @@ namespace WEB.Controllers
         [HttpGet("GetBookTicket")]
         public async Task<IActionResult> GetBookTicket(string maSuat)
         {
+            var maKH = HttpContext.Session.GetString("UserId");
+            if (maKH == null)
+            {
+                return RedirectToAction("loginView", "Login");
+            }
             var schedule = await _schedule.GetScheduleById(maSuat);
             if (schedule == null)
             {
