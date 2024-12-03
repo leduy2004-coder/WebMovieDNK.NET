@@ -6,6 +6,7 @@ namespace Web.Models
     {
 
         public string MaCa { get; set; }
+        public string? MaSuat { get; set; }
 
 
         public string TenCa { get; set; }

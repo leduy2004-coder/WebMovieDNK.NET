@@ -57,17 +57,41 @@ seats.forEach(function (seat) {
 });
 
 const accoutImg = document.querySelector('.accout-img');
-
+const filmOp = document.querySelector('.film-option');
+const formFilm = document.querySelector('.film-option .form-option');
 const formAccout = document.querySelector('.accout-select');
 
 
 accoutImg.addEventListener('click', function () {
+	event.stopPropagation();
 	// Kiểm tra nếu accout-select đã có lớp active thì xóa lớp active, ngược lại thêm lớp active
 	formAccout.classList.toggle('selected');
+	// Đóng form khác nếu đang mở
+	if (formFilm.classList.contains('selected')) {
+		formFilm.classList.remove('selected');
+	}
+});
+filmOp.addEventListener('click', function (event) {
+	event.stopPropagation();
+
+	// Toggle dropdown Phim
+	formFilm.classList.toggle('selected');
+	// Đóng form khác nếu đang mở
+	if (formAccout.classList.contains('selected')) {
+		formAccout.classList.remove('selected');
+	}
 });
 
 
-
+// Đóng form khi click ngoài form
+document.addEventListener('click', function () {
+	if (formFilm.classList.contains('selected')) {
+		formFilm.classList.remove('selected');
+	}
+	if (formAccout.classList.contains('selected')) {
+		formAccout.classList.remove('selected');
+	}
+});
 
 
 

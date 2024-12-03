@@ -129,3 +129,40 @@ iframe {
         background-color: #e4606d; /* Màu đỏ nhạt khi hover */
         border-color: #e4606d; /* Viền đổi theo */
     }
+
+
+.list-section {
+    margin: 40px 0;
+}
+
+.movie-item {
+    display: flex;
+    padding: 10px;
+    box-shadow: 0 5px 8px rgba(0, 0, 0, 0.08);
+}
+
+a:hover {
+    color: var(--main-color);
+}
+
+.movie-box {
+    width: 30%;
+    margin-right: 20px;
+}
+
+.movie-content {
+    width: 70%;
+    margin-right: 20px;
+}
+
+    .movie-content h4 {
+        font-size: 2.5rem;
+    }
+
+.desc {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 3;
+}

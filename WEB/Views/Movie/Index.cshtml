@@ -51,7 +51,7 @@
                     <p>@Model.Phim.MoTa</p>
                 </div>
             </div>
-
+         
             <div class="tab-box">
                 @foreach (var ngay in @Model.NgayChieu)
                 {
@@ -60,7 +60,7 @@
                         <div class="d-flex" style="gap: 10px;">
                             @foreach (var suat in Model.SuatChieuTheoNgay[ngay])
                             {
-                                <a href="#"><span class="time">@suat.ThoiGianBatDau.ToString(@"hh\:mm")</span></a>
+                                <a href="@Url.Action("GetBookTicket", "BookTicket", new { maSuat = Model.MaSuat })"><span class="time">@suat.ThoiGianBatDau.ToString(@"hh\:mm")</span></a>
                             }
                         </div>
                     </div>

@@ -1,0 +1,39 @@
+﻿@model IEnumerable<WEB.Models.MovieModel>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/css/film.css" rel="stylesheet" />
+
+
+<section class="list-section">
+    <div class="container">
+        <div class="row">
+            @if (Model != null && Model.Any())
+            {
+                foreach (var phim in Model)
+                {
+                    <a class="movie-item col-xl-6 col-lg-6 col-md-6 col-sm-6" href="@Url.Action("Detail", "User", new { id = phim.MaPhim })">
+                        <div class="movie-box">
+                            <div class="movie-link">
+                                <img class="img" src="@phim.HinhDaiDien" alt="Card image" />
+                            </div>
+                        </div>
+                        <div class="movie-content">
+                            <h4 class="movie-name">@phim.TenPhim</h4>
+                            <p><b>Đạo diễn:</b> @phim.DaoDien</p>
+                            <p class="desc"><b>Mô tả:</b> @phim.MoTa</p>
+                            <p><b>Thời lượng:</b> @phim.ThoiLuong phút</p>
+                            <p class="movie-start"><b>Khởi chiếu:</b> @phim.NgayKhoiChieu.ToString("dd/MM/yyyy")</p>
+                        </div>
+                    </a>
+                }
+            }
+            else
+            {
+                <p>Không có phim nào đang chiếu.</p>
+            }
+        </div>
+    </div>
+</section>
