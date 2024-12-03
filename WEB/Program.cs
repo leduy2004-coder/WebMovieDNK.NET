@@ -36,6 +36,9 @@ builder.Services.AddScoped<Admin_QLKhachHangService>();
 builder.Services.AddScoped<ScheduleService>();
 builder.Services.AddScoped<CustomerService>();
 builder.Services.AddScoped<CommentService>();
+builder.Services.AddScoped<EndowService>();
+builder.Services.AddScoped<TicketService>();
+
 
 var app = builder.Build();
 

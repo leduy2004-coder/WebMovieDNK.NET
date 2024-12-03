@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using Web.Api;
+using WEB.Api;
 using WEB.Models;
 
 namespace WEB.Controllers
@@ -9,10 +10,14 @@ namespace WEB.Controllers
     public class BookTicketController : Controller
     {
         private readonly ScheduleService _schedule;
+        private readonly TicketService _ticketService;
 
-        public BookTicketController(ScheduleService schedule)
+
+
+        public BookTicketController(ScheduleService schedule, TicketService ticketService)
         {
             _schedule = schedule;
+            _ticketService = ticketService;
         }
 
         // Trang hiển thị thông tin đặt vé
@@ -32,6 +37,7 @@ namespace WEB.Controllers
 
             var listChair = await _schedule.GetChairListAsync();
             var listChairBook = await _schedule.GetChairBooked(maSuat);
+            var ve = await _ticketService.GetVeByIdPhim(schedule.MaPhim);
 
             var model = new BookTicketViewModel
             {
@@ -39,7 +45,7 @@ namespace WEB.Controllers
                 NgayChieu = schedule.NgayChieu.ToString("dd/MM/yyyy"),
                 ThoiGian = schedule.CaChieu.ThoiGianBatDau.ToString(@"hh\:mm"),
                 Movie = schedule.phim,
-                Money = 60000,
+                Money = (decimal) ve.Tien,
                 ListChair = listChair,
                 ListChairBook = listChairBook,
             };
