@@ -16,7 +16,7 @@ namespace API.Controllers
 
         // GET: api/Phim/all
         [HttpGet("all")]
-        public async Task<IActionResult> GetPHIMS()
+        public async Task<IActionResult> GetUuDais()
         {
             try
             {

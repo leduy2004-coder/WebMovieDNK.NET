@@ -8,5 +8,6 @@ namespace WEB.Models
         public List<MovieModel> PhimSapChieu { get; set; }
         public List<DateTime> DanhSachNgay { get; set; }
         public List<ShiftModel> CaChieu { get; set; }
+        public List<UuDaiModel> UuDai { get; set; }
     }
 }

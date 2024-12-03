@@ -39,6 +39,15 @@ namespace WEB.Controllers
             var listChair = await _schedule.GetChairListAsync();
             var listChairBook = await _schedule.GetChairBooked(maSuat);
             var ve = await _ticketService.GetVeByIdPhim(schedule.MaPhim);
+            // Lấy giờ hiện tại
+            var currentHour = DateTime.Now.Hour;
+
+            // Xử lý giảm giá 15% nếu giờ hiện tại >= 22
+            decimal money = (decimal)ve.Tien;
+            if (currentHour >= 22) // Kiểm tra giờ hiện tại >= 22
+            {
+                money *= 0.85m; // Giảm 15%
+            }
 
             var model = new BookTicketViewModel
             {
@@ -46,7 +55,7 @@ namespace WEB.Controllers
                 NgayChieu = schedule.NgayChieu.ToString("dd/MM/yyyy"),
                 ThoiGian = schedule.CaChieu.ThoiGianBatDau.ToString(@"hh\:mm"),
                 Movie = schedule.phim,
-                Money = (decimal) ve.Tien,
+                Money = money,
                 ListChair = listChair,
                 ListChairBook = listChairBook,
             };

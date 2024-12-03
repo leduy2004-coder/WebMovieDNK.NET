@@ -19,7 +19,15 @@ namespace API.Model
 
         public async Task<IEnumerable<tbUuDai>> GetUuDais()
         {
-            return await _context.UuDai.ToListAsync();
+            try
+            {
+                return await _context.UuDai.ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                // Ghi log lỗi
+                throw new Exception("An error occurred while fetching data.");
+            }
         }
     }
 }
