@@ -28,6 +28,8 @@ builder.Services.AddTransient<INhanVienRepository, NhanVienRepository>();
 builder.Services.AddTransient<IVeRepository, VeRepository>();
 builder.Services.AddTransient<IQuanLiRepository, QuanLiRepository>();
 builder.Services.AddTransient<IDatVeRepository, DatVeRepository>();
+builder.Services.AddTransient<IUuDaiRepository, UuDaiRepository>();
+
 
 //  Thêm Controllers
 builder.Services.AddControllers();
