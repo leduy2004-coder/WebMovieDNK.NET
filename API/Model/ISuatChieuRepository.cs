@@ -23,7 +23,7 @@ namespace API.Model
 
         Task<tbSuatChieu> upadteSuatChieu(string maSuat);
 
-        Task<bool> deleteSuatChieu(string maSuat);
+        Task<bool> DeleteSuatChieu(string maSuat);
         Task<List<tbSuatChieu>> GetAllSuatChieu();
     }
 }

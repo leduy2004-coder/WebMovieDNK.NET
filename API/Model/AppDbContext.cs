@@ -30,6 +30,8 @@ namespace API.Model
         public DbSet<GetPhimDangChieu> getPhimDangChieuDTOs { get; set; }
         public DbSet<GetNgayChieu> getNgayChieus { get; set; }
         public DbSet<GetCaChieu> getCaChieus { get; set; }
+        public DbSet<tbUuDai> UuDai { get; set; }
+        public DbSet<KhachHangUuDai> KhachHangUuDai { get; set; }
         public DbSet<tbDoUong> DoUong { get; set; }
         public DbSet<tbBookDoUong> BookDoUong { get; set; }
 
@@ -47,7 +49,8 @@ namespace API.Model
             modelBuilder.Entity<GetPhimDangChieu>().HasNoKey();
             modelBuilder.Entity<GetNgayChieu>().HasNoKey();
             modelBuilder.Entity<LichSuKhachHangDTO>().HasNoKey();
-
+            modelBuilder.Entity<KhachHangUuDai>()
+               .HasKey(kh => new { kh.MaKH, kh.MaUuDai });
         }
 
     }

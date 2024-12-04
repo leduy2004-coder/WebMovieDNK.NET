@@ -60,6 +60,18 @@ namespace YourApp.Controllers
             var suatChieus = await _suatChieuService.GetAllSuatChieu();
             return Ok(suatChieus);
         }
+
+        [HttpDelete("{maSuatChieu}")]
+        public async Task<ActionResult> DeleteVe(string maVe)
+        {
+            var result = await _suatChieuService.DeleteSuatChieu(maVe);
+            if (!result)
+            {
+                return NotFound("Không tìm thấy suất chiếu.");
+            }
+
+            return NoContent(); // Trả về 204 No Content nếu xóa thành công
+        }
     }
 }
 

@@ -1,0 +1,38 @@
+﻿@model WEB.Models.UuDaiModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+
+
+<div class="container m-5">
+    <div class="content-side col-lg-6 col-md-6 col-sm-6 m-auto">
+        <div class="blog-detail">
+            <div class="inner-box">
+                <div class="image">
+                    <img src="@Model.Anh" alt="phim-hay-het-y-–-khong-xem-hoi-phi">
+                </div>
+                <div class="lower-content mt-2">
+                    <h4 >@Model.TieuDe</h4>
+
+                    <div><span class="icon flaticon-time"></span>@Model.NgayDang</div>
+
+                    <p class="mt-3">@Model.NoiDung</p>
+
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <b>
+                ★𝗥𝗜𝗢 𝗖𝗲𝗻𝘁𝗲𝗿 – THIÊN ĐƯỜNG GIẢI TRÍ ★
+            </b>
+            <div>
+                Địa chỉ Rạp Đà Nẵng: 403 Tôn Đức Thắng - Q. Liên Chiểu - TP. Đà Nẵng
+            </div>
+        </div>
+    </div>
+
+</div>

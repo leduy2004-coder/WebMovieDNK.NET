@@ -12,11 +12,13 @@ namespace WEB.Controllers
     {
         private readonly ScheduleService _schedule;
         private readonly OrderDrinkService _order;
+        private readonly TicketService _ticketService;
 
-        public BookTicketController(ScheduleService schedule, OrderDrinkService order)
+        public BookTicketController(ScheduleService schedule, OrderDrinkService order, TicketService ticketService)
         {
             _schedule = schedule;
             _order = order;
+            _ticketService = ticketService;
         }
 
         // Trang hiển thị thông tin đặt vé
@@ -36,6 +38,7 @@ namespace WEB.Controllers
 
             var listChair = await _schedule.GetChairListAsync();
             var listChairBook = await _schedule.GetChairBooked(maSuat);
+            var ve = await _ticketService.GetVeByIdPhim(schedule.MaPhim);
 
             var model = new BookTicketViewModel
             {
@@ -43,7 +46,7 @@ namespace WEB.Controllers
                 NgayChieu = schedule.NgayChieu.ToString("dd/MM/yyyy"),
                 ThoiGian = schedule.CaChieu.ThoiGianBatDau.ToString(@"hh\:mm"),
                 Movie = schedule.phim,
-                Money = 60000,
+                Money = (decimal) ve.Tien,
                 ListChair = listChair,
                 ListChairBook = listChairBook,
             };

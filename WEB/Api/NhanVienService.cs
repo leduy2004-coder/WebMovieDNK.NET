@@ -29,5 +29,22 @@ namespace WEB.Api
             string url = $"api/nhanvien/{md.MaNV}";
             return await _apiService.PutDataAsync<Admin_NhanVienModel>(url, md);
         }
+        public async Task<bool> DeleteNhanVienAsync(string maNV)
+        {
+            if (string.IsNullOrEmpty(maNV))
+            {
+                throw new ArgumentException("Mã nhân viên không hợp lệ.");
+            }
+
+            // Xây dựng URL API
+            string url = $"api/nhanvien/{maNV}";
+
+            // Gọi API để xóa nhân viên
+            bool deleteSuccess = await _apiService.DeleteDataAsync(url);
+
+            return deleteSuccess;
+        }
+
+
     }
 }

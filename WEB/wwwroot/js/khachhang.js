@@ -7,6 +7,7 @@ var submitButton = document.getElementById("submit");
 
 var maKHInput = document.getElementById("maKH");
 var hoTenInput = document.getElementById("hoTen");
+var lableMaKhachHang = document.getElementById("labelkhachhang");
 var sdtInput = document.getElementById("sdt");
 var ngaySinhInput = document.getElementById("ngaySinh");
 var emailInput = document.getElementById("email");
@@ -61,7 +62,8 @@ function showKhachHangForm(maKH, hoTen, sdt, ngaySinh, email, tinhTrang, tenTK) 
         tenTKInput.value = "";
 
         // Bỏ readonly cho trường mã khách hàng
-        maKHInput.removeAttribute("readonly");
+        maKHInput.style.display="none";
+        lableMaKhachHang.style.display = "none";
 
         title.textContent = "Thêm mới khách hàng";
         submitButton.textContent = "Lưu thông tin";

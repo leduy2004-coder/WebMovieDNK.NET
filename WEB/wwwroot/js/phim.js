@@ -5,18 +5,20 @@ var model = document.getElementById("modal");
 var form = document.getElementById("product-form");
 var submitButton = document.getElementById("submit");
 
-var maNhanVienInput = document.getElementById("maNhanVien");
-var labelMaNhanVien = document.getElementById("labelnhanvien");
-var tenNhanVienInput = document.getElementById("tenNhanVien");
-var sdtInput = document.getElementById("sdt");
-var manInput = document.getElementById("man");
-var womenInput = document.getElementById("woman");
-var ngaySinhInput = document.getElementById("ngaySinh");
-var diaChiInput = document.getElementById("diaChi");
-var cccdInput = document.getElementById("cccd");
+var maPhimInput = document.getElementById("maPhim");
+var maLoaiPhimInput = document.getElementById("maLoaiPhim");
+var tenPhimInput = document.getElementById("tenPhim");
+var daoDienInput = document.getElementById("daoDien");
+var doTuoiYeuCauInput = document.getElementById("doTuoiYeuCau");
+var ngayKhoiChieuInput = document.getElementById("ngayKhoiChieu");
+var thoiLuongInput = document.getElementById("thoiLuong");
 var tinhTrangInput = document.getElementById("tinhTrang");
-var tenTaiKhoanInput = document.getElementById("tenTaiKhoan");
-var matKhauInput = document.getElementById("matKhau");
+var hinhDaiDienInput = document.getElementById("hinhDaiDien");
+var videoInput = document.getElementById("video");
+var moTaInput = document.getElementById("moTa");
+
+var lableMaPhim = document.getElementById("labelphim");
+
 
 
 var title = document.getElementById("title-form");
@@ -39,58 +41,54 @@ if (gridButton && listButton && productsWrapper) {
     console.error("Không tìm thấy phần tử cần thiết trong DOM.");
 }
 
-function showNhanVienForm(maNV, hoTen, sdt, gioiTinh, ngaySinh, diaChi, cccd, tinhTrang, tenTK, matKhau) {
-    if (maNV != null) {
+function showPhimForm(maPhim, maLoaiPhim, tenPhim, daoDien, doTuoiYeuCau, ngayKhoiChieu, thoiLuong, tinhTrang, hinhDaiDien, video, moTa) {
+    if (maPhim != null) {
         // Gán giá trị cho các input
-        maNhanVienInput.value = maNV;
-        tenNhanVienInput.value = hoTen;
-        sdtInput.value = sdt;
-        if (gioiTinh) {
-            manInput.checked = true;  
-            womenInput.checked = false;  
-        } else {
-            manInput.checked = false; 
-            womenInput.checked = true;  
-        }
-        ngaySinhInput.value = ngaySinh;
-        diaChiInput.value = diaChi;
-        cccdInput.value = cccd;
-        tinhTrangInput.value = tinhTrang;
-        tenTaiKhoanInput.value = tenTK;
-        matKhauInput.value = matKhau;
+        maPhimInput.value = maPhim;
+        maLoaiPhimInput.value = maLoaiPhim;
+        tenPhimInput.value = tenPhim;
+        daoDienInput.value = daoDien;
+        doTuoiYeuCauInput.value = doTuoiYeuCau;
+        ngayKhoiChieuInput.value = ngayKhoiChieu;
+        thoiLuongInput.value = thoiLuong;
+        tinhTrangInput.checked = tinhTrang; // Checkbox
+        hinhDaiDienInput.value = hinhDaiDien;
+        videoInput.value = video;
+        moTaInput.value = moTa;
 
+        // Thiết lập readonly cho trường mã phim nếu chỉnh sửa
+        maPhimInput.style.display = "none";
+        lableMaPhim.style.display = "none";
 
-        // Thiết lập readonly cho trường mã nhân viên nếu chỉnh sửa
-        maNhanVienInput.setAttribute("readonly", "readonly");
-
-        title.textContent = "Cập nhật nhân viên";
+        title.textContent = "Cập nhật phim";
         submitButton.textContent = "Lưu chỉnh sửa";
     } else {
         // Làm trống các input khi thêm mới
-        maNhanVienInput.value = "";
-        tenNhanVienInput.value = "";
-        sdtInput.value = "";
-        manInput.checked = true;
-        womenInput.checked = false;  
-        ngaySinhInput.value = "";
-        diaChiInput.value = "";
-        cccdInput.value = "";
-        tinhTrangInput.value = "";
-        tenTaiKhoanInput.value = "";
-        matKhauInput.value = "";
+        maPhimInput.value = "";
+        maLoaiPhimInput.value = "";
+        tenPhimInput.value = "";
+        daoDienInput.value = "";
+        doTuoiYeuCauInput.value = "";
+        ngayKhoiChieuInput.value = "";
+        thoiLuongInput.value = "";
+        tinhTrangInput.checked = false;
+        hinhDaiDienInput.value = "";
+        videoInput.value = "";
+        moTaInput.value = "";
 
+        // Bỏ readonly cho trường mã phim
+        maPhimInput.style.display = "none"; // Hiển thị lại trường mã phim
+        lableMaPhim.style.display = "none"; // Hiển thị lại label mã phim
 
-        // Bỏ readonly cho trường mã nhân viên
-        maNhanVienInput.style.display = "none";
-        labelMaNhanVien.style.display = "none";
-        title.textContent = "Thêm mới nhân viên";
+        title.textContent = "Thêm mới phim";
         submitButton.textContent = "Lưu thông tin";
-
     }
+
     // Hiển thị form và modal
     form.classList.add("show");
-    model.classList.add("show");
+    modal.classList.add("show");
 }
+
 
 
 

@@ -61,15 +61,15 @@ namespace API.Model
             }
         }
 
-        public async Task<bool> deleteSuatChieu(string maSuat)
+        public async Task<bool> DeleteSuatChieu(string maNhanVien)
         {
-            var suatChieu = await _context.SuatChieu.FindAsync(maSuat);
-            if (suatChieu == null)
+            var nhanVien = await _context.SuatChieu.FindAsync(maNhanVien);  // Tìm nhân viên theo mã
+            if (nhanVien == null)
             {
-                return false;  // Nếu không tìm thấy suất chiếu, trả về false
+                return false;  // Nếu không tìm thấy nhân viên, trả về false
             }
 
-            _context.SuatChieu.Remove(suatChieu);  // Xóa suất chiếu khỏi cơ sở dữ liệu
+            _context.SuatChieu.Remove(nhanVien);  // Xóa nhân viên khỏi cơ sở dữ liệu
             await _context.SaveChangesAsync();  // Lưu thay đổi vào cơ sở dữ liệu
             return true;  // Trả về true nếu xóa thành công
         }

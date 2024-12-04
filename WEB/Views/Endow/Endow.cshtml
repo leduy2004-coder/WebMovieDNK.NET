@@ -1,0 +1,58 @@
+﻿@model IEnumerable<WEB.Models.UuDaiModel>
+
+@{
+	Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<style>
+	.text {
+		display: -webkit-box;
+		-webkit-line-clamp: 2; /* Giới hạn số dòng */
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+		text-overflow: ellipsis; /* Thêm dấu ... */
+	}
+</style>
+
+<section class="sidebar-page-container m-5">
+	<div class="container">
+		<div class="row">
+
+			<!-- Content Side -->
+			<div class="col-lg-12 col-md-12">
+				<div class="blog-classic row">
+					@foreach (var uudai in Model){
+						<!-- News Block One -->
+						<div class="col-xl-6 col-lg-6 col-md-6 mb-4">
+							<div class="news-block-two p-3" style=" box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+								<div class="inner-box" style="min-height: 470px;">
+									<div class="image">
+										<a href="@Url.Action("Detail", "Endow", new { maUuDai = uudai.MaUuDai })">
+											<img style="aspect-ratio:4/3 !important" src="@uudai.Anh" alt="phim-hay-het-y-–-khong-xem-hoi-phi">
+										</a>
+									</div>
+									<div class="lower-content">
+										<ul class="post-meta list-inline">
+											<li class="list-inline-item"><span class="icon flaticon-user"></span> Admin</li>
+											<li class="list-inline-item"><span class="icon flaticon-time"></span> @uudai.NgayDang</li>
+										</ul>
+										<h4><a href="/uu-dai/phim-hay-het-y-–-khong-xem-hoi-phi-40.html">@uudai.TieuDe</a></h4>
+										<div class="text">@uudai.NoiDung</div>
+										<a href="@Url.Action("Detail", "Endow", new { maUuDai = uudai.MaUuDai })" class="btn btn-primary btn-sm btn-pri">
+											<span class="txt">Xem thêm <i class="lnr lnr-arrow-right"></i></span>
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					}
+					
+
+					<!-- More News Blocks can be added below -->
+				</div>
+			</div>
+
+		</div>
+	</div>
+</section>

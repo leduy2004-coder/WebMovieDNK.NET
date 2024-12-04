@@ -14,7 +14,7 @@
 
 <div class="app-content-header">
     <h1 class="app-content-headerText">Trang quản lý suất chiếu</h1>
-    <button class="app-content-headerButton" onclick="showPhimForm(null,null,null,null,null)">Thêm suất chiếu</button>
+    <button class="app-content-headerButton" onclick="showSuatChieuForm(null,null,null,null,null,null)">Thêm suất chiếu</button>
 </div>
 
 <div class="app-content-actions">
@@ -113,15 +113,14 @@
                 </a>
             </div>
             <div class="product-cell stock">
-                @using (Html.BeginForm("XoaSanPham", "SanPham", FormMethod.Post, new { onsubmit = "return confirmDelete()" }))
+                @using (Html.BeginForm("DeleteSuatChieu", "Admin_QLSuatChieu", FormMethod.Post, new { onsubmit = "return confirmDelete()" }))
                 {
                     @Html.AntiForgeryToken()
-                    @Html.Hidden("maSanPhamXoa", nv)
+                    @Html.Hidden("maSuatChieu", nv.MaSuat)
                     <button type="submit" class="btn btn-danger">
                         <i class="fa fa-remove"></i> Xóa
                     </button>
                 }
-
             </div>
         </div>
 
@@ -140,43 +139,43 @@
             <form method="post" action="@Url.Action("LuuSuatChieu", "Admin_QLSuatChieu")" id="productForm">
                 <div class="mb-3">
                     <label asp-for="MaSuat" class="form-label text-dark fw-600">Mã suất chiếu</label>
-                    <input asp-for="MaSuat" name="MaSuat" class="form-control" placeholder="Nhập mã nhân viên" />
+                    <input asp-for="MaSuat" name="MaSuat" class="form-control" placeholder="Nhập mã suất chiếu" id="maSuat" />
                     <span asp-validation-for="MaSuat" class="text-danger"></span>
                 </div>
 
                 <div class="mb-3">
                     <label asp-for="MaPhim" class="form-label text-dark fw-600">Mã phim</label>
-                    <input asp-for="MaPhim" name="MaPhim" class="form-control" placeholder="Nhập tên nhân viên" />
+                    <input asp-for="MaPhim" name="MaPhim" class="form-control" placeholder="Nhập mã phim" id="maPhim" />
                     <span asp-validation-for="MaPhim" class="text-danger"></span>
                 </div>
 
                 <div class="mb-3">
                     <label asp-for="MaPhong" class="form-label text-dark fw-600">Mã phòng</label>
-                    <input asp-for="MaPhong" name="MaPhong" class="form-control" placeholder="Nhập số điện thoại" />
+                    <input asp-for="MaPhong" name="MaPhong" class="form-control" placeholder="Nhập mã phòng" id="maPhong" />
                     <span asp-validation-for="MaPhong" class="text-danger"></span>
                 </div>
 
                 <div class="mb-3">
                     <label asp-for="MaCa" class="form-label text-dark fw-600">Mã ca</label>
-                    <input asp-for="MaCa" name="MaCa" type="number" class="form-control" placeholder="Nhập giới tính" />
+                    <input asp-for="MaCa" name="MaCa" type="number" class="form-control" placeholder="Nhập mã ca" id="maCa" />
                     <span asp-validation-for="MaCa" class="text-danger"></span>
                 </div>
 
                 <div class="mb-3">
                     <label asp-for="NgayChieu" class="form-label text-dark fw-600">Ngày chiếu</label>
-                    <input asp-for="NgayChieu" name="NgayChieu" class="form-control" placeholder="Nhập ngày sinh" />
+                    <input asp-for="NgayChieu" name="NgayChieu" class="form-control" placeholder="Nhập ngày chiếu" id="ngayChieu" />
                     <span asp-validation-for="NgayChieu" class="text-danger"></span>
                 </div>
 
                 <div class="mb-3">
                     <label asp-for="TinhTrang" class="form-label text-dark fw-600">Tình trạng</label>
-                    <input asp-for="TinhTrang" name="TinhTrang" class="form-control" placeholder="Nhập địa chỉ" />
+                    <input asp-for="TinhTrang" name="TinhTrang" class="form-control" placeholder="Nhập tình trạng" id="tinhTrang" />
                     <span asp-validation-for="TinhTrang" class="text-danger"></span>
                 </div>
 
                 
                 <div class="d-grid my-4">
-                    <button type="submit" class="btn btn-primary">Lưu thông tin</button>
+                    <button type="submit" id="submit" class="btn btn-primary">Lưu thông tin</button>
                 </div>
             </form>
 

@@ -409,3 +409,8 @@ footer {
         .authen-content button:hover {
             background-color: #45a049;
         }
+
+.btn-pri {
+    color: #fff;
+    background-color: rgb(252, 27, 27);
+}

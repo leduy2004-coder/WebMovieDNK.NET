@@ -36,9 +36,8 @@ namespace API.Data
         [StringLength(200)]
         public string MatKhau { get; set; }
 
-        [ForeignKey("QuanLi")]
         public string MaQL { get; set; }
-        public virtual tbQuanLi QuanLi { get; set; }
+      
 
         
     }

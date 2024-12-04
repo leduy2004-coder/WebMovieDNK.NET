@@ -28,6 +28,7 @@ builder.Services.AddSession(options =>
 builder.Services.AddScoped<NhanVienService>();
 builder.Services.AddScoped<Admin_SuatChieuService>();
 builder.Services.AddScoped<Admin_ThongKeService>();
+builder.Services.AddScoped<Admin_QLPhimService>();
 builder.Services.AddScoped<MovieService>();
 builder.Services.AddScoped<LoginService>();
 //builder.Services.AddScoped<KhachHangService>();
@@ -36,6 +37,9 @@ builder.Services.AddScoped<Admin_QLKhachHangService>();
 builder.Services.AddScoped<ScheduleService>();
 builder.Services.AddScoped<CustomerService>();
 builder.Services.AddScoped<CommentService>();
+builder.Services.AddScoped<EndowService>();
+builder.Services.AddScoped<TicketService>();
+
 builder.Services.AddScoped<OrderDrinkService>();
 
 var app = builder.Build();
