@@ -38,3 +38,16 @@ body {
         background-color: #0056b3;
         border-color: #0056b3;
     }
+
+.img-drink {
+    height: 230px;
+}
+
+a {
+    text-decoration: none !important;
+    color: black;
+}
+
+.nav-link {
+    color: var(--dark-color);
+}

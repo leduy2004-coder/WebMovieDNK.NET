@@ -280,7 +280,7 @@ footer {
     border-left: 4px solid;
     box-shadow: 0 5px 8px rgba(0, 0, 0, 0.08);
     margin-top: 20px;
-    animation: slideInLeftAlert ease .3s, fadeOut linear 1s 1s forwards;
+    animation: slideInLeftAlert ease .3s, fadeOut linear 1s 3s forwards;
 }
 
 @keyframes slideInLeftAlert {

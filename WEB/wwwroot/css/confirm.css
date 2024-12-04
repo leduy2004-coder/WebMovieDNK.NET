@@ -138,3 +138,34 @@ body {
     font-size: 20px;
     color: red;
 }
+
+.drink-info {
+    margin-top: 20px;
+}
+
+.drink-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.drink-item {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    width: 300px;
+}
+
+.drink-image {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+    border-radius: 5px;
+    object-fit: cover;
+}
+
+.drink-details {
+    font-size: 14px;
+}

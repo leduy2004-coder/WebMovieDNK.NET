@@ -1,4 +1,5 @@
 ﻿using API.Data;
+using API.Dto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,7 @@ namespace KTGiuaKi.Dto
         public tbKhachHang KhachHang { get; set; }
 
         public string GheDat { get; set; }
+        public List<DoUongDTO> Drinks { get; set; }
 
     }
 }

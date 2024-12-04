@@ -100,7 +100,6 @@
 
     .book-content > div:last-child {
         padding: 0;
-        width: 15%;
         margin: auto;
     }
 
@@ -138,4 +137,43 @@
 
 .book-content ul li {
     padding: 5px 0;
+}
+
+.btn-order {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ff6f61;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+    .btn-order:hover {
+        background-color: #e65c50;
+        transform: translateY(-3px);
+    }
+
+.order-image {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+
+.order-text {
+    font-size: 15px;
+}
+
+.btn-bookTicket {
+    display: flex;
+    justify-content: center;
+    margin: 50px 100px 100px 100px;
+}
+
+.btn-book {
+    width: 30%;
 }

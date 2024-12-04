@@ -30,6 +30,8 @@ namespace API.Model
         public DbSet<GetPhimDangChieu> getPhimDangChieuDTOs { get; set; }
         public DbSet<GetNgayChieu> getNgayChieus { get; set; }
         public DbSet<GetCaChieu> getCaChieus { get; set; }
+        public DbSet<tbDoUong> DoUong { get; set; }
+        public DbSet<tbBookDoUong> BookDoUong { get; set; }
 
         public DbSet<LichSuKhachHangDTO> LichSuKH { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -39,6 +41,8 @@ namespace API.Model
             // Cấu hình khóa chính hợp thành cho tbBookGhe
             modelBuilder.Entity<tbBookGhe>()
                 .HasKey(b => new { b.MaGhe, b.MaBook }); // Chỉ định khóa chính hợp thành từ MaGhe và MaBook
+            modelBuilder.Entity<tbBookDoUong>()
+                .HasKey(b => new { b.MaBook, b.MaDoUong });
 
             modelBuilder.Entity<GetPhimDangChieu>().HasNoKey();
             modelBuilder.Entity<GetNgayChieu>().HasNoKey();

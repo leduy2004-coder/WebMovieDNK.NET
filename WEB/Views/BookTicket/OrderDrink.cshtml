@@ -1,0 +1,135 @@
+﻿@using WEB.Controllers
+@using WEB.Models
+
+@{
+    var ticket = ViewBag.Ticket as BookTicketRequest;
+    var drinks = ViewBag.Drink as List<DrinkModel>;
+}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+<link href="~/css/order.css" rel="stylesheet" />
+<div class="container my-5">
+    <div class="row">
+        <h3 class="mb-4">Danh Sách Đồ Uống</h3>
+        <!-- Danh sách đồ uống -->
+        <div class="col-lg-9">
+            <div class="row g-3">
+                @foreach (var drink in drinks)
+                {
+                    <div class="col-md-3">
+                        <div class="card drink-item shadow-sm">
+                            <img src="@drink.anh" alt="@drink.TenDH" class="img-drink"/>
+                            <div class="card-body text-center">
+                                <h5 class="card-title">@drink.TenDH</h5>
+                                <p class="card-text text-danger fw-bold">@String.Format("{0:N0} VNĐ", drink.Gia)</p>
+                                <div class="d-flex justify-content-center align-items-center mb-3">
+                                    <span style="margin-right: 10px;">Số lượng</span>
+                                    <input type="number"
+                                           class="form-control w-50 drink-quantity"
+                                           min="0"
+                                           value="0"
+                                           data-price="@drink.Gia"
+                                           data-id="@drink.MaDoUong" />
+                                    <!-- Input ẩn -->
+                                    <input type="hidden" name="maDoUong[]" value="@drink.MaDoUong" />
+                                    <input type="hidden" class="drink-hidden-quantity" name="soLuongDoUong[]" value="0" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <!-- Thông tin vé -->
+        <div class="col-lg-3">
+            <div class="ticket-info p-4 shadow rounded">
+                <h3 class="text-center mb-4">Thông Tin Vé</h3>
+                <p><strong>Rạp:</strong> DNK Cinema</p>
+                <p><strong>Phim:</strong> @ticket.TenPhim</p>
+                <p><strong>Suất Chiếu:</strong> @ticket.ThoiGian</p>
+                <p><strong>Ngày Chiếu:</strong> @ticket.NgayChieu</p>
+                <p><strong>Ghế:</strong> @ticket.chairBook</p>
+                <p style="color: red; font-size: 20px;">
+                    <strong>Tổng Tiền:</strong>
+                    <span id="totalPrice" data-base-price="@ticket.totalMoney">@String.Format("{0:N0} VNĐ", ticket.totalMoney)</span>
+                </p>
+                <form action="@Url.Action("Book", "BookTicket")" method="post" id="bookingForm">
+                    <input type="hidden" id="totalMoney" name="totalMoney" value="@ticket.totalMoney" />
+                    <input type="hidden" name="maPhim" value="@ticket.maPhim" />
+                    <input type="hidden" name="TenPhim" value="@ticket.TenPhim" />
+                    <input type="hidden" name="NgayChieu" value="@ticket.NgayChieu" />
+                    <input type="hidden" name="chairBook" value="@ticket.chairBook" />
+                    <input type="hidden" name="ThoiGian" value="@ticket.ThoiGian" />
+                    <input type="hidden" name="maSC" value="@ticket.maSC" />
+                    <input type="hidden" id="datdoUong" name="datdoUong" value="false" />
+
+                    <button class="btn btn-success w-100 mt-3">Xác Nhận</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Thêm JavaScript -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const totalPriceElement = document.getElementById("totalPrice");
+        const totalMoneyInput = document.getElementById("totalMoney");
+        const quantityInputs = document.querySelectorAll(".drink-quantity");
+        const bookingForm = document.getElementById("bookingForm");
+        const basePrice = parseInt(totalPriceElement.dataset.basePrice) || 0;
+
+        // Hàm tính tổng tiền và cập nhật hidden input
+        function updateTotalPrice() {
+            let total = basePrice;
+            let hasDrink = false;
+
+            // Xóa tất cả input hidden liên quan đến đồ uống trong form
+            document.querySelectorAll(".dynamic-drink-input").forEach(el => el.remove());
+
+            quantityInputs.forEach(input => {
+                const quantity = Math.max(parseInt(input.value) || 0, 0); // Giá trị >= 0
+                const price = parseInt(input.dataset.price);
+                const drinkId = input.dataset.id;
+
+                if (quantity > 0) {
+                    hasDrink = true;
+
+                    // Tạo input hidden cho maDoUong
+                    const drinkIdInput = document.createElement("input");
+                    drinkIdInput.type = "hidden";
+                    drinkIdInput.name = "maDoUong[]";
+                    drinkIdInput.value = drinkId;
+                    drinkIdInput.classList.add("dynamic-drink-input");
+                    bookingForm.appendChild(drinkIdInput);
+
+                    // Tạo input hidden cho soLuongDoUong
+                    const drinkQuantityInput = document.createElement("input");
+                    drinkQuantityInput.type = "hidden";
+                    drinkQuantityInput.name = "soLuongDoUong[]";
+                    drinkQuantityInput.value = quantity;
+                    drinkQuantityInput.classList.add("dynamic-drink-input");
+                    bookingForm.appendChild(drinkQuantityInput);
+                }
+
+                total += quantity * price;
+            });
+
+            totalPriceElement.textContent = `${total.toLocaleString()} VNĐ`;
+            totalMoneyInput.value = total;
+        }
+
+        // Sự kiện input cho số lượng đồ uống
+        quantityInputs.forEach(input => {
+            input.addEventListener("input", function () {
+                if (input.value < 0) input.value = 0; // Đảm bảo số lượng >= 0
+                updateTotalPrice();
+            });
+        });
+
+        // Khởi tạo tổng tiền ban đầu
+        updateTotalPrice();
+    });
+</script>

@@ -3,6 +3,7 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 <section class="book-section">
     <div class="container">
         <div class="leat-seat">
@@ -74,18 +75,39 @@
                     <li class="price"><b>Tổng tiền: </b>0 VNĐ</li>
                     <li><b>Tiền vé: </b> @Model.Money VNĐ</li>
                     <li id="money" style="display: none;">@Model.Money</li>
+
+                  
                 </ul>
             </div>
-            <div>
+            
+        </div>
+
+        <div>
             <form action="@Url.Action("Book", "BookTicket")" method="post" id="myForm" name="myForm">
+                <!-- Các input ẩn chung -->
                 <input type="hidden" id="chairBook" name="chairBook" />
                 <input type="hidden" id="totalMoney" name="totalMoney" value="0" />
-                 <input type="hidden" id="maPhim" name="maPhim" value="@Model.Movie.MaPhim" />
-                    <input type="hidden" id="maSC" name="maSC" value="@Model.Sche?.MaSuat" />
-                <button value="submit" class="btn-book">Đặt vé</button>
+                <input type="hidden" id="maPhim" name="maPhim" value="@Model.Movie.MaPhim" />
+                <input type="hidden" id="TenPhim" name="TenPhim" value="@Model.Movie.TenPhim" />
+                <input type="hidden" id="NgayChieu" name="NgayChieu" value="@Model.NgayChieu" />
+                <input type="hidden" id="ThoiGian" name="ThoiGian" value="@Model.ThoiGian" />
+                <input type="hidden" id="maSC" name="maSC" value="@Model.Sche?.MaSuat" />
+                <input type="hidden" id="datdoUong" name="datdoUong" value="false" />
+
+                <!-- Button đặt đồ uống -->
+                <div class="my-4 text-center">
+                    <button type="submit" class="btn btn-order" onclick="setOrderDrink()">
+                        <img src="~/img/food.png" alt="Đặt Đồ Uống" class="order-image" />
+                        <span class="order-text">Đặt Đồ Uống</span>
+                    </button>
+                </div>
+
+                <!-- Button đặt vé -->
+                <div class="btn-bookTicket text-center">
+                    <button type="submit" class="btn btn-book">Đặt Vé</button>
+                </div>
             </form>
 
-            </div>
         </div>
     </div>
 </section>

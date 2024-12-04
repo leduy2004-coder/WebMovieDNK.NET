@@ -15,19 +15,41 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" crossorigin="anonymous"></script>
 	<link href="~/css/style.css" rel="stylesheet" />
 	<link href="~/css/global.css" rel="stylesheet" />
+	<link href="~/font/fontawesome-free-6.2.0/fontawesome-free-6.2.0-web/css/all.min.css" rel="stylesheet" />
 </head>
 
 <body>
-    <!-- <div id="toast">
-        <div class="toast toast-Danger">
-            <div class="toast-icon"><i class="fa-solid fa-circle-check"></i></div>
-            <div class="toast-body">
-                <h3 class="toast-title">toastTitle</h3>
-                <p class="toast-mess">toastMess</p>
+    @if (TempData["Message"] != null)
+    {
+        var messageType = TempData["MessageType"]?.ToString() ?? "danger"; // Default to "danger" if null
+        <div id="toast">
+            <div class="toast toast-@(messageType.ToLower())">
+                <div class="toast-icon">
+                    @if (messageType.ToLower() == "success")
+                    {
+                        <i class="fa-solid fa-circle-check"></i>
+                    }
+                    else if (messageType.ToLower() == "warning")
+                    {
+                        <i class="fa-solid fa-exclamation-circle"></i>
+                    }
+                    else
+                    {
+                        <i class="fa-solid fa-times-circle"></i>
+                    }
+                </div>
+                <div class="toast-body">
+                    <h3 class="toast-title">@char.ToUpper(messageType[0])@messageType.Substring(1)</h3>
+                    <p class="toast-mess">@TempData["Message"]</p>
+                </div>
+                <div class="toast-close">
+                    <i class="fa-solid fa-xmark"></i>
+                </div>
             </div>
-            <div class="toast-close"><i class="fa-solid fa-xmark"></i></div>
         </div>
-      </div> -->
+    }
+
+    
     <header class="container-fluid">
         <div class="header-top ">
             <ul class="nav container">

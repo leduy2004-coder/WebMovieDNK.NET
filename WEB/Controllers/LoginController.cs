@@ -31,7 +31,8 @@ namespace WEB.Controllers
                     HttpContext.Session.SetString("UserId", loginResponse.MaKH);
                     HttpContext.Session.SetString("UserEmail", loginResponse.Email);
 
-                    TempData["SuccessMessage"] = "Đăng nhập thành công!";
+                    TempData["Message"] = "Đăng nhập thành công!";
+                    TempData["MessageType"] = "success";
                     return RedirectToAction("Index", "Home");
                 }
         
@@ -40,12 +41,14 @@ namespace WEB.Controllers
             catch (HttpRequestException ex)
             {
                 // API trả về lỗi 401
-                TempData["ErrorMessage"] = "Email hoặc mật khẩu không chính xác!";
+                TempData["Message"] = "Email hoặc mật khẩu không chính xác!";
+                TempData["MessageType"] = "error";
             }
             catch (Exception ex)
             {
                 // Xử lý lỗi khác
-                TempData["ErrorMessage"] = "Đã xảy ra lỗi. Vui lòng thử lại sau!";
+                TempData["Message"] = "Đã xảy ra lỗi. Vui lòng thử lại sau!";
+                TempData["MessageType"] = "error";
             }
 
             return View("login");
@@ -69,7 +72,9 @@ namespace WEB.Controllers
                 return Conflict("Tên tài khoản hoặc email đã tồn tại.");
             }
 
-            TempData["SuccessMessage"] = "Đăng ký thành công!";
+
+            TempData["Message"] = "Đăng ký thành công!";
+            TempData["MessageType"] = "success";
             return RedirectToAction("Index", "Home");
         }
     
@@ -90,7 +95,8 @@ namespace WEB.Controllers
         public IActionResult Logout()
         {
             HttpContext.Session.Clear();
-            TempData["SuccessMessage"] = "Đã đăng xuất thành công!";
+            TempData["Message"] = "Đã đăng xuất thành công!";
+            TempData["MessageType"] = "success";
             return RedirectToAction("Index", "Home");
         }
     }

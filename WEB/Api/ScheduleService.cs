@@ -95,6 +95,35 @@ namespace Web.Api
                 }
             }
 
+            //Thêm đồ uống nếu có
+            if (request.maDoUong != null && request.soLuongDoUong != null && request.maDoUong.Count() > 0)
+            {
+                // Tạo danh sách OrderDrinkModel
+                var orderDrinkList = new List<OrderDrinkModel>();
+                for (int i = 0; i < request.maDoUong.Count; i++)
+                {
+                    if (request.soLuongDoUong[i] > 0)
+                    {
+                        var orderDrink = new OrderDrinkModel
+                        {
+                            MaBook = responseBookVe.MaBook,
+                            MaDoUong = request.maDoUong[i],
+                            SoLuong = request.soLuongDoUong[i]
+                        };
+                        orderDrinkList.Add(orderDrink);
+                    }
+                }
+
+                foreach (var book in orderDrinkList)
+                {
+                    var responseBookGhe = await _apiService.PostDataAsync<OrderDrinkModel>("/api/datdouong/datdouong", book);
+                    if (responseBookGhe == null)
+                    {
+                        return null;
+                    }
+                }
+            }
+
             return responseBookVe.MaBook;
         }
 

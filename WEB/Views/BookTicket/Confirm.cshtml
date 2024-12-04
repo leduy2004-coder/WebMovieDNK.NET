@@ -29,6 +29,25 @@
             
         </div>
 
+        <!-- Đồ uống đã đặt -->
+        @if (Model.Drinks.Any())
+        {
+            <div class="drink-info">
+                <h3>Đồ uống đã đặt</h3>
+                <div class="drink-list">
+                    @foreach (var drink in Model.Drinks)
+                    {
+                        <div class="drink-item">
+                            <img src="@drink.anh" alt="@drink.TenDH" class="drink-image" />
+                            <div class="drink-details">
+                                <p><strong>Tên:</strong> @drink.TenDH</p>
+                                <p><strong>Số lượng:</strong> @drink.SoLuongDat</p>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
         
     </div>
 

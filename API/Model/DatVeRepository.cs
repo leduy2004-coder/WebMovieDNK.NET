@@ -1,5 +1,7 @@
 ﻿using API.Data;
+using API.Dto;
 using KTGiuaKi.Dto;
+using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
@@ -84,14 +86,26 @@ namespace API.Model
             // Ghép các mã ghế thành chuỗi
             string chuoiMaGhe = string.Join(", ", gheDat.Select(g => g.MaGhe));
 
-
+            var doUongs = await _context.BookDoUong
+                .Where(doUong => doUong.MaBook == maBook)
+                .ToListAsync();
+            List<DoUongDTO> listDrinks = new List<DoUongDTO>();  
+            foreach (var doUong in doUongs)
+            {
+                var drink = await _context.DoUong
+                .FirstOrDefaultAsync(p => p.MaDoUong == doUong.MaDoUong);
+                var doUongDTO = drink.Adapt<DoUongDTO>();
+                doUongDTO.SoLuongDat = doUong.SoLuong;
+                listDrinks.Add(doUongDTO);
+            }
             return new DatVeThanhCongDTO
             {
                 Phim = phim,
                 SuatChieu = suatChieu,
                 BookVe = bookVe,
                 KhachHang = khachHang,
-                GheDat = chuoiMaGhe
+                GheDat = chuoiMaGhe,
+                Drinks = listDrinks
             };
         }
 

@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System;
 using Web.Api;
+using WEB.Api;
 using WEB.Models;
 
 namespace WEB.Controllers
@@ -9,10 +11,12 @@ namespace WEB.Controllers
     public class BookTicketController : Controller
     {
         private readonly ScheduleService _schedule;
+        private readonly OrderDrinkService _order;
 
-        public BookTicketController(ScheduleService schedule)
+        public BookTicketController(ScheduleService schedule, OrderDrinkService order)
         {
             _schedule = schedule;
+            _order = order;
         }
 
         // Trang hiển thị thông tin đặt vé
@@ -53,9 +57,16 @@ namespace WEB.Controllers
         {
             if (string.IsNullOrEmpty(request.chairBook))
             {
-                ModelState.AddModelError(string.Empty, "Vui lòng chọn ghế trước khi đặt vé.");
-                return BadRequest(ModelState);
+                TempData["Message"] = "Vui lòng chọn ghế trước khi đặt vé.";
+                TempData["MessageType"] = "danger";
+                return RedirectToAction("GetBookTicket", new { maSuat = request.maSC });
             }
+            if (request.datdoUong)
+            {
+                HttpContext.Session.SetString("TicketData", JsonConvert.SerializeObject(request));  // Lưu vào Session
+                return RedirectToAction("OrderDrink");
+            }
+       
 
             // Lấy thông tin lịch chiếu
             var schedule = await _schedule.GetScheduleById(request.maSC);
@@ -73,23 +84,51 @@ namespace WEB.Controllers
 
             // Thành công, chuyển hướng đến trang xác nhận
             return RedirectToAction("Confirm", new { maBook = maBook});
+
         }
 
         // Trang xác nhận đặt vé
         [HttpGet("Confirm")]
         public async Task<IActionResult> Confirm(string maBook)
         {
+
             var model = await _schedule.GetInfoBookAsync(maBook);
        
             return View("Confirm", model);
+        }
+
+        // Trang đặt đồ uống
+        [HttpGet("Order-drink")]
+        public async Task<IActionResult> OrderDrink()
+        {
+            var ticketJson = HttpContext.Session.GetString("TicketData");
+            if (string.IsNullOrEmpty(ticketJson))
+            {
+                return RedirectToAction("Index", "Home"); 
+            }
+
+            var bookTicket = JsonConvert.DeserializeObject<BookTicketRequest>(ticketJson);
+
+            var listDrink = await _order.GetAllDrink();
+            ViewBag.Ticket = bookTicket;
+            ViewBag.Drink = listDrink;
+            return View("OrderDrink");
         }
     }
 
     public class BookTicketRequest
     {
         public string maPhim { get; set; }
+        public string TenPhim { get; set; }
+        public string NgayChieu { get; set; }
+        public string ThoiGian { get; set; }
         public string chairBook { get; set; } 
         public int totalMoney { get; set; }  
         public string maSC { get; set; }   
+        public bool datdoUong { get; set; }
+
+        public List<string> maDoUong { get; set; } 
+        public List<int> soLuongDoUong { get; set; } 
+
     }
 }

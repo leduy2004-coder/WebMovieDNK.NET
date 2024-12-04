@@ -24,6 +24,9 @@ var selectedSeatInfo = document.querySelector('.title-seat');
 
 var liElement = document.querySelector('#money');
 
+function setOrderDrink() {
+	document.getElementById('datdoUong').value = "true";
+}
 
 seats.forEach(function (seat) {
 	seat.addEventListener('click', function () {
