@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 using BCrypt.Net;
 using Microsoft.AspNetCore.Mvc;
 using API.Dto;
+using Microsoft.Extensions.Caching.Memory;
+using System.Net.Mail;
+using System.Net;
 
 namespace API.Model
 {
@@ -12,11 +15,15 @@ namespace API.Model
     public class KhachHangRepository : IKhachHangRepository
     {
         private readonly AppDbContext _context;
-
-        public KhachHangRepository(AppDbContext context)
+        private readonly IMemoryCache _cache;
+        public KhachHangRepository(AppDbContext context, IMemoryCache memoryCache)
         {
             _context = context;
+            _cache = memoryCache;
         }
+
+     
+        
 
         // Thêm mới một khách hàng
         public async Task<tbKhachHang> AddKhachHang(tbKhachHang kh)
@@ -74,6 +81,17 @@ namespace API.Model
             return existingKhachHang; // Trả về khách hàng đã cập nhật
         }
 
+        [HttpGet("LichSu/{maKH}")]
+        public async Task<IEnumerable<LichSuKhachHangDTO>> GetLSKhachHang(string maKH)
+        {
+
+
+            var result = await _context.LichSuKH
+                .FromSqlInterpolated($"SELECT * FROM dbo.fLichSuKH({maKH})")
+                .ToListAsync();
+            return result;
+        }
+
         public async Task<tbKhachHang> Login(string email, string plainPassword)
         {
             // Tìm khách hàng dựa trên TenTK
@@ -113,16 +131,63 @@ namespace API.Model
             return true; // Đăng ký thành công
         }
 
-        [HttpGet("LichSu/{maKH}")]
-        public async Task<IEnumerable<LichSuKhachHangDTO>> GetLSKhachHang(string maKH)
+        public async Task<bool> SendVerificationEmail(string email)
         {
 
+            // Tạo mã xác nhận
+            var verificationCode = new Random().Next(100000, 999999).ToString();
 
-            var result = await _context.LichSuKH
-                .FromSqlInterpolated($"SELECT * FROM dbo.fLichSuKH({maKH})")
-                .ToListAsync();
-            return result;
+            // Lưu mã xác nhận vào cache (thời hạn 5 phút)
+            _cache.Set(email, verificationCode, TimeSpan.FromMinutes(5));
+
+            // Tạo nội dung email
+            var message = new MailMessage
+            {
+                From = new MailAddress("appmoviednk@gmail.com", "Your App Name"),
+                Subject = "Mã xác nhận đăng ký",
+                Body = $"Cảm ơn bạn đã đăng ký tài khoản. Mã xác nhận của bạn là: {verificationCode}",
+                IsBodyHtml = false
+            };
+
+            message.To.Add(email);
+
+            // Cấu hình SMTP client
+            using var smtpClient = new SmtpClient("smtp.gmail.com", 587)
+            {
+                EnableSsl = true,
+                Credentials = new NetworkCredential("appmoviednk@gmail.com", "vmqpxvjghtsuygfs")
+            };
+
+            try
+            {
+                // Gửi email
+                smtpClient.Send(message);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Không thể gửi email xác nhận.", ex);
+                return false;
+            }
+
         }
+
+        public async Task<bool> VerifyCodeAsync(string email, string inputCode)
+        {
+            // Lấy mã xác nhận từ cache
+            if (_cache.TryGetValue(email, out string cachedCode))
+            {
+                if (cachedCode == inputCode)
+                {
+                    // Xóa mã xác nhận khỏi cache
+                    _cache.Remove(email);
+
+                    return true; // Đăng ký thành công
+                }
+            }
+            return false; // Mã xác nhận không đúng hoặc đã hết hạn
+        }
+
 
 
     }

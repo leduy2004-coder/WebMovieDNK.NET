@@ -39,7 +39,7 @@ namespace API.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<bool> RegisterAsync([FromBody] RegisterRequest request)
+        public async Task<bool> RegisterAsync(RegisterRequest request)
         {
             if (request == null || string.IsNullOrEmpty(request.TenTK) ||
                 string.IsNullOrEmpty(request.MatKhau) || string.IsNullOrEmpty(request.Sdt) ||
@@ -69,6 +69,52 @@ namespace API.Controllers
 
             return true;
         }
+
+        [HttpPost("sendCode")]
+        public async Task<bool> SendVerificationEmail([FromBody] string email)
+        {
+            if (string.IsNullOrEmpty(email))
+            {
+                return false;
+            }
+
+            try
+            {
+                // Gửi email và nhận mã xác nhận
+                var verificationCode = await khachHangRepository.SendVerificationEmail(email);
+
+                if (verificationCode)
+                {
+                    return true;
+                }
+
+                return false;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+
+
+        [HttpPost("verify")]
+        public async Task<bool> Verify([FromBody] VerifyCodeRequest request)
+        {
+            var result = await khachHangRepository.VerifyCodeAsync(request.Email, request.Code);
+            if (result)
+            {
+                return true;
+            }
+            return false;
+        }
+        public class VerifyCodeRequest
+        {
+            public string Email { get; set; }
+            public string Code { get; set; }
+        }
+
+
         public class LoginRequest
         {
             public string TenTK { get; set; }

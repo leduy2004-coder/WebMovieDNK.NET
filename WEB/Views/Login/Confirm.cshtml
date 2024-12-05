@@ -1,0 +1,45 @@
+﻿@model WEB.Models.CustomerModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/css/global.css" rel="stylesheet" />
+
+<section class="verify-code-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 d-flex align-items-center py-5" style="margin:0 auto">
+                <div class="container my-auto py-4 shadow-lg bg-white">
+                    <div class="row">
+                        <div class="col-11 col-lg-10 mx-auto">
+                            <h3 class="text-9 fw-600 text-center my-3">Nhập Mã Xác Nhận</h3>
+                            @if (TempData["ErrorMessage"] != null)
+                            {
+                                <div class="alert alert-danger text-center">
+                                    @TempData["ErrorMessage"]
+                                </div>
+                            }
+                            <form method="post" action="@Url.Action("VerifyCode", "Login")">
+                                <input type="hidden" name="HoTen" value="@Model.HoTen" />
+                                <input type="hidden" name="TenTK" value="@Model.TenTK" />
+                                <input type="hidden" name="Email" value="@Model.Email" />
+                                <input type="hidden" name="Sdt" value="@Model.Sdt" />
+                                <input type="hidden" name="MatKhau" value="@Model.MatKhau" />
+
+
+                                <div class="mb-3">
+                                    <label asp-for="VerificationCode" class="form-label text-dark fw-600">Mã xác nhận <b style="color:red">(*)</b></label>
+                                    <input asp-for="VerificationCode" name="VerificationCode" class="form-control rounded-0" placeholder="Mã xác nhận" />
+                                    <span asp-validation-for="VerificationCode" class="text-danger"></span>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary">Xác nhận</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

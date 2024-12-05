@@ -35,6 +35,7 @@ builder.Services.AddTransient<IUuDaiRepository, UuDaiRepository>();
 //  Thêm Controllers
 builder.Services.AddControllers();
 
+builder.Services.AddMemoryCache();
 
 builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("CloudinarySettings"));
 

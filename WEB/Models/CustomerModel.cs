@@ -7,8 +7,6 @@ namespace WEB.Models
     {
         internal bool IsSuccessStatusCode;
 
-        
-      
         public string MaKH { get; set; }
 
        
@@ -24,7 +22,7 @@ namespace WEB.Models
 
         public bool? TinhTrang { get; set; } = true;
 
-        
+        public string VerificationCode { get; set; }
         public string TenTK { get; set; }
 
         [Required]

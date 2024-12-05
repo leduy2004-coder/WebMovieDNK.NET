@@ -5,6 +5,7 @@ using System.Text;
 using Web.Api;
 using WEB.Models;
 using System.Threading.Tasks;
+using Web.Models;
 namespace WEB.Api
 {
     public class LoginService
@@ -45,6 +46,38 @@ namespace WEB.Api
                 return false; // Trả về false khi có lỗi
             }
 
+        }
+
+        public async Task<bool> SendCode(string email)
+        {
+            try
+            {
+                // Gửi dữ liệu dưới dạng đối tượng JSON thay vì chuỗi đơn giản
+                
+                var response= await _apiService.PostDataAsync<bool>("api/login/sendCode", email);
+                return response;
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Không thể gửi mã xác nhận: {ex.Message}");
+            }
+        }
+
+        public async Task<bool> Verify(string email, string code)
+        {
+            try
+            {
+                // Đóng gói email và code vào một object
+                var requestData = new { email, code };
+
+                // Gửi request đến API
+                return await _apiService.PostDataAsync<bool>("api/login/verify", requestData);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Không thể xác thực mã: {ex.Message}");
+            }
         }
     }
 }

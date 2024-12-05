@@ -31,12 +31,13 @@ namespace WEB.Controllers
                     HttpContext.Session.SetString("UserId", loginResponse.MaKH);
                     HttpContext.Session.SetString("UserEmail", loginResponse.Email);
 
-                    TempData["Message"] = "Đăng nhập thành công!";
-                    TempData["MessageType"] = "success";
-                    return RedirectToAction("Index", "Home");
+                    TempData["SuccessMessage"] = "Đăng nhập thành công!";
+                    return RedirectToAction("login", "Login");
+
+                    //return RedirectToAction("Index", "Admin_QLPhim");
                 }
-        
-                
+
+
             }
             catch (HttpRequestException ex)
             {
@@ -54,30 +55,71 @@ namespace WEB.Controllers
             return View("login");
         }
 
-        //register
         [HttpPost("register")]
-        public async Task<IActionResult> Register(CustomerModel regisRequest)
+        public async Task<IActionResult> Register(CustomerModel model)
         {
-            if (regisRequest == null || string.IsNullOrWhiteSpace(regisRequest.TenTK) ||
-                string.IsNullOrWhiteSpace(regisRequest.MatKhau) ||
-                string.IsNullOrWhiteSpace(regisRequest.Email))
+            // Gửi mã xác nhận
+            var isSent = await _loginService.SendCode(model.Email);
+            if (isSent)
             {
-                return BadRequest("Thông tin đăng ký không đầy đủ.");
+                TempData["Message"] = "Mã xác nhận đã được gửi đến email của bạn.";
+                return RedirectToAction("Confirm", model);
             }
-
-            var result = await _loginService.RegisterAsync(regisRequest);
-
-            if (!result)
+            else
             {
-                return Conflict("Tên tài khoản hoặc email đã tồn tại.");
+                TempData["ErrorMessage"] = "Có lỗi xảy ra khi gửi mã xác nhận.";
+                return View(model);
             }
-
-
-            TempData["Message"] = "Đăng ký thành công!";
-            TempData["MessageType"] = "success";
-            return RedirectToAction("Index", "Home");
         }
-    
+
+
+        [HttpGet("send-code")]
+        public async Task<bool> SendCode(string email)
+        {
+            var isSent = await _loginService.SendCode(email);
+            if (isSent)
+            {
+                TempData["Message"] = "Mã xác nhận đã được gửi lại đến email của bạn.";
+                return true;
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "Có lỗi xảy ra khi gửi lại mã xác nhận.";
+                return false;
+            }
+        }
+
+        [HttpPost("Verify")]
+        public async Task<IActionResult> VerifyCode(CustomerModel model)
+        {
+            if (string.IsNullOrEmpty(model.VerificationCode))
+            {
+                TempData["ErrorMessage"] = "Mã xác nhận không được để trống.";
+                return View(model);
+            }
+
+            var isValidCode = await _loginService.Verify(model.Email, model.VerificationCode);
+            if (!isValidCode)
+            {
+                TempData["ErrorMessage"] = "Mã xác nhận không hợp lệ.";
+                return View("Confirm",model);
+            }
+
+            // Bước 3: Đăng ký tài khoản
+            var isRegistered = await _loginService.RegisterAsync(model);
+            if (isRegistered)
+            {
+                TempData["Message"] = "Đăng ký thành công!";
+                return View("Login");  // Chuyển hướng đến trang đăng nhập
+            }
+
+            TempData["ErrorMessage"] = "Có lỗi xảy ra khi đăng ký tài khoản.";
+            return RedirectToAction("Confirm", model);
+        }
+
+
+
+
 
         [HttpGet("loginView")]
         public IActionResult loginView()
@@ -89,6 +131,13 @@ namespace WEB.Controllers
         public IActionResult RegisterView()
         {
             return View("Register");
+        }
+
+        [HttpGet("confirm")]
+        public IActionResult Confirm(CustomerModel model)
+        {
+            
+            return View(model);
         }
 
         [HttpGet("logout")]
