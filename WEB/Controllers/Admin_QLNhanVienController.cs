@@ -22,19 +22,24 @@ public class Admin_QLNhanVienController : Controller
 
     // Phương thức này sẽ đáp ứng yêu cầu POST cho "Admin_QLNhanVien/LuuNhanVien"
     [HttpPost]
-    [Route("LuuNhanVien")]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> LuuNhanVien(Admin_NhanVienModel sp)
     {
-        if (sp.MaNV != null)
+
+        var existingSanPham = await nvService.UpdateNhanVienAsync(sp);
+
+        if (existingSanPham != null)
         {
-            var NhanVien = nvService.UpdateNhanVienAsync(sp);
-            return RedirectToAction("Index", "Admin_QLNhanVien", new { actionType = "update", SaveSuccess = true });
+            var sanPham = nvService.UpdateNhanVienAsync(sp);
+
+            // Chuyển hướng đến trang Index với thông báo thành công
+            return RedirectToAction("", new { actionType = "update", SaveProductSuccess = true });
         }
         else
         {
             var sanPham = nvService.LuuNhanVienListAsync(sp);
-            return RedirectToAction("Index", "Admin_QLNhanVien", new { actionType = "create", SaveSuccess = true });
+            // Chuyển hướng đến trang Index với thông báo thành công
+            return RedirectToAction("", new { actionType = "create", SaveProductSuccess = true });
         }
     }
 

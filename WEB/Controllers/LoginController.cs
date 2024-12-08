@@ -26,15 +26,15 @@ namespace WEB.Controllers
 
                 if (loginResponse != null)
                 {
-                    
+
                     HttpContext.Session.SetString("UserName", loginResponse.TenTK);
                     HttpContext.Session.SetString("UserId", loginResponse.MaKH);
                     HttpContext.Session.SetString("UserEmail", loginResponse.Email);
 
                     TempData["SuccessMessage"] = "Đăng nhập thành công!";
-                    return RedirectToAction("login", "Login");
+                    //return RedirectToAction("login", "Login");
 
-                    //return RedirectToAction("Index", "Admin_QLPhim");
+                    return RedirectToAction("Index", "Admin_QLPhim");
                 }
 
 
@@ -102,7 +102,7 @@ namespace WEB.Controllers
             if (!isValidCode)
             {
                 TempData["ErrorMessage"] = "Mã xác nhận không hợp lệ.";
-                return View("Confirm",model);
+                return View("Confirm", model);
             }
 
             // Bước 3: Đăng ký tài khoản
@@ -136,7 +136,7 @@ namespace WEB.Controllers
         [HttpGet("confirm")]
         public IActionResult Confirm(CustomerModel model)
         {
-            
+
             return View(model);
         }
 
@@ -149,5 +149,5 @@ namespace WEB.Controllers
             return RedirectToAction("Index", "Home");
         }
     }
-  
+
 }

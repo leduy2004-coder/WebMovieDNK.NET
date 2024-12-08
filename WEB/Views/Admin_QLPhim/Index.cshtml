@@ -15,7 +15,7 @@
 <div class="app-content-header">
     <h1 class="app-content-headerText">Trang quản lý phim</h1>
 
-    <button class="app-content-headerButton" onclick="showPhimForm(null,null,null,null,null,null,null)">Thêm khách hàng</button>
+    <button class="app-content-headerButton" onclick="showPhimForm(null,null,null,null,null,null,null)">Thêm phim</button>
 </div>
 
 <div class="app-content-actions">
@@ -201,76 +201,85 @@
             <form method="post" action="@Url.Action("LuuPhim", "Admin_QLPhim")" id="productForm">
                 @Html.AntiForgeryToken()
 
-                <div class="mb-3">
-                    <label asp-for="MaPhim" class="form-label text-dark fw-600" id="labelphim">Mã phim</label>
-                    <input asp-for="MaPhim" name="MaPhim" class="form-control" placeholder="Nhập mã phim" id="maPhim" />
-                    <span asp-validation-for="MaPhim" class="text-danger"></span>
-                </div>
+                <div class="row form-row">
+                    <!-- Cột 1 -->
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label asp-for="MaPhim" class="form-label text-dark fw-600" id="labelphim">Mã phim</label>
+                            <input asp-for="MaPhim" name="MaPhim" class="form-control" placeholder="Nhập mã phim" id="maPhim" />
+                            <span asp-validation-for="MaPhim" class="text-danger"></span>
+                        </div>
 
-                <div class="mb-3">
-                    <label asp-for="MaLoaiPhim" class="form-label text-dark fw-600" >Mã loại phim</label>
-                    <input asp-for="MaLoaiPhim" name="MaLoaiPhim" class="form-control" placeholder="Nhập mã  loại phim" id="maLoaiPhim" />
-                    <span asp-validation-for="MaPhim" class="text-danger"></span>
-                </div>
+                        <div class="mb-3">
+                            <label asp-for="MaLoaiPhim" class="form-label text-dark fw-600">Mã loại phim</label>
+                            <input asp-for="MaLoaiPhim" name="MaLoaiPhim" class="form-control" placeholder="Nhập mã loại phim" id="maLoaiPhim" />
+                            <span asp-validation-for="MaLoaiPhim" class="text-danger"></span>
+                        </div>
 
-                <div class="mb-3">
-                    <label asp-for="TenPhim" class="form-label text-dark fw-600">Tên phim</label>
-                    <input asp-for="TenPhim" name="TenPhim" class="form-control" placeholder="Nhập tên phim" id="tenPhim" />
-                    <span asp-validation-for="TenPhim" class="text-danger"></span>
-                </div>
+                        <div class="mb-3">
+                            <label asp-for="TenPhim" class="form-label text-dark fw-600">Tên phim</label>
+                            <input asp-for="TenPhim" name="TenPhim" class="form-control" placeholder="Nhập tên phim" id="tenPhim" />
+                            <span asp-validation-for="TenPhim" class="text-danger"></span>
+                        </div>
 
-                <div class="mb-3">
-                    <label asp-for="DaoDien" class="form-label text-dark fw-600">Đạo diễn</label>
-                    <input asp-for="DaoDien" name="DaoDien" class="form-control" placeholder="Nhập tên đạo diễn" id="daoDien" />
-                    <span asp-validation-for="DaoDien" class="text-danger"></span>
-                </div>
+                        <div class="mb-3">
+                            <label asp-for="DaoDien" class="form-label text-dark fw-600">Đạo diễn</label>
+                            <input asp-for="DaoDien" name="DaoDien" class="form-control" placeholder="Nhập tên đạo diễn" id="daoDien" />
+                            <span asp-validation-for="DaoDien" class="text-danger"></span>
+                        </div>
 
-                <div class="mb-3">
-                    <label asp-for="DoTuoiYeuCau" class="form-label text-dark fw-600">Độ tuổi yêu cầu</label>
-                    <input asp-for="DoTuoiYeuCau" name="DoTuoiYeuCau" type="number" class="form-control" placeholder="Nhập độ tuổi yêu cầu" id="doTuoiYeuCau" />
-                    <span asp-validation-for="DoTuoiYeuCau" class="text-danger"></span>
-                </div>
+                        <div class="mb-3">
+                            <label asp-for="DoTuoiYeuCau" class="form-label text-dark fw-600">Độ tuổi yêu cầu</label>
+                            <input asp-for="DoTuoiYeuCau" name="DoTuoiYeuCau" type="number" class="form-control" placeholder="Nhập độ tuổi yêu cầu" id="doTuoiYeuCau" />
+                            <span asp-validation-for="DoTuoiYeuCau" class="text-danger"></span>
+                        </div>
+                    </div>
 
-                <div class="mb-3">
-                    <label asp-for="NgayKhoiChieu" class="form-label text-dark fw-600">Ngày khởi chiếu</label>
-                    <input asp-for="NgayKhoiChieu" name="NgayKhoiChieu" type="date" class="form-control" id="ngayKhoiChieu" />
-                    <span asp-validation-for="NgayKhoiChieu" class="text-danger"></span>
-                </div>
+                    <!-- Cột 2 -->
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label asp-for="NgayKhoiChieu" class="form-label text-dark fw-600">Ngày khởi chiếu</label>
+                            <input asp-for="NgayKhoiChieu" name="NgayKhoiChieu" type="date" class="form-control" id="ngayKhoiChieu" />
+                            <span asp-validation-for="NgayKhoiChieu" class="text-danger"></span>
+                        </div>
 
-                <div class="mb-3">
-                    <label asp-for="ThoiLuong" class="form-label text-dark fw-600">Thời lượng (phút)</label>
-                    <input asp-for="ThoiLuong" name="ThoiLuong" type="number" class="form-control" placeholder="Nhập thời lượng phim" id="thoiLuong" />
-                    <span asp-validation-for="ThoiLuong" class="text-danger"></span>
-                </div>
+                        <div class="mb-3">
+                            <label asp-for="ThoiLuong" class="form-label text-dark fw-600">Thời lượng (phút)</label>
+                            <input asp-for="ThoiLuong" name="ThoiLuong" type="number" class="form-control" placeholder="Nhập thời lượng phim" id="thoiLuong" />
+                            <span asp-validation-for="ThoiLuong" class="text-danger"></span>
+                        </div>
 
-                <div class="status-cus">
-                    <label asp-for="TinhTrang" class="form-label text-dark fw-600">Tình trạng</label>
-                    <input asp-for="TinhTrang" type="checkbox" class="form-check-input" id="tinhTrang" checked />
-                    <span asp-validation-for="TinhTrang" class="text-danger"></span>
-                </div>
+                        <div class="status-cus">
+                            <label asp-for="TinhTrang" class="form-label text-dark fw-600">Tình trạng</label>
+                            <input asp-for="TinhTrang" type="checkbox" class="form-check-input" id="tinhTrang" checked />
+                            <span asp-validation-for="TinhTrang" class="text-danger"></span>
+                        </div>
 
-                <div class="mb-3">
-                    <label asp-for="HinhDaiDien" class="form-label text-dark fw-600">Hình đại diện</label>
-                    <input asp-for="HinhDaiDien" name="HinhDaiDien" class="form-control" placeholder="Nhập URL hình đại diện" id="hinhDaiDien" />
-                    <span asp-validation-for="HinhDaiDien" class="text-danger"></span>
-                </div>
+                        <div class="mb-3">
+                            <label asp-for="HinhDaiDien" class="form-label text-dark fw-600">Hình đại diện</label>
+                            <input asp-for="HinhDaiDien" name="HinhDaiDien" class="form-control" placeholder="Nhập URL hình đại diện" id="hinhDaiDien" />
+                            <span asp-validation-for="HinhDaiDien" class="text-danger"></span>
+                        </div>
 
-                <div class="mb-3">
-                    <label asp-for="Video" class="form-label text-dark fw-600">Video</label>
-                    <input asp-for="Video" name="Video" class="form-control" placeholder="Nhập URL video" id="video" />
-                    <span asp-validation-for="Video" class="text-danger"></span>
-                </div>
+                        <div class="mb-3">
+                            <label asp-for="Video" class="form-label text-dark fw-600">Video</label>
+                            <input asp-for="Video" name="Video" class="form-control" placeholder="Nhập URL video" id="video" />
+                            <span asp-validation-for="Video" class="text-danger"></span>
+                        </div>
 
-                <div class="mb-3">
-                    <label asp-for="MoTa" class="form-label text-dark fw-600">Mô tả</label>
-                    <textarea asp-for="MoTa" name="MoTa" class="form-control" placeholder="Nhập mô tả phim" id="moTa"></textarea>
-                    <span asp-validation-for="MoTa" class="text-danger"></span>
+                        <div class="mb-3">
+                            <label asp-for="MoTa" class="form-label text-dark fw-600">Mô tả</label>
+                            <textarea asp-for="MoTa" name="MoTa" class="form-control" placeholder="Nhập mô tả phim" id="moTa"></textarea>
+                            <span asp-validation-for="MoTa" class="text-danger"></span>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="d-grid my-4">
                     <button type="submit" id="submit" class="btn btn-primary">Lưu thông tin</button>
                 </div>
             </form>
+
 
         </div>
     </div>

@@ -98,8 +98,9 @@ namespace API.Model
             }
         }
 
-        public async Task<tbPhim> UpdatePHIM(tbPhim phim)
+        public async Task<tbPhim> UpdatePHIM(tbPhim p)
         {
+            var phim = await _context.Phim.FindAsync(p.MaPhim);
             if (phim == null)
             {
                 throw new ArgumentNullException(nameof(phim));
@@ -126,7 +127,7 @@ namespace API.Model
 
                 await _context.SaveChangesAsync();
 
-                return existingPhim;
+                return phim;
             }
             catch (Exception ex)
             {

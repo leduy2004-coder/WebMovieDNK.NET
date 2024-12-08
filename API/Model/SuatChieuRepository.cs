@@ -74,14 +74,31 @@ namespace API.Model
             return true;  // Trả về true nếu xóa thành công
         }
 
-        public Task<tbSuatChieu> addSuatChieu(string maSuat)
+        public async Task<tbSuatChieu> addSuatChieu(tbSuatChieu maSuat)
         {
-            throw new NotImplementedException();
+            _context.SuatChieu.Add(maSuat); 
+            await _context.SaveChangesAsync(); 
+            return maSuat;
         }
 
-        public Task<tbSuatChieu> upadteSuatChieu(string maSuat)
+        public async Task<tbSuatChieu> upadteSuatChieu(tbSuatChieu suatChieu)
         {
-            throw new NotImplementedException();
+            // Tìm suất chiếu theo mã
+            var existingSuatChieu = await _context.SuatChieu.FindAsync(suatChieu.MaSuat);
+            if (existingSuatChieu == null) return null; // Nếu không tìm thấy, trả về null
+
+            // Cập nhật các thuộc tính của suất chiếu
+            existingSuatChieu.MaPhim = suatChieu.MaPhim;
+            existingSuatChieu.MaPhong = suatChieu.MaPhong;
+            existingSuatChieu.MaCa = suatChieu.MaCa;
+            existingSuatChieu.NgayChieu = suatChieu.NgayChieu;
+            existingSuatChieu.TinhTrang = suatChieu.TinhTrang;
+
+            // Lưu thay đổi vào cơ sở dữ liệu
+            await _context.SaveChangesAsync();
+
+            // Trả về suất chiếu đã cập nhật
+            return existingSuatChieu;
         }
 
         public async Task<tbSuatChieu> GetSuatChieuTheoMa(string maSC)

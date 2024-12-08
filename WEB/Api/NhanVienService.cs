@@ -21,6 +21,7 @@ namespace WEB.Api
         }
         public async Task<Admin_NhanVienModel> LuuNhanVienListAsync(Admin_NhanVienModel md)
         {
+            md.MaNV = null;
             return await _apiService.PostDataAsync<Admin_NhanVienModel>("api/nhanvien", md);
         }
 

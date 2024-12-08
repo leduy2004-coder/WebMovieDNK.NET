@@ -19,9 +19,9 @@ namespace API.Model
         Task<IEnumerable<GetCaChieu>> GetCaChieuTheoPhimVaNgay(string maPhim, string ngayChieu);
 
 
-        Task<tbSuatChieu> addSuatChieu(string maSuat);
+        Task<tbSuatChieu> addSuatChieu(tbSuatChieu maSuat);
 
-        Task<tbSuatChieu> upadteSuatChieu(string maSuat);
+        Task<tbSuatChieu> upadteSuatChieu(tbSuatChieu maSuat);
 
         Task<bool> DeleteSuatChieu(string maSuat);
         Task<List<tbSuatChieu>> GetAllSuatChieu();

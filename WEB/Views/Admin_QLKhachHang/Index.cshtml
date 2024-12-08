@@ -162,10 +162,9 @@
     <div class="d-flex justify-content-center">
         <div class="container">
             <h2 class="text-uppercase" id="title-form"></h2>
-
+         
             <form method="post" action="@Url.Action("LuuKhachHang", "Admin_QLKhachHang")" id="productForm">
                 @Html.AntiForgeryToken()
-
                 <div class="mb-3">
                     <label asp-for="MaKH" class="form-label text-dark fw-600" id="labelkhachhang">Mã khách hàng</label>
                     <input asp-for="MaKH" name="MaKH" class="form-control" placeholder="Nhập mã khách hàng" id="maKH" />
@@ -198,7 +197,7 @@
 
                 <div class="status-cus">
                     <label asp-for="TinhTrang" class="form-label text-dark fw-600">Tình trạng</label>
-                    <input asp-for="TinhTrang" type="checkbox" class="form-check-input" id="tinhTrang" checked />
+                    <input asp-for="TinhTrang" type="checkbox" name="TinhTrang" class="form-check-input" id="tinhTrang" checked />
                     <span asp-validation-for="TinhTrang" class="text-danger"></span>
                 </div>
 
@@ -214,18 +213,17 @@
                     <span asp-validation-for="MatKhau" class="text-danger"></span>
                 </div>
 
-                <input asp-for="DiemThuong" name="DiemThuong" type="hidden" id="diemThuong" value="0" />
 
-                <input asp-for="SoLuongVoucher" name="SoLuongVoucher" type="hidden" id="soLuongVoucher" value="0" />
-
-                <input asp-for="DiemDanh" name="DiemDanh" type="hidden" id="diemDanh" value="0" />
-
-                <input asp-for="NgayDiemDanhCuoi" name="NgayDiemDanhCuoi" type="hidden" id="ngayDiemDanhCuoi" value="" />
+                <input name="DiemThuong" type="hidden" id="diemThuong" value="0" />
+                <input name="SoLuongVoucher" type="hidden" id="soLuongVoucher" value="0" />
+                <input name="DiemDanh" type="hidden" id="diemDanh" value="0" />
+                <input name="NgayDiemDanhCuoi" type="hidden" id="ngayDiemDanhCuoi" value="" />
 
                 <div class="d-grid my-4">
                     <button type="submit" id="submit" class="btn btn-primary">Lưu thông tin</button>
                 </div>
             </form>
+
 
         </div>
     </div>

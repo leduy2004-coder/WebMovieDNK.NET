@@ -5,14 +5,17 @@ var model = document.getElementById("modal");
 var form = document.getElementById("product-form");
 var submitButton = document.getElementById("submit");
 
+var lableMaKhachHang = document.getElementById("labelkhachhang");
+
 var maKHInput = document.getElementById("maKH");
 var hoTenInput = document.getElementById("hoTen");
-var lableMaKhachHang = document.getElementById("labelkhachhang");
 var sdtInput = document.getElementById("sdt");
 var ngaySinhInput = document.getElementById("ngaySinh");
 var emailInput = document.getElementById("email");
 var tinhTrangInput = document.getElementById("tinhTrang");
 var tenTKInput = document.getElementById("tenTK");
+var MKInput = document.getElementById("matKhau");
+
 
 
 var title = document.getElementById("title-form");
@@ -35,7 +38,7 @@ if (gridButton && listButton && productsWrapper) {
     console.error("Không tìm thấy phần tử cần thiết trong DOM.");
 }
 
-function showKhachHangForm(maKH, hoTen, sdt, ngaySinh, email, tinhTrang, tenTK) {
+function showKhachHangForm(maKH, hoTen, sdt, ngaySinh, email, tinhTrang, tenTK, mk) {
     if (maKH != null) {
         // Gán giá trị cho các input
         maKHInput.value = maKH;
@@ -45,6 +48,7 @@ function showKhachHangForm(maKH, hoTen, sdt, ngaySinh, email, tinhTrang, tenTK) 
         emailInput.value = email;
         tinhTrangInput.value = tinhTrang;
         tenTKInput.value = tenTK;
+        MKInput.value = mk;
 
         // Thiết lập readonly cho trường mã khách hàng nếu chỉnh sửa
         maKHInput.setAttribute("readonly", "readonly");
@@ -60,6 +64,7 @@ function showKhachHangForm(maKH, hoTen, sdt, ngaySinh, email, tinhTrang, tenTK) 
         emailInput.value = "";
         tinhTrangInput.value = "";
         tenTKInput.value = "";
+        MKInput.value = "";
 
         // Bỏ readonly cho trường mã khách hàng
         maKHInput.style.display="none";

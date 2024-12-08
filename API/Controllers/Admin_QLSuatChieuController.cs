@@ -72,6 +72,57 @@ namespace YourApp.Controllers
 
             return NoContent(); // Trả về 204 No Content nếu xóa thành công
         }
+
+        //// Thêm mới suat chieu
+        //[HttpPost]
+        //public async Task<ActionResult<tbSuatChieu>> CreateSuatChieu(tbSuatChieu nv)
+        //{
+        //    if (nv == null)
+        //    {
+        //        return BadRequest("Thông tin suat chieu không hợp lệ.");
+        //    }
+
+        //    // Không cần yêu cầu MaNhanVien, cột này sẽ được tự động sinh
+        //    var createdNhanVien = await _suatChieuService.addSuatChieu(nv);
+
+        //    return CreatedAtAction(nameof(GetAllSuatChieu), new { maNhanVien = createdNhanVien.MaSuat }, createdNhanVien);
+        //}
+
+        //// Cập nhật thông tin suat chieu
+        //[HttpPut("{maSuatChieu}")]
+        //public async Task<ActionResult<tbSuatChieu>> UpdateSuatChieu(string maNhanVien, tbSuatChieu nv)
+        //{
+        //    if (nv == null)
+        //    {
+        //        return BadRequest("Dữ liệu không hợp lệ.");
+        //    }
+
+        //    if (nv.MaSuat != maNhanVien)
+        //    {
+        //        return BadRequest("Mã suat chieu không khớp.");
+        //    }
+
+        //    var updatedNhanVien = await _suatChieuService.upadteSuatChieu(nv);
+        //    if (updatedNhanVien == null)
+        //    {
+        //        return NotFound("Không tìm thấy.");
+        //    }
+
+        //    return Ok(updatedNhanVien);
+        //}
+
+        //// Xóa suat chieu
+        //[HttpDelete("{maSuatChieu}")]
+        //public async Task<ActionResult> DeleteSuatChieu(string maNhanVien)
+        //{
+        //    var result = await _suatChieuService.DeleteSuatChieu(maNhanVien);
+        //    if (!result)
+        //    {
+        //        return NotFound("Không tìm thấy.");
+        //    }
+
+        //    return NoContent(); // Trả về 204 No Content nếu xóa thành công
+        //}
     }
 }
 

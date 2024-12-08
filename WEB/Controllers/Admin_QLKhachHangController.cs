@@ -24,10 +24,11 @@ using WEB.Models;
     [ValidateAntiForgeryToken]
         public async Task<IActionResult> LuuKhacHang(Admin_QLKhachHangModel sp)
         {
+        var existingSanPham = await khService.UpdateKhachHangAsync(sp);
 
-            if (sp.MaKH != null)
+        if (existingSanPham != null)
             {
-                var NhanVien = khService.UpdateKhachHangAsync(sp);
+                var kh = khService.UpdateKhachHangAsync(sp);
 
                 // Chuyển hướng đến trang Index với thông báo thành công
                 return RedirectToAction("Index", "Admin_QLKhachHang", new { actionType = "update", SaveSuccess = true });

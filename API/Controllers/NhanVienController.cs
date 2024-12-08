@@ -26,9 +26,13 @@ namespace API.Controllers
                 return BadRequest("Thông tin nhân viên không hợp lệ.");
             }
 
+            // Không cần yêu cầu MaNhanVien, cột này sẽ được tự động sinh
             var createdNhanVien = await _nhanVienRepository.AddNhanVien(nv);
+
             return CreatedAtAction(nameof(GetNhanVien), new { maNhanVien = createdNhanVien.MaNV }, createdNhanVien);
         }
+
+
 
         // Cập nhật thông tin nhân viên
         [HttpPut("{maNhanVien}")]
