@@ -160,7 +160,7 @@
             <div class="product-cell"><span class="cell-label">Tên tài khoản:</span>@nv.TenTK</div>
             <div class="product-cell stock">
                 <span class="cell-label">Chỉnh sửa:</span>
-                <a onclick="showNhanVienForm('@nv.MaNV', '@nv.HoTen', '@nv.Sdt', '@nv.GioiTinh', '@nv.DiaChi', '@nv.Cccd',
+                <a onclick="showNhanVienForm('@nv.MaNV', '@nv.HoTen', '@nv.Sdt', '@nv.GioiTinh','@nv.NgaySinh', '@nv.DiaChi', '@nv.Cccd',
                                             '@nv.TinhTrang', '@nv.TenTK', '@nv.MatKhau')">
                     <i class="fa fa-edit"></i>
                 </a>
@@ -264,7 +264,7 @@
                             <span asp-validation-for="TinhTrang" class="text-danger"></span>
                         </div>
 
-                        <input asp-for="MaQL" name="MaQL" type="hidden" id="MaQL" value="QL1"/>
+                        <input asp-for="MaRole" name="MaRole" type="hidden" id="MaRole" value="1" />
 
                     </div>
                 </div>

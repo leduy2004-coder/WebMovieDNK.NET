@@ -44,7 +44,13 @@ function showKhachHangForm(maKH, hoTen, sdt, ngaySinh, email, tinhTrang, tenTK, 
         maKHInput.value = maKH;
         hoTenInput.value = hoTen;
         sdtInput.value = sdt;
-        ngaySinhInput.value = ngaySinh;
+
+        const [month, day, year] = ngaySinh.split(" ")[0].split("/");
+
+        const ngaySinhFormatted = `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
+
+        ngaySinhInput.value = ngaySinhFormatted;
+
         emailInput.value = email;
         tinhTrangInput.value = tinhTrang;
         tenTKInput.value = tenTK;

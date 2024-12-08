@@ -5,6 +5,7 @@ using WEB.Models;
 
 namespace WEB.Controllers
 {
+    [Route("Admin_QLSuatChieu")]
     public class Admin_QLSuatChieuController : Controller
     {
         private readonly Admin_SuatChieuService scService;
@@ -12,11 +13,13 @@ namespace WEB.Controllers
         {
             this.scService = scService;
         }
-        public async Task<IActionResult> IndexAsync()
+        [HttpGet]
+        [Route("Index")]
+        public async Task<IActionResult> Index()
         {
             var listSC = await scService.GetAllSuatChieu();
 
-            return PartialView("Index", listSC.ToList());
+            return View("Index", listSC.ToList());
         }
 
         [HttpPost]

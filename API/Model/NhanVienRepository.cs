@@ -18,9 +18,20 @@ namespace API.Model
         // Thêm một nhân viên mới vào cơ sở dữ liệu
         public async Task<tbNhanVien> AddNhanVien(tbNhanVien nv)
         {
-            _context.NhanVien.Add(nv);  // Thêm nhân viên vào DbSet NhanVien
-            await _context.SaveChangesAsync();  // Lưu thay đổi vào cơ sở dữ liệu
-            return nv;  // Trả về nhân viên đã thêm
+            try
+            {
+                nv.MaNV = "";
+                _context.NhanVien.Add(nv);
+
+                await _context.SaveChangesAsync();
+
+                return nv;  
+            }
+            catch (Exception ex)
+            {
+
+                throw new InvalidOperationException("Lỗi khi thêm nhân viên vào cơ sở dữ liệu.", ex);
+            }
         }
 
         // Cập nhật thông tin nhân viên dựa trên mã nhân viên
@@ -42,7 +53,7 @@ namespace API.Model
             nhanVien.TinhTrang = nv.TinhTrang;
             nhanVien.TenTK = nv.TenTK;
             nhanVien.MatKhau = nv.MatKhau;
-            nhanVien.MaQL = nv.MaQL;
+            nhanVien.MaRole = nv.MaRole;
 
             await _context.SaveChangesAsync();  // Lưu thay đổi vào cơ sở dữ liệu
             return nhanVien;  // Trả về nhân viên đã cập nhật
@@ -51,31 +62,37 @@ namespace API.Model
         // Xóa nhân viên khỏi cơ sở dữ liệu dựa trên mã nhân viên
         public async Task<bool> DeleteNhanVien(string maNhanVien)
         {
-            var nhanVien = await _context.NhanVien.FindAsync(maNhanVien);  // Tìm nhân viên theo mã
+            var nhanVien = await _context.NhanVien.FindAsync(maNhanVien);  
             if (nhanVien == null)
             {
-                return false;  // Nếu không tìm thấy nhân viên, trả về false
+                return false;  
             }
 
-            _context.NhanVien.Remove(nhanVien);  // Xóa nhân viên khỏi cơ sở dữ liệu
-            await _context.SaveChangesAsync();  // Lưu thay đổi vào cơ sở dữ liệu
-            return true;  // Trả về true nếu xóa thành công
+            nhanVien.TinhTrang = false;  
+
+            _context.NhanVien.Update(nhanVien);  
+            await _context.SaveChangesAsync();  
+            return true; 
         }
+
 
         // Lấy tất cả nhân viên từ cơ sở dữ liệu
         public async Task<IEnumerable<tbNhanVien>> GetAllNhanVien()
         {
-            return await _context.NhanVien.ToListAsync();  // Lấy tất cả nhân viên từ cơ sở dữ liệu
+            return await _context.NhanVien
+                                 .Where(nv => nv.TinhTrang == true && nv.MaRole == 1) 
+                                 .ToListAsync(); 
         }
+
 
         // Lấy thông tin nhân viên theo mã nhân viên
         public async Task<tbNhanVien> GetNhanVienById(string maNhanVien)
         {
             var nhanVien = await _context.NhanVien
-                .FirstOrDefaultAsync(nv => nv.MaNV == maNhanVien);  // Tìm nhân viên theo mã
-            return nhanVien;  // Trả về thông tin nhân viên nếu tìm thấy, ngược lại trả về null
+                .FirstOrDefaultAsync(nv => nv.MaNV == maNhanVien);  
+            return nhanVien;  
         }
-
+        
         // Lấy tên nhân viên theo mã nhân viên
         public async Task<string> GetNhanVien(string maNhanVien)
         {
@@ -88,5 +105,7 @@ namespace API.Model
 
             return "Nhân viên không tồn tại";  // Nếu không tìm thấy nhân viên, trả về thông báo
         }
+
+        
     }
 }

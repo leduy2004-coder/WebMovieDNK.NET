@@ -9,7 +9,7 @@ namespace API.Data
     {
         [Key]
         [StringLength(20)]
-        public string MaNV { get; set; }
+        public string? MaNV { get; set; }
 
         [Required]
         [StringLength(50)]
@@ -36,7 +36,7 @@ namespace API.Data
         [StringLength(200)]
         public string MatKhau { get; set; }
 
-        public string MaQL { get; set; }
+        public int MaRole { get; set; }
       
 
         

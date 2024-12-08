@@ -28,6 +28,7 @@ namespace API.Model
         // Thêm mới một khách hàng
         public async Task<tbKhachHang> AddKhachHang(tbKhachHang kh)
         {
+            kh.MaKH = "";
             _context.KhachHang.Add(kh); // Thêm khách hàng vào DbSet KhachHang
             await _context.SaveChangesAsync(); // Lưu thay đổi vào cơ sở dữ liệu
             return kh; // Trả về khách hàng đã thêm
@@ -36,19 +37,24 @@ namespace API.Model
         // Xóa khách hàng dựa trên mã khách hàng
         public async Task<bool> DeleteKhachHang(string maKhachHang)
         {
-            var khachHang = await _context.KhachHang.FindAsync(maKhachHang); // Tìm khách hàng theo mã
-            if (khachHang == null) return false; // Nếu không tìm thấy, trả về false
+            var khachHang = await _context.KhachHang.FindAsync(maKhachHang); 
+            if (khachHang == null) return false;
 
-            _context.KhachHang.Remove(khachHang); // Xóa khách hàng khỏi DbSet KhachHang
-            await _context.SaveChangesAsync(); // Lưu thay đổi vào cơ sở dữ liệu
-            return true; // Trả về true nếu xóa thành công
+            khachHang.TinhTrang = false;
+            _context.KhachHang.Update(khachHang); 
+            await _context.SaveChangesAsync();
+            return true; 
         }
+
 
         // Lấy danh sách tất cả khách hàng
         public async Task<IEnumerable<tbKhachHang>> GetDanhSachKhachHang()
         {
-            return await _context.KhachHang.ToListAsync(); // Trả về danh sách khách hàng
+            return await _context.KhachHang
+                                 .Where(kh => kh.TinhTrang == true) 
+                                 .ToListAsync(); 
         }
+
 
         // Lấy thông tin khách hàng theo mã
         public async Task<tbKhachHang> GetKhachHangById(string maKhachHang)
@@ -72,10 +78,7 @@ namespace API.Model
             existingKhachHang.TinhTrang = kh.TinhTrang;
             existingKhachHang.TenTK = kh.TenTK;
             existingKhachHang.MatKhau = kh.MatKhau;
-            existingKhachHang.DiemThuong = kh.DiemThuong;
-            existingKhachHang.SoLuongVoucher = kh.SoLuongVoucher;
-            existingKhachHang.DiemDanh = kh.DiemDanh;
-            existingKhachHang.NgayDiemDanhCuoi = kh.NgayDiemDanhCuoi;
+     
 
             await _context.SaveChangesAsync(); // Lưu thay đổi vào cơ sở dữ liệu
             return existingKhachHang; // Trả về khách hàng đã cập nhật
@@ -109,7 +112,16 @@ namespace API.Model
 
             return khachHang; // Trả về thông tin khách hàng nếu đăng nhập thành công
         }
+        public async Task<tbNhanVien> LoginAdmin(string email, string plainPassword)
+        {
+            var nhanVien = await _context.NhanVien
+                .FirstOrDefaultAsync(nv => nv.TenTK == email && nv.MatKhau == plainPassword && nv.MaRole == 2);
 
+            if (nhanVien == null)
+                return null; // Không tìm thấy người dùng
+
+            return nhanVien;
+        }
         public async Task<bool> RegisterAsync(tbKhachHang khachHang)
         {
             // Kiểm tra xem tài khoản hoặc email đã tồn tại

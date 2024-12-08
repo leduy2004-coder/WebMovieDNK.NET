@@ -52,7 +52,13 @@ function showNhanVienForm(maNV, hoTen, sdt, gioiTinh, ngaySinh, diaChi, cccd, ti
             manInput.checked = false; 
             womenInput.checked = true;  
         }
-        ngaySinhInput.value = ngaySinh;
+
+        const [month, day, year] = ngaySinh.split(" ")[0].split("/");
+
+        const ngaySinhFormatted = `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
+
+        ngaySinhInput.value = ngaySinhFormatted;
+
         diaChiInput.value = diaChi;
         cccdInput.value = cccd;
         tinhTrangInput.value = tinhTrang;
@@ -105,47 +111,7 @@ if (submitButton) {
 
         // Cập nhật giá trị cho trường ẩn
         var madanhmucHiddenInput = document.querySelector("input[name='NhanVienMoi.maNhanVien']");
-        madanhmucHiddenInput.value = maDanhMucInput.value;
-
-        /*  let isValid = true;
-          let errors = [];
-  
-          if (!manganhInput.value) {
-              isValid = false;
-              errors.push("Mã ngành không được để trống");
-              manganhInput.classList.add("is-invalid");
-          } else {
-              manganhInput.classList.remove("is-invalid");
-          }
-  
-          if (!tennganhInput.value) {
-              isValid = false;
-              errors.push("Tên ngành không được để trống");
-              tennganhInput.classList.add("is-invalid");
-          } else {
-              tennganhInput.classList.remove("is-invalid");
-          }
-  
-          if (!namthanhlapInput.value) {
-              isValid = false;
-              errors.push("Năm không được để trống");
-              namthanhlapInput.classList.add("is-invalid");
-          } else {
-              namthanhlapInput.classList.remove("is-invalid");
-          }
-          if (!makhoaInput.value) {
-              isValid = false;
-              errors.push("Bạn phải chọn một khoa.");
-              makhoaInput.classList.add("is-invalid");
-          } else {
-              makhoaInput.classList.remove("is-invalid");
-          }
-  
-          // Nếu có lỗi, hiển thị thông báo lỗi
-          if (!isValid) {
-              event.preventDefault();
-              showCustomAlert(errors.join("<br>"), "error");
-          }*/
+        madanhmucHiddenInput.value = maDanhMucInput.value;      
     });
 } else {
     console.error("Nút gửi không tìm thấy trong DOM");

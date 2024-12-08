@@ -26,7 +26,6 @@ builder.Services.AddTransient<IBinhLuanRepository, BinhLuanRepository>();
 builder.Services.AddTransient<IKhachHangRepository, KhachHangRepository>();
 builder.Services.AddTransient<INhanVienRepository, NhanVienRepository>();
 builder.Services.AddTransient<IVeRepository, VeRepository>();
-builder.Services.AddTransient<IQuanLiRepository, QuanLiRepository>();
 builder.Services.AddTransient<IDatVeRepository, DatVeRepository>();
 builder.Services.AddTransient<IDatDoUongRepository, DatDoUongRepository>();
 builder.Services.AddTransient<IUuDaiRepository, UuDaiRepository>();

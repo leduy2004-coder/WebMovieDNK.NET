@@ -27,17 +27,8 @@ namespace Web.Api
         {
             var response = await _httpClient.PostAsJsonAsync(url, data);
 
-            // Nếu response không thành công, log lỗi chi tiết
-            if (!response.IsSuccessStatusCode)
-            {
-                var errorContent = await response.Content.ReadAsStringAsync();
-                Console.WriteLine($"Error Response: {errorContent}");
-                throw new HttpRequestException($"API Error: {response.StatusCode}, Details: {errorContent}");
-            }
-
+            response.EnsureSuccessStatusCode();
             return await response.Content.ReadFromJsonAsync<T>();
-            //response.EnsureSuccessStatusCode();
-            //return await response.Content.ReadFromJsonAsync<T>();
         }
 
         // PUT method

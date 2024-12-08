@@ -21,9 +21,12 @@ namespace WEB.Api
         }
         public async Task<Admin_NhanVienModel> LuuNhanVienListAsync(Admin_NhanVienModel md)
         {
-            md.MaNV = null;
+
+            md.MaNV = null; // Đặt MaNV là null trước khi gửi dữ liệu
             return await _apiService.PostDataAsync<Admin_NhanVienModel>("api/nhanvien", md);
+
         }
+
 
         public async Task<Admin_NhanVienModel> UpdateNhanVienAsync(Admin_NhanVienModel md)
         {

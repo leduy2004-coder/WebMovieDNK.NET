@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using API.Model;
 using API.Data;
+using API.Dto;
 
 namespace API.Controllers
 {
@@ -23,20 +24,39 @@ namespace API.Controllers
             // Kiểm tra nếu dữ liệu không hợp lệ
             if (request == null || string.IsNullOrEmpty(request.TenTK) || string.IsNullOrEmpty(request.MatKhau))
             {
-                return BadRequest("Email và mật khẩu không được để trống.");
+                return BadRequest("Tên tài khoản và mật khẩu không được để trống.");
             }
 
             // Gọi phương thức Login từ repository để xác thực thông tin đăng nhập
             var khachHang = await khachHangRepository.Login(request.TenTK, request.MatKhau);
+            var nhanvien = await khachHangRepository.LoginAdmin(request.TenTK, request.MatKhau);
 
-            if (khachHang == null)
+            // Nếu không tìm thấy cả khachHang và nhanvien
+            if (khachHang == null && nhanvien == null)
             {
                 return Unauthorized("Tài khoản hoặc mật khẩu không chính xác.");
             }
 
-            // Trả về kết quả nếu đăng nhập thành công
-            return Ok(khachHang);  // Có thể trả về thông tin khách hàng hoặc token nếu có
+            // Tạo LoginDTO dựa trên kết quả
+            var loginDTO = khachHang != null
+                ? CreateLoginDTO(khachHang.MaKH, khachHang.TenTK, khachHang.HoTen, khachHang.Email, "USER")
+                : CreateLoginDTO(nhanvien.MaNV, nhanvien.TenTK, nhanvien.HoTen, "", "ADMIN");
+
+            return Ok(loginDTO);
         }
+
+        private LoginDTO CreateLoginDTO(string id, string tenTK, string hoTen, string email, string role)
+        {
+            return new LoginDTO
+            {
+                Id = id,
+                TenTK = tenTK,
+                HoTen = hoTen,
+                Email = email,
+                Role = role
+            };
+        }
+
 
         [HttpPost("register")]
         public async Task<bool> RegisterAsync(RegisterRequest request)

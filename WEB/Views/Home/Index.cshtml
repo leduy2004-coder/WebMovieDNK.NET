@@ -8,13 +8,7 @@
 @{
     var userName = Context.Session.GetString("UserName");
 }
-<!-- Hiển thị thông báo lỗi nếu có -->
-@if (TempData["SuccessMessage"] != null) 
-{ 
-     <div class="alert alert-danger text-center"> 
-         @TempData["SuccessMessage"] 
-     </div> 
-} 
+
 
 <section class="slider">
     <img src="./img/banner.png" alt="" class="slider-img">

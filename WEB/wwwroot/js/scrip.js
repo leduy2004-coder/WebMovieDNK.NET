@@ -9,70 +9,86 @@ function getUrlParameter(name) {
     return results ? results[1] : null;
 }
 
-$(document).ready(function () {
-    const actionType = getUrlParameter('actionType');
-    const saveSuccess = getUrlParameter('SaveSuccess'); // Lấy giá trị SaveSuccess từ URL
-    console.log(actionType, saveSuccess);
-    setTimeout(function () {
-        removeUrl(); // Xóa tham số URL sau khi xử lý
+const accountInfoWrapper = document.querySelector('.account-info-wrapper');
 
-        if (saveSuccess === "True") { // Xử lý khi thành công
-            if (actionType === "create") {
-                $('.nav-link[data-url="/SanPham"]').click();
-                showCustomAlert("Thêm thành công !!", "success");
-            } else if (actionType === "update") {
-                $('.nav-link[data-url="/SanPham"]').click();
-                showCustomAlert("Cập nhật thành công !!", "success");
-            } else if (actionType === "delete") {
-                $('.nav-link[data-url="/SanPham"]').click();
-                showCustomAlert("Xóa thành công !!", "success");
-            }
-        } else if (saveSuccess === "False") { // Xử lý khi thất bại
-            if (actionType === "create") {
-                showCustomAlert("Thêm thất bại. Vui lòng thử lại!", "error");
-            } else if (actionType === "update") {
-                showCustomAlert("Cập nhật thất bại. Vui lòng thử lại!", "error");
-            } else if (actionType === "delete") {
-                showCustomAlert("Xóa thất bại. Vui lòng thử lại!", "error");
-            }
-        }
-    }, 100); // Đợi 100ms trước khi thực hiện click
+accountInfoWrapper?.addEventListener('click', () => {
+    accountInfoWrapper.classList.toggle('active');
+});
+
+// Đóng menu khi nhấp ra ngoài
+document.addEventListener('click', (event) => {
+    if (!accountInfoWrapper.contains(event.target)) {
+        accountInfoWrapper.classList.remove('active');
+    }
 });
 
 
-    $(document).on('click', '.nav-link', function (e) {
+$(document).ready(function () {
+    // Kiểm tra nếu có thông số 'SaveSuccess' trong URL
+    if (getUrlParameter('SaveSuccess') != null) {
+        const actionType = getUrlParameter('actionType');
+        const saveSuccess = getUrlParameter('SaveSuccess');
 
-        var url = $(this).data('url');
+        // Lưu trạng thái vào sessionStorage trước khi reload
+        sessionStorage.setItem('SaveSuccess', saveSuccess);
+        sessionStorage.setItem('actionType', actionType);
 
-        e.preventDefault();
+        // Xóa tham số URL để tránh lặp lại xử lý
+        removeUrl();
 
-        $('.sidebar-list-item').removeClass('active');
+        // Tải lại trang
+        location.reload();
+    }
 
+    // Kiểm tra trạng thái thông báo sau khi tải lại
+    const saveSuccess = sessionStorage.getItem('SaveSuccess');
+    const actionType = sessionStorage.getItem('actionType');
+    if (saveSuccess != null) {
+        // Hiển thị thông báo dựa trên trạng thái đã lưu
+        setTimeout(function () {
+            if (saveSuccess === "True") {
+                if (actionType === "create") {
+                    showCustomAlert("Thêm thành công !!", "success");
+                } else if (actionType === "update") {
+                    showCustomAlert("Cập nhật thành công !!", "success");
+                } else if (actionType === "delete") {
+                    showCustomAlert("Xóa thành công !!", "success");
+                }
+            } else if (saveSuccess === "False") {
+                if (actionType === "create") {
+                    showCustomAlert("Thêm thất bại. Vui lòng thử lại!", "error");
+                } else if (actionType === "update") {
+                    showCustomAlert("Cập nhật thất bại. Vui lòng thử lại!", "error");
+                } else if (actionType === "delete") {
+                    showCustomAlert("Xóa thất bại. Vui lòng thử lại!", "error");
+                }
+            }
 
-        $(this).closest('.sidebar-list-item').addClass('active');
+            // Xóa trạng thái thông báo trong sessionStorage
+            sessionStorage.removeItem('SaveSuccess');
+            sessionStorage.removeItem('actionType');
+        }, 500); // Đợi 500ms để chắc chắn trang đã tải xong
+    }
+});
 
-
-        $.get(url, function (data) {
-            $('#content').html(data);
-        }).fail(function () {
-            console.error('Lỗi khi tải dữ liệu');
-        });
-
-    });
 
 function removeUrl() {
-    // Xóa 'CreateSuccess' khỏi URL
+    // Lấy URL hiện tại
     var currentUrl = window.location.href;
 
-    // Tạo một URL đối tượng từ URL hiện tại
+    // Tạo đối tượng URL từ URL hiện tại
     var url = new URL(currentUrl);
 
-    // Tạo URL mới chỉ với phần giao thức và tên miền
-    var newUrl = url.protocol + '//' + url.host + '/';
+    // Lấy phần đường dẫn trước tham số truy vấn (ví dụ: /Admin_Home/Index)
+    var pathname = url.pathname;
 
-    // Thay đổi URL trong thanh địa chỉ mà không làm mới trang
+    // Tạo URL mới chỉ với phần giao thức, tên miền và phần đường dẫn (không có tham số truy vấn)
+    var newUrl = url.protocol + '//' + url.host + pathname;
+
+    // Cập nhật URL trong thanh địa chỉ mà không làm mới trang
     history.replaceState(null, '', newUrl);
 }
+
 
 function showCustomAlert(message, state) {
     const alertDiv = document.getElementById("customAlert");

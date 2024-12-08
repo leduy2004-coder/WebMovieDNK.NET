@@ -17,6 +17,7 @@ namespace WEB.Api
         }
         public async Task<Admin_QLKhachHangModel> LuuKhachHangListAsync(Admin_QLKhachHangModel md)
         {
+            md.MaKH = null;
             return await _apiService.PostDataAsync<Admin_QLKhachHangModel>("api/khachhang", md);
         }
 

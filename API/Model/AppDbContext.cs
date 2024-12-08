@@ -18,7 +18,6 @@ namespace API.Model
         public DbSet<tbPhim> Phim { get; set; }
 
         public DbSet<tbKhachHang> KhachHang { get; set; }
-        public DbSet<tbQuanLi> QuanLi { get; set; }
         public DbSet<tbTheLoaiPhim> TheLoaiPhim { get; set; }
         public DbSet<tbBinhLuan> BinhLuan { get; set; }
         public DbSet<tbCaChieu> CaChieu { get; set; }

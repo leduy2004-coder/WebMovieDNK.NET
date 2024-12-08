@@ -14,33 +14,39 @@ public class Admin_QLNhanVienController : Controller
     // Phương thức này sẽ đáp ứng yêu cầu GET cho "Admin_QLNhanVien/Index"
     [HttpGet]
     [Route("Index")]
-    public async Task<IActionResult> IndexAsync()
+    public async Task<IActionResult> Index()
     {
         var listNV = await nvService.GetNhanVienListAsync();
-        return PartialView("Index", listNV.ToList());
+        return View("Index", listNV.ToList());
     }
 
     // Phương thức này sẽ đáp ứng yêu cầu POST cho "Admin_QLNhanVien/LuuNhanVien"
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> LuuNhanVien(Admin_NhanVienModel sp)
+    public async Task<IActionResult> LuuNhanVien(Admin_NhanVienModel nv)
     {
-
-        var existingSanPham = await nvService.UpdateNhanVienAsync(sp);
-
-        if (existingSanPham != null)
+        try
         {
-            var sanPham = nvService.UpdateNhanVienAsync(sp);
+            if (nv.MaNV != null)
+            {
+                var sanPham = await nvService.UpdateNhanVienAsync(nv);
 
-            // Chuyển hướng đến trang Index với thông báo thành công
-            return RedirectToAction("", new { actionType = "update", SaveProductSuccess = true });
+                // Chuyển hướng đến trang Index với thông báo thành công
+                return RedirectToAction("Index", "Admin_QLNhanVien", new { actionType = "update", SaveSuccess = true });
+            }
+            else
+            {
+                var nhanVien = await nvService.LuuNhanVienListAsync(nv);
+              
+                // Chuyển hướng đến trang Index với thông báo thành công
+                return RedirectToAction("Index", "Admin_QLNhanVien", new { actionType = "create", SaveSuccess = true });
+            }
         }
-        else
+        catch (Exception ex)
         {
-            var sanPham = nvService.LuuNhanVienListAsync(sp);
-            // Chuyển hướng đến trang Index với thông báo thành công
-            return RedirectToAction("", new { actionType = "create", SaveProductSuccess = true });
+            return RedirectToAction("Index", "Admin_QLNhanVien", new { actionType = "create", SaveSuccess = false });
         }
+        
     }
 
     // Phương thức này sẽ đáp ứng yêu cầu POST cho "Admin_QLNhanVien/DeleteNhanVien"

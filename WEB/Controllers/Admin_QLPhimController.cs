@@ -4,6 +4,7 @@ using WEB.Models;
 
 namespace WEB.Controllers
 {
+    [Route("Admin_QLPhim")]
     public class Admin_QLPhimController : Controller
     {
         private readonly Admin_QLPhimService khService;
@@ -11,11 +12,13 @@ namespace WEB.Controllers
         {
             this.khService = khService;
         }
-        public async Task<IActionResult> IndexAsync()
+        [HttpGet]
+        [Route("Index")]
+        public async Task<IActionResult> Index()
         {
             var listSC = await khService.GetListPhim();
 
-            return PartialView("Index", listSC.ToList());
+            return View("Index", listSC.ToList());
         }
 
         [HttpPost]

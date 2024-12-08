@@ -24,7 +24,7 @@ namespace WEB.Models
 
         public string? MatKhau { get; set; }
 
-        public string? MaQL { get; set; }
+        public int? MaRole { get; set; }
 
     }
 }

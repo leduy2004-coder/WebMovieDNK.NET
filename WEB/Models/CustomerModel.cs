@@ -29,12 +29,6 @@ namespace WEB.Models
         [DataType(DataType.Password)]
         public string MatKhau { get; set; }
 
-        public int DiemThuong { get; set; } = 0;
-        public int SoLuongVoucher { get; set; } = 0;
-        public int DiemDanh { get; set; } = 0;
-
-        public DateTime? NgayDiemDanhCuoi { get; set; }
-
        
     }
 }

@@ -28,12 +28,6 @@ namespace API.Data
         [StringLength(200)]
         public string MatKhau { get; set; }
 
-        public int DiemThuong { get; set; }
-        public int SoLuongVoucher { get; set; } 
-        public int DiemDanh { get; set; }
-
-        public DateTime? NgayDiemDanhCuoi { get; set; }
-
        
     }
 }

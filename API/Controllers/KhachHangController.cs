@@ -46,9 +46,15 @@ namespace API.Controllers
             {
                 return BadRequest("Thông tin khách hàng không hợp lệ."); // Trả về lỗi 400 nếu dữ liệu không hợp lệ
             }
-
-            var createdKhachHang = await _khachHangRepository.AddKhachHang(kh);
-            return CreatedAtAction(nameof(GetKhachHangById), new { maKhachHang = createdKhachHang.MaKH }, createdKhachHang); // Trả về khách hàng vừa tạo
+            try
+            {
+                var createdKhachHang = await _khachHangRepository.AddKhachHang(kh);
+                return Ok(createdKhachHang);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Lỗi khi thêm nhân viên: {ex.Message}");
+            }
         }
 
         // Cập nhật thông tin khách hàng

@@ -18,10 +18,10 @@ namespace WEB.Api
 
 
       
-        public async Task<CustomerModel> LoginAsync(CustomerModel loginRequest)
+        public async Task<LoginModel> LoginAsync(CustomerModel loginRequest)
         {
             // Gửi yêu cầu POST đến API đăng nhập
-            var response = await _apiService.PostDataAsync<CustomerModel>("/api/login/login", loginRequest);
+            var response = await _apiService.PostDataAsync<LoginModel>("/api/login/login", loginRequest);
 
             // Kiểm tra kết quả từ API
             if (response != null )

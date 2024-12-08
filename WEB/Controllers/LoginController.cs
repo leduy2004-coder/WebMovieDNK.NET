@@ -28,15 +28,23 @@ namespace WEB.Controllers
                 {
 
                     HttpContext.Session.SetString("UserName", loginResponse.TenTK);
-                    HttpContext.Session.SetString("UserId", loginResponse.MaKH);
+                    HttpContext.Session.SetString("FullName", loginResponse.HoTen);
+                    HttpContext.Session.SetString("UserId", loginResponse.Id);
                     HttpContext.Session.SetString("UserEmail", loginResponse.Email);
+                    HttpContext.Session.SetString("Role", loginResponse.Role);
 
-                    TempData["SuccessMessage"] = "Đăng nhập thành công!";
-                    //return RedirectToAction("login", "Login");
+                   
+                    if (loginResponse.Role == "ADMIN")
+                    {
+                        return RedirectToAction("Index", "Admin_Home");
+                    }else if (loginResponse.Role == "USER")
+                    {
+                        TempData["Message"] = "Đăng nhập thành công!";
+                        TempData["MessageType"] = "success";
+                        return RedirectToAction("Index", "Home");
+                    }
 
-                    return RedirectToAction("Index", "Admin_QLPhim");
                 }
-
 
             }
             catch (HttpRequestException ex)
@@ -118,13 +126,17 @@ namespace WEB.Controllers
         }
 
 
-
-
-
         [HttpGet("loginView")]
         public IActionResult loginView()
         {
-            return View("Login");
+            var role = HttpContext.Session.GetString("Role");
+            if (role == "ADMIN")
+            {
+                HttpContext.Session.Clear();
+                return RedirectToAction("loginView", "Login");
+            }
+            else
+                return View("Login");
         }
 
         [HttpGet("registerView")]
@@ -146,7 +158,7 @@ namespace WEB.Controllers
             HttpContext.Session.Clear();
             TempData["Message"] = "Đã đăng xuất thành công!";
             TempData["MessageType"] = "success";
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("loginView", "Login");
         }
     }
 

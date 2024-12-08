@@ -20,19 +20,28 @@ namespace Web.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            var listPhimDC = await phimService.GetPhimDangChieu();
-            var listPhimSC = await phimService.GetPhimSapChieu();
-            var listUuDai = await _endowService.GetUuDais();
-            var model = new HomeViewModel
+            var role = HttpContext.Session.GetString("Role");
+            if (role == "ADMIN")
             {
-                PhimDangChieu = listPhimDC.ToList(),
-                PhimSapChieu = listPhimSC.ToList(),
-                DanhSachNgay = new List<DateTime>(),
-                CaChieu = new List<ShiftModel>(),
-                UuDai = listUuDai.ToList(), 
-            };
+                HttpContext.Session.Clear();
+                return RedirectToAction("loginView", "Login");
+            }else
+            {
+                var listPhimDC = await phimService.GetPhimDangChieu();
+                var listPhimSC = await phimService.GetPhimSapChieu();
+                var listUuDai = await _endowService.GetUuDais();
+                var model = new HomeViewModel
+                {
+                    PhimDangChieu = listPhimDC.ToList(),
+                    PhimSapChieu = listPhimSC.ToList(),
+                    DanhSachNgay = new List<DateTime>(),
+                    CaChieu = new List<ShiftModel>(),
+                    UuDai = listUuDai.ToList(),
+                };
 
-            return PartialView("Index", model);
+                return PartialView("Index", model);
+            }
+            
         }
 
    

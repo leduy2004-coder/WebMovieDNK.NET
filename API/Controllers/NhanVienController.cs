@@ -1,6 +1,7 @@
 ﻿using API.Data;
 using API.Model;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -26,10 +27,15 @@ namespace API.Controllers
                 return BadRequest("Thông tin nhân viên không hợp lệ.");
             }
 
-            // Không cần yêu cầu MaNhanVien, cột này sẽ được tự động sinh
-            var createdNhanVien = await _nhanVienRepository.AddNhanVien(nv);
-
-            return CreatedAtAction(nameof(GetNhanVien), new { maNhanVien = createdNhanVien.MaNV }, createdNhanVien);
+            try
+            {
+                var createdNhanVien = await _nhanVienRepository.AddNhanVien(nv);
+                return Ok(createdNhanVien);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Lỗi khi thêm nhân viên: {ex.Message}");
+            }
         }
 
 
