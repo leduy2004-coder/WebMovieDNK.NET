@@ -1,5 +1,5 @@
 ﻿@{
-    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";  // Sử dụng layout admin của trang
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 @model WEB.Models.Admin_HomeView
 
@@ -13,11 +13,14 @@
     <div class="my-4">
         <label for="yearSelect" class="form-label">Chọn năm</label>
         <select id="yearSelect" class="form-select" onchange="updateData()">
-            <option value="2024">2024</option>
-            <option value="2023">2023</option>
+            <option value="2024" @(ViewData["SelectedYear"]?.ToString() == "2024" ? "selected" : "")>2024</option>
+            <option value="2023" @(ViewData["SelectedYear"]?.ToString() == "2023" ? "selected" : "")>2023</option>
             <!-- Thêm các năm khác -->
         </select>
     </div>
+    <form id="yearForm" action="@Url.Action("getThongKe", "Admin_Home")" method="get" style="display: none;">
+        <input type="hidden" id="selectedYear" name="selectedYear" />
+    </form>
 
     <div class="row">
         <div class="col-md-8">
@@ -41,7 +44,7 @@
     </div>
 
     <h5 class="mt-4 title">Tài khoản đặt vé nhiều nhất</h5>
-    
+
     <table class="table table-striped">
         <thead>
             <tr>
@@ -61,10 +64,8 @@
                     <td>@user.TongTien</td>
                 </tr>
             }
-           
         </tbody>
     </table>
-
 </div>
 <style>
     .modal {
@@ -85,14 +86,13 @@
     .container {
         background: aliceblue;
     }
+
     .title {
         margin: 27px 10px;
         font-size: 25px;
         color: #1e2651;
     }
 </style>
-
-
 <script>
     const ctx = document.getElementById('salesChart').getContext('2d');
     const salesChart = new Chart(ctx, {
@@ -101,7 +101,7 @@
             labels: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'],
             datasets: [{
                 label: 'Số vé bán được',
-                data: [],
+                data: @Html.Raw(Json.Serialize(Model.VeBanTungThang)),
                 backgroundColor: 'rgba(54, 162, 235, 0.6)',
                 borderColor: 'rgba(54, 162, 235, 1)',
                 borderWidth: 1
@@ -117,7 +117,8 @@
     });
 
     function updateData() {
-  
+        const selectedYear = document.getElementById('yearSelect').value;
+        document.getElementById('selectedYear').value = selectedYear;  // Cập nhật giá trị đã chọn vào input hidden
+        document.getElementById('yearForm').submit(); // Gửi form
     }
 </script>
-

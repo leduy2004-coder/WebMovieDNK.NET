@@ -31,7 +31,7 @@ namespace API.Controllers
                 TongTienTheoNam = data1,
                 TongVeTrongNam = result2,
                 VeBanTungThang = data,
-                topCustomerDTOs = result1.ToList(),
+                topCustomerDTOs = result1,
             };
 
             return Ok(model);

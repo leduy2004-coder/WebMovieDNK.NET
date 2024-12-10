@@ -14,18 +14,25 @@ namespace WEB.Controllers
         }
         [HttpGet]
         [Route("Index")]
-        public async Task<IActionResult> Index(Admin_HomeView model)
+        public async Task<IActionResult> Index()
         {
+            var model = await service.GetThongKeAsync("2024");
 
             return View("Index", model);
         }
 
         [HttpGet]
-        public async Task<IActionResult> getThongKe(string nam)
+        public async Task<IActionResult> getThongKe(string selectedYear)
         {
-            var model = await service.GetThongKeAsync(nam);
+            if (string.IsNullOrEmpty(selectedYear))
+            {
+                selectedYear = "2024"; 
+            }
+            ViewData["SelectedYear"] = selectedYear;
 
-            return View("Index", model);
+            var model = await service.GetThongKeAsync(selectedYear);
+
+            return View("Index", model); 
         }
     }
 }

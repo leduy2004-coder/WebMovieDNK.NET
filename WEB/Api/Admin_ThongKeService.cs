@@ -18,18 +18,13 @@ namespace WEB.Api
         }
 
         // Phương thức gọi API để lấy dữ liệu thống kê
-        public async Task<List<Admin_HomeView>> GetThongKeAsync(string nam)
+        public async Task<Admin_HomeView> GetThongKeAsync(string nam)
         {
-            string url = $"api/thongke/{nam}"; ;
+            string url = $"api/thongke/thongke/{nam}"; 
 
-            var response = await _apiService.GetDataAsync<List<Admin_HomeView>>(url);
-    
-            if (response != null)
-            {
-                return response; 
-            }
+            var response = await _apiService.GetDataAsync<Admin_HomeView>(url);
 
-            return new List<Admin_HomeView>(); 
+            return response; 
         }
     }
 }
