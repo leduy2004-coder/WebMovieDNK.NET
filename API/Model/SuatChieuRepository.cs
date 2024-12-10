@@ -1,4 +1,5 @@
 ﻿using API.Data;
+using API.Dto;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
@@ -61,27 +62,39 @@ namespace API.Model
             }
         }
 
-        public async Task<bool> DeleteSuatChieu(string maNhanVien)
+        public async Task<bool> DeleteSuatChieu(string maSuatChieu)
         {
-            var nhanVien = await _context.SuatChieu.FindAsync(maNhanVien);  // Tìm nhân viên theo mã
-            if (nhanVien == null)
+            var suatChieu = await _context.SuatChieu.FindAsync(maSuatChieu);
+            if (suatChieu == null) return false;
+
+            suatChieu.TinhTrang = false;
+            _context.SuatChieu.Update(suatChieu);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<tbSuatChieu> addSuatChieu(SuatChieuDTO suatChieuDTO)
+        {
+            // Chuyển đổi DTO sang Entity
+            var suatChieu = new tbSuatChieu
             {
-                return false;  // Nếu không tìm thấy nhân viên, trả về false
-            }
+                MaSuat = "",
+                MaPhim = suatChieuDTO.MaPhim,
+                MaPhong = suatChieuDTO.MaPhong,
+                MaCa = suatChieuDTO.MaCa,
+                NgayChieu = suatChieuDTO.NgayChieu,
+                TinhTrang = suatChieuDTO.TinhTrang
+            };
 
-            _context.SuatChieu.Remove(nhanVien);  // Xóa nhân viên khỏi cơ sở dữ liệu
-            await _context.SaveChangesAsync();  // Lưu thay đổi vào cơ sở dữ liệu
-            return true;  // Trả về true nếu xóa thành công
+            // Thêm vào cơ sở dữ liệu
+            _context.SuatChieu.Add(suatChieu);
+            await _context.SaveChangesAsync();
+
+            // Trả về suất chiếu đã thêm
+            return suatChieu;
         }
 
-        public async Task<tbSuatChieu> addSuatChieu(tbSuatChieu maSuat)
-        {
-            _context.SuatChieu.Add(maSuat); 
-            await _context.SaveChangesAsync(); 
-            return maSuat;
-        }
-
-        public async Task<tbSuatChieu> upadteSuatChieu(tbSuatChieu suatChieu)
+        public async Task<tbSuatChieu> upadteSuatChieu(SuatChieuDTO suatChieu)
         {
             // Tìm suất chiếu theo mã
             var existingSuatChieu = await _context.SuatChieu.FindAsync(suatChieu.MaSuat);
@@ -101,7 +114,7 @@ namespace API.Model
             return existingSuatChieu;
         }
 
-        public async Task<tbSuatChieu> GetSuatChieuTheoMa(string maSC)
+        public async Task<tbSuatChieu> GetSuatChieuTheoMaSC(string maSC)
         {
             return await _context.SuatChieu
                 .Where(SC => SC.MaSuat == maSC)
@@ -136,6 +149,28 @@ namespace API.Model
         public async Task<IEnumerable<tbGhe>> GetAllGhe()
         {
             return await _context.Ghe.ToListAsync();
+        }
+
+   
+
+        public async Task<IEnumerable<tbCaChieu>> GetAvailableCaChieuForSuatChieu(string maPhim, DateTime ngayChieu)
+        {
+            var availableCaChieu = await _context.CaChieu
+              .Where(ca => !_context.SuatChieu
+                  .Any(sc => sc.MaCa == ca.MaCa && sc.NgayChieu == ngayChieu && sc.MaPhim == maPhim))
+              .ToListAsync();
+
+            return availableCaChieu;
+        }
+
+        public async Task<IEnumerable<tbPhongChieu>> GetAvailablePhongChieuForSuatChieu(string maCa, DateTime ngayChieu)
+        {
+            var availablePhongChieu = await _context.PhongChieu
+            .Where(phong => !_context.SuatChieu
+                .Any(sc => sc.MaPhong == phong.MaPhong && sc.MaCa == maCa && sc.NgayChieu == ngayChieu))
+            .ToListAsync();
+
+            return availablePhongChieu;
         }
     }
 }

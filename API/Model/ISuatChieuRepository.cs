@@ -1,4 +1,5 @@
 ﻿using API.Data;
+using API.Dto;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -9,7 +10,7 @@ namespace API.Model
     {
  
         Task<IEnumerable<tbSuatChieu>> GetSuatChuaChieu(string maPhim);
-        Task<tbSuatChieu> GetSuatChieuTheoMa(string maSC);
+        Task<tbSuatChieu> GetSuatChieuTheoMaSC(string maSC);
         Task<IEnumerable<tbGhe>> GetGheDaDat(string maSC);
         Task<IEnumerable<tbGhe>> GetAllGhe();
         Task<tbCaChieu> GetCaChieuTheoMaCa(string maCa);
@@ -19,11 +20,14 @@ namespace API.Model
         Task<IEnumerable<GetCaChieu>> GetCaChieuTheoPhimVaNgay(string maPhim, string ngayChieu);
 
 
-        Task<tbSuatChieu> addSuatChieu(tbSuatChieu maSuat);
+        Task<tbSuatChieu> addSuatChieu(SuatChieuDTO maSuat);
 
-        Task<tbSuatChieu> upadteSuatChieu(tbSuatChieu maSuat);
+        Task<tbSuatChieu> upadteSuatChieu(SuatChieuDTO maSuat);
 
         Task<bool> DeleteSuatChieu(string maSuat);
         Task<List<tbSuatChieu>> GetAllSuatChieu();
+
+        Task<IEnumerable<tbCaChieu>> GetAvailableCaChieuForSuatChieu(string maPhim, DateTime ngayChieu);
+        Task<IEnumerable<tbPhongChieu>> GetAvailablePhongChieuForSuatChieu(string maCa, DateTime ngayChieu);
     }
 }

@@ -7,7 +7,8 @@ namespace WEB.Controllers
     {
         public IActionResult Index()
         {
-            return View("Index");
+            var data = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 11 };
+            return View(data);
         }
     }
 }

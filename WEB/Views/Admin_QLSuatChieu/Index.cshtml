@@ -1,7 +1,7 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
-@model IEnumerable<WEB.Models.Admin_SuatChieuModel>
+@model WEB.Models.Admin_SuatChieuViewModel
 
 
 
@@ -78,7 +78,7 @@
         </div>
 
         <div class="product-cell category">
-           Tình trạng<button class="sort-button">
+            Tình trạng<button class="sort-button">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 512 512"><path fill="currentColor" d="M496.1 138.3L375.7 17.9c-7.9-7.9-20.6-7.9-28.5 0L226.9 138.3c-7.9 7.9-7.9 20.6 0 28.5 7.9 7.9 20.6 7.9 28.5 0l85.7-85.7v352.8c0 11.3 9.1 20.4 20.4 20.4 11.3 0 20.4-9.1 20.4-20.4V81.1l85.7 85.7c7.9 7.9 20.6 7.9 28.5 0 7.9-7.8 7.9-20.6 0-28.5zM287.1 347.2c-7.9-7.9-20.6-7.9-28.5 0l-85.7 85.7V80.1c0-11.3-9.1-20.4-20.4-20.4-11.3 0-20.4 9.1-20.4 20.4v352.8l-85.7-85.7c-7.9-7.9-20.6-7.9-28.5 0-7.9 7.9-7.9 20.6 0 28.5l120.4 120.4c7.9 7.9 20.6 7.9 28.5 0l120.4-120.4c7.8-7.9 7.8-20.7-.1-28.5z" /></svg>
             </button>
         </div>
@@ -94,10 +94,10 @@
             </button>
         </div>
 
-        
+
     </div>
 
-    @foreach (var nv in Model)
+    @foreach (var nv in Model.listSuatChieu)
     {
         <div class="products-row">
             <div class="product-cell category"><span class="cell-label">Mã suất chiếu:</span>@nv.MaSuat</div>
@@ -108,7 +108,7 @@
             <div class="product-cell category"><span class="cell-label">Tình trạng:</span>@nv.TinhTrang</div>
             <div class="product-cell stock">
                 <span class="cell-label">Chỉnh sửa:</span>
-                <a onclick="showProductForm('@nv.MaSuat', '@nv.MaPhim', '@nv.MaPhong', '@nv.MaCa', '@nv.NgayChieu','@nv.TinhTrang')">
+                <a onclick="showSuatChieuForm('@nv.MaSuat', '@nv.MaPhim', '@nv.MaPhong', '@nv.MaCa', '@nv.NgayChieu','@nv.TinhTrang')">
                     <i class="fa fa-edit"></i>
                 </a>
             </div>
@@ -137,43 +137,62 @@
             </h2>
 
             <form method="post" action="@Url.Action("LuuSuatChieu", "Admin_QLSuatChieu")" id="productForm">
+                @Html.AntiForgeryToken()
                 <div class="mb-3">
-                    <label asp-for="MaSuat" class="form-label text-dark fw-600">Mã suất chiếu</label>
+                    <label asp-for="MaSuat" class="form-label text-dark fw-600" id="labelIdSuatChieu">Mã suất chiếu</label>
                     <input asp-for="MaSuat" name="MaSuat" class="form-control" placeholder="Nhập mã suất chiếu" id="maSuat" />
                     <span asp-validation-for="MaSuat" class="text-danger"></span>
                 </div>
 
                 <div class="mb-3">
-                    <label asp-for="MaPhim" class="form-label text-dark fw-600">Mã phim</label>
-                    <input asp-for="MaPhim" name="MaPhim" class="form-control" placeholder="Nhập mã phim" id="maPhim" />
-                    <span asp-validation-for="MaPhim" class="text-danger"></span>
-                </div>
+                    <label asp-for="MaPhim" class="form-label text-dark fw-600">Tên phim</label>
 
-                <div class="mb-3">
-                    <label asp-for="MaPhong" class="form-label text-dark fw-600">Mã phòng</label>
-                    <input asp-for="MaPhong" name="MaPhong" class="form-control" placeholder="Nhập mã phòng" id="maPhong" />
-                    <span asp-validation-for="MaPhong" class="text-danger"></span>
-                </div>
-
-                <div class="mb-3">
-                    <label asp-for="MaCa" class="form-label text-dark fw-600">Mã ca</label>
-                    <input asp-for="MaCa" name="MaCa" type="number" class="form-control" placeholder="Nhập mã ca" id="maCa" />
-                    <span asp-validation-for="MaCa" class="text-danger"></span>
+                    <select id="maPhim" class="form-control">
+                        <option>Chọn phim</option>
+                        @foreach (var phim in Model.PhimDangChieu)
+                        {
+                            <option value="@phim.MaPhim">@phim.TenPhim</option>
+                        }
+                    </select>
                 </div>
 
                 <div class="mb-3">
                     <label asp-for="NgayChieu" class="form-label text-dark fw-600">Ngày chiếu</label>
-                    <input asp-for="NgayChieu" name="NgayChieu" class="form-control" placeholder="Nhập ngày chiếu" id="ngayChieu" />
+                    <input asp-for="NgayChieu" name="NgayChieu" type="date" class="form-control" placeholder="Nhập ngày chiếu" id="ngayChieu" />
                     <span asp-validation-for="NgayChieu" class="text-danger"></span>
                 </div>
 
                 <div class="mb-3">
+                    <label asp-for="MaCa" class="form-label text-dark fw-600">Ca chiếu</label>
+                    <select id="maCa" class="form-control">
+                        <option>Chọn ca chiếu</option>
+                        @foreach (var maCa in Model.CaChieu)
+                        {
+                            <option value="@maCa.MaCa">@maCa.TenCa</option>
+                        }
+
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="MaPhong" class="form-label text-dark fw-600">Phòng chiếu</label>
+                    <select id="maPhong" class="form-control">
+                        <option>Chọn phòng chiếu</option>
+                        @foreach (var phongChieu in Model.PhongChieu)
+                        {
+                            <option asp-for="maPhong" value="@phongChieu.MaPhong">@phongChieu.MaPhong</option>
+                        }
+
+                    </select>
+                </div>
+
+                <div class="status-cush
                     <label asp-for="TinhTrang" class="form-label text-dark fw-600">Tình trạng</label>
-                    <input asp-for="TinhTrang" name="TinhTrang" class="form-control" placeholder="Nhập tình trạng" id="tinhTrang" />
+                    <input asp-for="TinhTrang" name="TinhTrang" class="form-check-input" type="checkbox" checked  placeholder="Nhập tình trạng" id="tinhTrang" />
                     <span asp-validation-for="TinhTrang" class="text-danger"></span>
                 </div>
 
-                
+
                 <div class="d-grid my-4">
                     <button type="submit" id="submit" class="btn btn-primary">Lưu thông tin</button>
                 </div>
@@ -182,4 +201,9 @@
         </div>
     </div>
 </main>
+
+<script>
+  
+
+</script>
 <script src="~/js/suatchieu.js"></script>

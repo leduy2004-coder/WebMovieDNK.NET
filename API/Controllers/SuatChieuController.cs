@@ -29,7 +29,7 @@ namespace KTGiuaKi.Controllers
         [HttpGet("laysuatchieu/{maSC}")]
         public async Task<IActionResult> GetSuatChieuById(string maSC)
         {
-            var suatChieu = await _suatChieuRepository.GetSuatChieuTheoMa(maSC);
+            var suatChieu = await _suatChieuRepository.GetSuatChieuTheoMaSC(maSC);
 
             suatChieu.Phim = await _phimRepository.GetThongTinPhim(suatChieu.MaPhim);
             suatChieu.CaChieu = await _suatChieuRepository.GetCaChieuTheoMaCa(suatChieu.MaCa);
@@ -45,5 +45,7 @@ namespace KTGiuaKi.Controllers
             var gheDaDat = await _suatChieuRepository.GetGheDaDat(maSC);
             return Ok(gheDaDat);
         }
+
+
     }
 }

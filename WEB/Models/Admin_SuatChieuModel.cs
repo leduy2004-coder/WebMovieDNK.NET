@@ -21,11 +21,5 @@ namespace WEB.Models
  
         public bool TinhTrang { get; set; }
 
-      
-        public string Phim { get; set; }
-
-        public string PhongChieu { get; set; }
-
-        public string CaChieu { get; set; }
     }
 }

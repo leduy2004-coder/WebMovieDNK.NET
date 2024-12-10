@@ -62,9 +62,9 @@ namespace YourApp.Controllers
         }
 
         [HttpDelete("{maSuatChieu}")]
-        public async Task<ActionResult> DeleteVe(string maVe)
+        public async Task<ActionResult> DeleteSuatChieu(string maSuatChieu)
         {
-            var result = await _suatChieuService.DeleteSuatChieu(maVe);
+            var result = await _suatChieuService.DeleteSuatChieu(maSuatChieu);
             if (!result)
             {
                 return NotFound("Không tìm thấy suất chiếu.");
@@ -73,20 +73,70 @@ namespace YourApp.Controllers
             return NoContent(); // Trả về 204 No Content nếu xóa thành công
         }
 
-        //// Thêm mới suat chieu
-        //[HttpPost]
-        //public async Task<ActionResult<tbSuatChieu>> CreateSuatChieu(tbSuatChieu nv)
-        //{
-        //    if (nv == null)
-        //    {
-        //        return BadRequest("Thông tin suat chieu không hợp lệ.");
-        //    }
+        [HttpGet("thongTinSC/{maSuatChieu}")]
+        public async Task<ActionResult> GetThongTinSC(string maSuatChieu)
+        {
+            var result = await _suatChieuService.GetSuatChieuTheoMaSC(maSuatChieu);
+            if (result == null)
+            {
+                return NotFound("Không tìm thấy suất chiếu.");
+            }
 
-        //    // Không cần yêu cầu MaNhanVien, cột này sẽ được tự động sinh
-        //    var createdNhanVien = await _suatChieuService.addSuatChieu(nv);
+            return Ok(result); // Trả về 204 No Content nếu xóa thành công
+        }
 
-        //    return CreatedAtAction(nameof(GetAllSuatChieu), new { maNhanVien = createdNhanVien.MaSuat }, createdNhanVien);
-        //}
+        //Cập nhật thông tin suất chiếu
+        [HttpPut("updateSC")]
+        public async Task<IActionResult> UpdateSuatChieu(SuatChieuDTO sc)
+        {
+            var updatedSuatChieu = await _suatChieuService.upadteSuatChieu(sc);
+            if (updatedSuatChieu == null)
+            {
+                return NotFound("Không tìm thấy khách hàng."); // Trả về lỗi 404 nếu không tìm thấy
+            }
+
+            return Ok(updatedSuatChieu); // Trả về khách hàng đã cập nhật
+        }
+
+
+        // Thêm mới suat chieu
+        [HttpPost]
+        public async Task<ActionResult<tbSuatChieu>> CreateSuatChieu(SuatChieuDTO suatChieu)
+        {
+            if (suatChieu == null)
+            {
+                return BadRequest("Thông tin suat chieu không hợp lệ.");
+            }
+
+            // Không cần yêu cầu MaNhanVien, cột này sẽ được tự động sinh
+            var createdSuatChieu = await _suatChieuService.addSuatChieu(suatChieu);
+
+            return Ok(createdSuatChieu);
+        }
+
+        // Thêm mới suat chieu
+        [HttpGet("caChieuAvailable/{ngayChieu}/{maPhim}")]
+        public async Task<ActionResult<tbSuatChieu>> getCaChieuControng(DateTime ngayChieu, string maPhim)
+        {
+
+
+            // Không cần yêu cầu MaNhanVien, cột này sẽ được tự động sinh
+            var caChieus = await _suatChieuService.GetAvailableCaChieuForSuatChieu(maPhim, ngayChieu);
+
+            return Ok(caChieus);
+        }
+
+        [HttpGet("phongChieuAvailable/{maCa}/{ngaChieu}")]
+
+        public async Task<IActionResult> GetAvailablePhongChieu(string maCa, DateTime ngayChieu)
+        {
+
+            {
+                var availablePhongChieu = await _suatChieuService.GetAvailablePhongChieuForSuatChieu(maCa, ngayChieu);
+                return Ok(availablePhongChieu);
+            }
+
+        }
 
         //// Cập nhật thông tin suat chieu
         //[HttpPut("{maSuatChieu}")]
@@ -154,36 +204,7 @@ namespace YourApp.Controllers
 
 
 
-// Cập nhật thông tin suất chiếu
-//[HttpPut("{maSuatChieu}")]
-//public async Task<IActionResult> UpdateSuatChieu(string maSuatChieu, tbSuatChieu sc)
-//{
-//    if (sc == null)
-//    {
-//        return BadRequest(new { Status = 0, Message = "Dữ liệu suất chiếu không hợp lệ." });
-//    }
 
-//    if (sc.MaSuat != maSuatChieu)
-//    {
-//        return BadRequest(new { Status = 0, Message = "Mã suất chiếu không khớp." });
-//    }
-
-//    try
-//    {
-//        var updatedSuatChieu = await _suatChieuService.UpdateSuatChieu(sc);
-
-//        if (updatedSuatChieu == null)
-//        {
-//            return NotFound(new { Status = 0, Message = "Không tìm thấy suất chiếu." });
-//        }
-
-//        return Ok(new { Status = 1, Message = "Cập nhật suất chiếu thành công.", Data = updatedSuatChieu });
-//    }
-//    catch (Exception ex)
-//    {
-//        return StatusCode(500, new { Status = -1, Message = $"Đã xảy ra lỗi: {ex.Message}" });
-//    }
-//}
 
 //// Xóa suất chiếu
 //[HttpDelete("{maSuatChieu}")]

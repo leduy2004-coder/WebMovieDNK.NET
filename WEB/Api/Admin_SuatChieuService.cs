@@ -30,25 +30,22 @@ namespace WEB.Api
 
         public async Task<Admin_NhanVienModel> LuuSuatChieuListAsync(Admin_SuatChieuModel md)
         {
-            return await _apiService.PostDataAsync<Admin_NhanVienModel>("api/suatchieu", md);
+            return await _apiService.PostDataAsync<Admin_NhanVienModel>("api/Admin_QLSuatChieu", md);
         }
 
         public async Task<Admin_SuatChieuModel> UpdateSuatChieuAsync(Admin_SuatChieuModel md)
         {
-            string url = $"api/suatchieu/{md.MaSuat}";
+            string url = $"api/Admin_QLSuatChieu/updateSC";
             return await _apiService.PutDataAsync<Admin_SuatChieuModel>(url, md);
         }
-        public async Task<bool> DeleteSuatChieuAsync(string maNV)
+        public async Task<bool> DeleteSuatChieuAsync(string maSC)
         {
-            if (string.IsNullOrEmpty(maNV))
+            if (string.IsNullOrEmpty(maSC))
             {
-                throw new ArgumentException("Mã suất chiếu không hợp lệ.");
+                throw new ArgumentException("Mã khách hàng không hợp lệ.");
             }
-
             // Xây dựng URL API
-            string url = $"api/suatchieu/{maNV}";
-
-            // Gọi API để xóa nhân viên
+            string url = $"api/Admin_QLSuatChieu/{maSC}";
             bool deleteSuccess = await _apiService.DeleteDataAsync(url);
 
             return deleteSuccess;

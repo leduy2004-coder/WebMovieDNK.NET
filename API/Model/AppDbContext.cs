@@ -33,7 +33,7 @@ namespace API.Model
         public DbSet<KhachHangUuDai> KhachHangUuDai { get; set; }
         public DbSet<tbDoUong> DoUong { get; set; }
         public DbSet<tbBookDoUong> BookDoUong { get; set; }
-
+        public DbSet<tbPhongChieu> PhongChieu { get; set; }
         public DbSet<LichSuKhachHangDTO> LichSuKH { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
