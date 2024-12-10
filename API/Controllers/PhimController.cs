@@ -194,5 +194,12 @@ namespace KTGiuaKi.Controllers
             return Ok(formattedNgayXem.ToList());
         }
 
+        [HttpGet("Tim/{tenPhim}")]
+        public async Task<IActionResult> GetTimPhim(string tenPhim)
+        {
+            var result = await _phimRepository.GetTimPhim(tenPhim);
+
+            return Ok(result);
+        }
     }
 }

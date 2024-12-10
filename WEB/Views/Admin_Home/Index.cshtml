@@ -3,66 +3,130 @@
 }
 
 <!-- Thêm thư viện Chart.js từ CDN -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<!-- Thêm thư viện FontAwesome từ CDN -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
+<div class="container">
+    <div class="my-4">
+        <label for="yearSelect" class="form-label">Chọn năm</label>
+        <select id="yearSelect" class="form-select" onchange="updateData()">
+            <option value="2024">2024</option>
+            <option value="2023">2023</option>
+            <!-- Thêm các năm khác -->
+        </select>
+    </div>
 
+    <div class="row">
+        <div class="col-md-8">
+            <h5 class="mb-3 title">Tổng số vé được bán trong từng tháng</h5>
+            <canvas id="salesChart"></canvas>
+        </div>
+        <div class="col-md-4">
+            <h5 class="mb-3">Tổng quát</h5>
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <i class="fa-solid fa-ticket"></i> Tổng số vé bán được: <span id="totalTickets">112</span>
+                </li>
+                <li class="list-group-item">
+                    <i class="fa-solid fa-money-bill"></i> Tổng doanh thu: <span id="totalRevenue">17,900,000</span>
+                </li>
+                <li class="list-group-item">
+                    <i class="fa-solid fa-film"></i> Tổng phim: <span id="totalMovies">5</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <h5 class="mt-4 title">Tài khoản đặt vé nhiều nhất</h5>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Tên người dùng</th>
+                <th>Số điện thoại</th>
+                <th>Số vé đã đặt</th>
+                <th>Tổng tiền</th>
+            </tr>
+        </thead>
+        <tbody id="topUsers">
+            <tr>
+                <td>Lê D (D090000004@gmail.com)</td>
+                <td>0900000004</td>
+                <td>42</td>
+                <td>2,240,000</td>
+            </tr>
+            <tr>
+                <td>Lê C (C090000003@gmail.com)</td>
+                <td>0900000003</td>
+                <td>28</td>
+                <td>1,260,000</td>
+            </tr>
+            <tr>
+                <td>Lê E (E090000005@gmail.com)</td>
+                <td>0900000005</td>
+                <td>21</td>
+                <td>1,400,000</td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
 <style>
-    #Chart {
-        width: 80% !important; /* Đặt chiều rộng là 80% của phần tử chứa */
-        height: 300px !important; /* Đặt chiều cao cố định */
-        display: block;
+    .modal {
+        display: flex;
+        flex-direction: column;
+        background: white;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .list-group-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .container {
+        background: aliceblue;
+    }
+    .title {
+        margin: 27px 10px;
+        font-size: 25px;
+        color: #1e2651;
     }
 </style>
-<!-- Định nghĩa một canvas nơi biểu đồ sẽ được vẽ lên -->
-<canvas id="Chart"></canvas>
+
 
 <script>
-    // Bước 1: Lấy dữ liệu từ Razor (Model chứa mảng số vé mua theo tháng)
-    var data = @Html.Raw(Json.Serialize(Model));  // Chuyển dữ liệu từ Razor sang dạng JSON
-
-    // Bước 2: Xác định các tháng trong năm (từ 1 đến 12)
-    const labels = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-
-    // Bước 3: Lấy đối tượng canvas với ID "myChart"
-    const ctx = document.getElementById('Chart').getContext('2d');  // Đối tượng canvas
-
-    // Bước 4: Khởi tạo biểu đồ với Chart.js
-    const myChart = new Chart(ctx, {
-        // Kiểu biểu đồ: 'bar' là biểu đồ cột
+    const ctx = document.getElementById('salesChart').getContext('2d');
+    const salesChart = new Chart(ctx, {
         type: 'bar',
-
-        // Dữ liệu cho biểu đồ
         data: {
-            // Các nhãn cho trục X (tháng trong năm)
-            labels: labels,
-
-            // Dữ liệu cần hiển thị trong biểu đồ
+            labels: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'],
             datasets: [{
-                label: 'Số vé mua',  // Tiêu đề cho bộ dữ liệu
-
-                // Dữ liệu được lấy từ controller, là số vé mua theo tháng
-                data: data,
-
-                // Màu nền của các cột trong biểu đồ
-                backgroundColor: 'rgba(54, 162, 235, 0.2)',
-
-                // Màu viền của các cột
+                label: 'Số vé bán được',
+                data: [10, 20, 0, 30, 40, 0, 0, 0, 50, 0, 0, 20],
+                backgroundColor: 'rgba(54, 162, 235, 0.6)',
                 borderColor: 'rgba(54, 162, 235, 1)',
-
-                // Độ dày của viền cột
                 borderWidth: 1
             }]
         },
-          
-        // Tùy chỉnh các tuỳ chọn cho biểu đồ
         options: {
-            // Tùy chỉnh trục Y
             scales: {
                 y: {
-                    // Đảm bảo trục Y bắt đầu từ 0
                     beginAtZero: true
                 }
             }
         }
     });
+
+    function updateData() {
+    
+        const year = document.getElementById('yearSelect').value;
+        console.log(`Dữ liệu cho năm ${year}`);
+       
+    }
 </script>
+

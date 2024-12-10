@@ -96,5 +96,13 @@ namespace API.Controllers
             var nhanViens = await _nhanVienRepository.GetAllNhanVien();
             return Ok(nhanViens);
         }
+
+        [HttpGet("Tim/{tenNV}")]
+        public async Task<IActionResult> GetTimNV(string tenNV)
+        {
+            var result = await _nhanVienRepository.GetTimNV(tenNV);
+
+            return Ok(result);
+        }
     }
 }

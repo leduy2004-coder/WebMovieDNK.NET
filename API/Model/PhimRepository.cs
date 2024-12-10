@@ -140,6 +140,20 @@ namespace API.Model
             }
         }
 
- 
+        public async Task<IEnumerable<tbPhim>> GetTimPhim(string tenPhim)
+        {
+            if (string.IsNullOrEmpty(tenPhim))
+            {
+                return Enumerable.Empty<tbPhim>(); 
+            }
+
+            var result = await _context.Phim
+                            .Include(p => p.TheLoaiPhim)
+                                       .Where(p => p.TenPhim.Contains(tenPhim)) 
+                                       .ToListAsync();
+    
+            return result;
+        }
+
     }
 }

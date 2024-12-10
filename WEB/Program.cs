@@ -25,7 +25,7 @@ builder.Services.AddSession(options =>
 
 // Thêm các service khác vào Dependency Injection
 //builder.Services.AddScoped<PhimService>();
-builder.Services.AddScoped<NhanVienService>();
+builder.Services.AddScoped<Admin_QLNhanVienService>();
 builder.Services.AddScoped<Admin_SuatChieuService>();
 builder.Services.AddScoped<Admin_ThongKeService>();
 builder.Services.AddScoped<Admin_QLPhimService>();

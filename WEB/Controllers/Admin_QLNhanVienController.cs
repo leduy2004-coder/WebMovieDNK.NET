@@ -1,12 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using WEB.Api;
 using WEB.Models;
 
 [Route("Admin_QLNhanVien")]
 public class Admin_QLNhanVienController : Controller
 {
-    private readonly NhanVienService nvService;
-    public Admin_QLNhanVienController(NhanVienService nvService)
+    private readonly Admin_QLNhanVienService nvService;
+    public Admin_QLNhanVienController(Admin_QLNhanVienService nvService)
     {
         this.nvService = nvService;
     }
@@ -67,5 +68,16 @@ public class Admin_QLNhanVienController : Controller
         }
 
         return RedirectToAction("Index", "Admin_QLNhanVien", new { actionType = "delete", SaveSuccess = false });
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> TimNhanVien(string searchTerm)
+    {
+        searchTerm = searchTerm.Trim();
+        var listEmploy = string.IsNullOrEmpty(searchTerm)
+               ? await  nvService.GetNhanVienListAsync()
+               : await nvService.SearchNVListAsync(searchTerm);
+
+        return View("Index", listEmploy.ToList());
     }
 }

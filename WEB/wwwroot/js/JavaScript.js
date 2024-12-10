@@ -4,7 +4,16 @@
 var seats = document.querySelectorAll('.seat');
 
 
-
+function closeToast(element) {
+	// Tìm phần tử cha (div.toast) và ẩn nó
+	const toast = element.closest('.toast');
+	if (toast) {
+		toast.style.opacity = '0'; // Hiệu ứng mờ dần
+		setTimeout(() => {
+			toast.style.display = 'none'; // Ẩn hoàn toàn sau hiệu ứng
+		}, 300); // Thời gian khớp với transition CSS nếu có
+	}
+}
 
 // Lặp qua từng ghế và thêm sự kiện click
 seats.forEach(function (seat) {

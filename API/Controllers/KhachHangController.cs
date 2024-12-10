@@ -96,5 +96,13 @@ namespace API.Controllers
 
             return Ok(lichSu); // Trả về danh sách lịch sử
         }
+
+        [HttpGet("Tim/{tenKH}")]
+        public async Task<IActionResult> GetTimKH(string tenKH)
+        {
+            var result = await _khachHangRepository.GetTimKH(tenKH);
+
+            return Ok(result);
+        }
     }
 }

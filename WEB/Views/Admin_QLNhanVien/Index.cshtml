@@ -16,10 +16,10 @@
 </div>
 
 <div class="app-content-actions">
-    @using (Html.BeginForm("TimPhim", "Phim", FormMethod.Get))
+    @using (Html.BeginForm("TimNhanVien", "Admin_QLNhanVien", FormMethod.Get))
     {
         <div class="search">
-            <input class="search-bar" name="searchTerm" placeholder="Tìm kiếm phim..." type="text" />
+            <input class="search-bar" name="searchTerm" placeholder="Tìm kiếm nhân viên..." type="text" />
             <button type="submit" class="app-content-headerButton">Tìm</button>
         </div>
     }
@@ -166,7 +166,7 @@
                 </a>
             </div>
             <div class="product-cell stock">
-                @using (Html.BeginForm("DeleteNhanVien", "Admin_QLNhanVien", FormMethod.Post, new { onsubmit = "return confirmDelete()" }))
+                @using (Html.BeginForm("DeleteNhanVien", "Admin_QLNhanVien", FormMethod.Post, new { onsubmit = "return confirmDelete('Bạn có chắc chắn muốn xóa nhân viên này không?', this)" }))
                 {
                     @Html.AntiForgeryToken()
                     @Html.Hidden("maNV", nv.MaNV)

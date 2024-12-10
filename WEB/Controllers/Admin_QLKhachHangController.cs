@@ -64,5 +64,15 @@ public class Admin_QLKhachHangController : Controller
 
         return RedirectToAction("Index", "Admin_QLKhachHang", new { actionType = "delete", SaveSuccess = false });
     }
+
+    [HttpGet]
+    public async Task<IActionResult> TimKhachHang(string searchTerm)
+    {
+        searchTerm = searchTerm.Trim();
+        var listEmploy = string.IsNullOrEmpty(searchTerm)
+               ? await khService.GetListKhachHang()
+               : await khService.SearchKHListAsync(searchTerm);
+        return View("Index", listEmploy.ToList());
+    }
 }
 

@@ -42,7 +42,7 @@
                     <h3 class="toast-title">@char.ToUpper(messageType[0])@messageType.Substring(1)</h3>
                     <p class="toast-mess">@TempData["Message"]</p>
                 </div>
-                <div class="toast-close">
+                <div class="toast-close" onclick="closeToast(this)">
                     <i class="fa-solid fa-xmark"></i>
                 </div>
             </div>

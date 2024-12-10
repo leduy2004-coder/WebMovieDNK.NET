@@ -18,6 +18,7 @@
     --table-header: #1a2131;
     --app-content-main-color: #fff;
     --sidebar-link: #fff;
+    --bs-nav-link-hover-color: #fff;
     --sidebar-active-link: #1d283c;
     --sidebar-hover-link: #1a2539;
     --action-color: #2869ff;
@@ -39,6 +40,7 @@
     --sidebar-main-color: #1f1c2e;
     --filter-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     --color-home-success: #198754;
+    --bs-nav-link-hover-color: #000;
     --color-home-info: #0dcaf0;
     --color-home-warning: #ffc107;
     --color-home-danger: #dc3545;
@@ -716,3 +718,117 @@ body {
 .account-info-wrapper.active .dropdown-menu {
     display: block;
 }
+
+
+#customAlert {
+    display: none;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #f44336; /* Màu nền mặc định */
+    color: white; /* Màu chữ */
+    padding: 15px 20px; /* Khoảng cách trong thông báo */
+    z-index: 1000; /* Lớp trên cùng */
+    border-radius: 8px; /* Bo góc */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Đổ bóng */
+    font-size: 16px; /* Kích thước chữ */
+  
+    animation: fadeInOut 3s ease-in-out; /* Hiệu ứng vào ra */
+    transition: opacity 0.3s ease; /* Hiệu ứng chuyển đổi */
+}
+
+/* Hiệu ứng mờ dần */
+@keyframes fadeInOut {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px); /* Di chuyển lên */
+    }
+
+    10%, 90% {
+        opacity: 1;
+        transform: translateY(0); /* Vị trí bình thường */
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(-20px); /* Di chuyển lên khi ẩn */
+    }
+}
+
+/* Các trạng thái thông báo */
+#customAlert.success {
+    background-color: #4caf50; /* Màu nền cho thành công */
+}
+
+#customAlert.error {
+    background-color: #f44336; /* Màu nền cho lỗi */
+}
+
+#customAlert.warning {
+    background-color: #ff9800; /* Màu nền cho cảnh báo */
+}
+
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Nền mờ */
+    z-index: 1000;
+    display: none; /* Ẩn mặc định */
+    justify-content: center;
+    align-items: center;
+}
+
+.modal {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px 30px;
+    text-align: center;
+    z-index: 1100;
+    max-width: 400px;
+    width: 90%;
+}
+
+.modal-header {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.modal-buttons {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.modal-button {
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+    .modal-button.confirm {
+        background-color: #f44336;
+        color: white;
+    }
+
+        .modal-button.confirm:hover {
+            background-color: #d32f2f;
+        }
+
+    .modal-button.cancel {
+        background-color: #e0e0e0;
+        color: #333;
+    }
+
+        .modal-button.cancel:hover {
+            background-color: #bdbdbd;
+        }

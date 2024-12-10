@@ -4,10 +4,10 @@ using WEB.Models;
 
 namespace WEB.Api
 {
-    public class NhanVienService
+    public class Admin_QLNhanVienService
     {
         private readonly ApiService _apiService;
-        public NhanVienService(ApiService apiService)
+        public Admin_QLNhanVienService(ApiService apiService)
         {
             _apiService = apiService;
         }
@@ -48,7 +48,12 @@ namespace WEB.Api
 
             return deleteSuccess;
         }
+        public async Task<List<Admin_NhanVienModel>> SearchNVListAsync(string name)
+        {
+            string url = $"api/nhanvien/tim/{name}"; ;
 
+            return await _apiService.GetDataAsync<List<Admin_NhanVienModel>>(url);
+        }
 
     }
 }

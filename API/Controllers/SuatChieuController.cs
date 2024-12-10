@@ -46,6 +46,6 @@ namespace KTGiuaKi.Controllers
             return Ok(gheDaDat);
         }
 
-
+        
     }
 }

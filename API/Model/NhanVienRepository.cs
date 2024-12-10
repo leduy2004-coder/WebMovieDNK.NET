@@ -106,6 +106,18 @@ namespace API.Model
             return "Nhân viên không tồn tại";  // Nếu không tìm thấy nhân viên, trả về thông báo
         }
 
-        
+        public async Task<IEnumerable<tbNhanVien>> GetTimNV(string tenNV)
+        {
+            if (string.IsNullOrEmpty(tenNV))
+            {
+                return Enumerable.Empty<tbNhanVien>();
+            }
+
+            var result = await _context.NhanVien
+                                       .Where(p => p.HoTen.Contains(tenNV))
+                                       .ToListAsync();
+
+            return result;
+        }
     }
 }

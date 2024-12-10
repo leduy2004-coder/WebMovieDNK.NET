@@ -8,6 +8,7 @@ namespace API.Model
         Task<tbNhanVien> UpdateNhanVien(tbNhanVien nv);
         Task<bool> DeleteNhanVien(string maNhanVien);
         Task<IEnumerable<tbNhanVien>> GetAllNhanVien();
+        Task<IEnumerable<tbNhanVien>> GetTimNV(string tenNV);
         Task<string> GetNhanVien(string maNhanVien);
         Task<tbNhanVien> GetNhanVienById(string maNhanVien);
     }

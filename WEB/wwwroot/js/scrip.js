@@ -93,16 +93,37 @@ function removeUrl() {
 function showCustomAlert(message, state) {
     const alertDiv = document.getElementById("customAlert");
     alertDiv.innerHTML = message;
+    alertDiv.className = ""; 
+    alertDiv.classList.add(state); 
     alertDiv.style.display = "block";
-
-    if (state === "success") {
-        alertDiv.style.backgroundColor = "#4CAF50";
-    } else if (state === "error") {
-        alertDiv.style.backgroundColor = "#f44336";
-    }
 
     setTimeout(() => {
         alertDiv.style.display = "none";
     }, 3000);
 }
+
+function confirmDelete(message, form) {
+    const modalOverlay = document.querySelector('.modal-overlay');
+    const modalBody = document.querySelector('.modal-body');
+
+    // Cập nhật nội dung thông báo
+    modalBody.innerText = message;
+
+    // Hiển thị modal
+    modalOverlay.style.display = 'flex';
+
+    // Thêm sự kiện cho nút Xác nhận
+    document.querySelector('.modal-button.confirm').onclick = () => {
+        modalOverlay.style.display = 'none'; // Ẩn modal
+        form.submit(); // Gửi form khi xác nhận
+    };
+
+    // Thêm sự kiện cho nút Hủy
+    document.querySelector('.modal-button.cancel').onclick = () => {
+        modalOverlay.style.display = 'none'; // Ẩn modal
+    };
+
+    return false; // Ngăn chặn hành động submit mặc định
+}
+
 

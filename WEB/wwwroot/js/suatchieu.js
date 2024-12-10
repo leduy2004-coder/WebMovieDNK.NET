@@ -103,10 +103,6 @@ if (submitButton) {
     console.error("Nút gửi không tìm thấy trong DOM");
 }
 
-function confirmDelete() {
-    return confirm("Bạn có chắc chắn muốn xóa sản phẩm này?");
-}
-
 
 //===================================
 

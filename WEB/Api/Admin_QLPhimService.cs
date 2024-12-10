@@ -94,6 +94,13 @@ namespace WEB.Api
 
             return deleteSuccess;
         }
+
+        public async Task<List<Admin_QLPhimModel>> SearchPhimListAsync(string name)
+        {
+            string url = $"api/phim/tim/{name}"; ;
+
+            return await _apiService.GetDataAsync<List<Admin_QLPhimModel>>(url);
+        }
     }
 
 }

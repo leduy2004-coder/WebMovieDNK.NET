@@ -43,5 +43,12 @@ namespace WEB.Api
 
             return deleteSuccess;
         }
+
+        public async Task<List<Admin_QLKhachHangModel>> SearchKHListAsync(string name)
+        {
+            string url = $"api/khachhang/tim/{name}"; ;
+
+            return await _apiService.GetDataAsync<List<Admin_QLKhachHangModel>>(url);
+        }
     }
 }

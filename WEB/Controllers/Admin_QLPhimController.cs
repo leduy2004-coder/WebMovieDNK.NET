@@ -8,17 +8,17 @@ namespace WEB.Controllers
     [Route("Admin_QLPhim")]
     public class Admin_QLPhimController : Controller
     {
-        private readonly Admin_QLPhimService khService;
-        public Admin_QLPhimController(Admin_QLPhimService khService)
+        private readonly Admin_QLPhimService phimService;
+        public Admin_QLPhimController(Admin_QLPhimService phimService)
         {
-            this.khService = khService;
+            this.phimService = phimService;
         }
         [HttpGet]
         [Route("Index")]
         public async Task<IActionResult> Index()
         {
-            var listMovie = await khService.GetListPhim();
-            var listType = await khService.GetListTLPhim();
+            var listMovie = await phimService.GetListPhim();
+            var listType = await phimService.GetListTLPhim();
             var model = new Admin_ViewMovie
             {
                 ListMovies = listMovie.ToList(),
@@ -36,13 +36,13 @@ namespace WEB.Controllers
             {
                 if (md.MaPhim != null)
                 {
-                    var NhanVien = await khService.SaveOrUpdatePhimAsync(md, hinhDaiDienFile, "api/phim", HttpMethod.Put);
+                    var NhanVien = await phimService.SaveOrUpdatePhimAsync(md, hinhDaiDienFile, "api/phim", HttpMethod.Put);
 
                     return RedirectToAction("Index", "Admin_QLPhim", new { actionType = "update", SaveSuccess = true });
                 }
                 else
                 {
-                    var sanPham = await khService.SaveOrUpdatePhimAsync(md, hinhDaiDienFile, "api/phim", HttpMethod.Post);
+                    var sanPham = await phimService.SaveOrUpdatePhimAsync(md, hinhDaiDienFile, "api/phim", HttpMethod.Post);
 
                     return RedirectToAction("Index", "Admin_QLPhim", new { actionType = "create", SaveSuccess = true });
                 }
@@ -63,7 +63,7 @@ namespace WEB.Controllers
                 return RedirectToAction("Index", "Admin_QLPhim", new { actionType = "delete", SaveSuccess = false });
             }
 
-            bool deleteSuccess = await khService.DeletePhimAsync(maPhim);
+            bool deleteSuccess = await phimService.DeletePhimAsync(maPhim);
 
             if (deleteSuccess)
             {
@@ -71,6 +71,23 @@ namespace WEB.Controllers
             }
 
             return RedirectToAction("Index", "Admin_QLPhim", new { actionType = "delete", SaveSuccess = false });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> TimPhim(string searchTerm)
+        {
+            searchTerm = searchTerm.Trim();
+            var listMovie = string.IsNullOrEmpty(searchTerm)
+                ? await phimService.GetListPhim()
+                : await phimService.SearchPhimListAsync(searchTerm);
+
+            var listType = await phimService.GetListTLPhim();
+            var model = new Admin_ViewMovie
+            {
+                ListMovies = listMovie.ToList(),
+                ListTypeMovie = listType,
+            };
+            return View("Index", model);
         }
     }
 }

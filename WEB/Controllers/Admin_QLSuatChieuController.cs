@@ -85,5 +85,6 @@ namespace WEB.Controllers
 
             return RedirectToAction("Index", "Admin_QLSuatChieu", new { actionType = "delete", SaveSuccess = false });
         }
+
     }
 }

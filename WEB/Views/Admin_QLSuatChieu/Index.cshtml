@@ -113,7 +113,7 @@
                 </a>
             </div>
             <div class="product-cell stock">
-                @using (Html.BeginForm("DeleteSuatChieu", "Admin_QLSuatChieu", FormMethod.Post, new { onsubmit = "return confirmDelete()" }))
+                @using (Html.BeginForm("DeleteSuatChieu", "Admin_QLSuatChieu", FormMethod.Post, new { onsubmit = "return confirmDelete('Bạn có chắc chắn muốn xóa suất chiếu này không?', this)" }))
                 {
                     @Html.AntiForgeryToken()
                     @Html.Hidden("maSuatChieu", nv.MaSuat)

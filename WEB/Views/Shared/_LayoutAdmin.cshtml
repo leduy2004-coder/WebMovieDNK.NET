@@ -17,7 +17,19 @@
     <!-- Icon Font Stylesheet -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
 </head>
-<body>
+<body style="min-height: 1000px; overflow: auto;">
+    <div class="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">Xác nhận</div>
+            <div class="modal-body">
+                <!-- Nội dung thông báo sẽ được cập nhật động -->
+            </div>
+            <div class="modal-buttons">
+                <button type="button" class="modal-button confirm">Xóa</button>
+                <button type="button" class="modal-button cancel">Hủy</button>
+            </div>
+        </div>
+    </div>
 
     <div class="app-container">
 
@@ -123,9 +135,10 @@
             </div>
         </div>
     </div>
-    <div id="customAlert" style="display:none; position:fixed; top:20px; right:20px; background-color:#f44336; color:white; padding:15px; z-index:1000;">
+    <div id="customAlert" class="custom-alert">
         Đây là thông báo của bạn!
     </div>
+
 
     <script src="~/js/scrip.js"></script>
 

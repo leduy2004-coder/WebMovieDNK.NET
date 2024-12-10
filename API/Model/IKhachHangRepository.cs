@@ -10,6 +10,7 @@ namespace API.Model
     {
         Task<IEnumerable<tbKhachHang>> GetDanhSachKhachHang();
         Task<tbKhachHang> GetKhachHangById(string maKhachHang);
+        Task<IEnumerable<tbKhachHang>> GetTimKH(string tenKH);
         Task<tbKhachHang> AddKhachHang(tbKhachHang kh);
         Task<tbKhachHang> UpdateKhachHang(tbKhachHang kh);
         Task<bool> DeleteKhachHang(string maKhachHang);

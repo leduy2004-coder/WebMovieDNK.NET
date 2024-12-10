@@ -200,7 +200,18 @@ namespace API.Model
             return false; // Mã xác nhận không đúng hoặc đã hết hạn
         }
 
+        public async Task<IEnumerable<tbKhachHang>> GetTimKH(string tenKH)
+        {
+            if (string.IsNullOrEmpty(tenKH))
+            {
+                return Enumerable.Empty<tbKhachHang>();
+            }
 
+            var result = await _context.KhachHang
+                                       .Where(p => p.HoTen.Contains(tenKH))
+                                       .ToListAsync();
 
+            return result;
+        }
     }
 }
