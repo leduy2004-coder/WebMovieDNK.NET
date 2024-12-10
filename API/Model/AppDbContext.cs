@@ -27,6 +27,8 @@ namespace API.Model
         public DbSet<tbBookVe> BookVe { get; set; }
         public DbSet<tbBookGhe> BookGhe { get; set; }
         public DbSet<GetPhimDangChieu> getPhimDangChieuDTOs { get; set; }
+        public DbSet<ThongKeDTO> ThongKeDTO { get; set; }
+
         public DbSet<GetNgayChieu> getNgayChieus { get; set; }
         public DbSet<GetCaChieu> getCaChieus { get; set; }
         public DbSet<tbUuDai> UuDai { get; set; }
@@ -35,6 +37,9 @@ namespace API.Model
         public DbSet<tbBookDoUong> BookDoUong { get; set; }
         public DbSet<tbPhongChieu> PhongChieu { get; set; }
         public DbSet<LichSuKhachHangDTO> LichSuKH { get; set; }
+        public DbSet<DoanhThuTrongNamDTO> doanhThuTrongNamDTO { get; set; }
+        public DbSet<TopCustomerDTO> topCustomerDTO { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -48,6 +53,11 @@ namespace API.Model
             modelBuilder.Entity<GetPhimDangChieu>().HasNoKey();
             modelBuilder.Entity<GetNgayChieu>().HasNoKey();
             modelBuilder.Entity<LichSuKhachHangDTO>().HasNoKey();
+            modelBuilder.Entity<ThongKeDTO>().HasNoKey();
+            modelBuilder.Entity<DoanhThuTrongNamDTO>().HasNoKey();
+            modelBuilder.Entity<TopCustomerDTO>().HasNoKey();
+
+
             modelBuilder.Entity<KhachHangUuDai>()
                .HasKey(kh => new { kh.MaKH, kh.MaUuDai });
         }

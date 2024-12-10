@@ -14,11 +14,39 @@ namespace API.Controllers
             _thongKeRepository = thongKeRepository;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetThongKe()
+        [HttpGet("VeBanTungThang/{nam}")]
+        public async Task<IActionResult> GetVeBanTungThang(string nam)
         {
-            var data = await _thongKeRepository.ThongKe();
+            var data = await _thongKeRepository.GetVeBanTungThang(nam);
             return Ok(data);
+        }
+
+        [HttpGet("TongTienTrongNam/{nam}")]
+        public async Task<IActionResult> GetTongTienTrongNam(string nam)
+        {
+            var data = await _thongKeRepository.GetTongTienTheoNam(nam);
+            return Ok(data);
+        }
+
+        [HttpGet("TopCustomers/{nam}")]
+        public async Task<IActionResult> GetTopCustomers(string nam)
+        {
+            var result = await _thongKeRepository.GetTopCustomersByYear(nam);
+            return Ok(result);
+        }
+
+        [HttpGet("TongVeTrongNam/{nam}")]
+        public async Task<IActionResult> GetTongVeTrongNam(string nam)
+        {
+            var result = await _thongKeRepository.GetTongVeTrongNam(nam);
+            return Ok(result);
+        }
+         
+        [HttpGet("SoLuongPhimDaChieuTrongNam/{nam}")]
+        public async Task<IActionResult> GetSoLuongPhimDaChieuTrongNam(string nam)
+        {
+            var result = await _thongKeRepository.GetSoLuongPhimDaChieuTrongNam(nam);
+            return Ok(result);
         }
     }
 }

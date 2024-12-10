@@ -1,4 +1,5 @@
 using API.Model;
+using API.Repositories;
 using CloudinaryDotNet;
 using Microsoft.EntityFrameworkCore;
 
@@ -29,6 +30,7 @@ builder.Services.AddTransient<IVeRepository, VeRepository>();
 builder.Services.AddTransient<IDatVeRepository, DatVeRepository>();
 builder.Services.AddTransient<IDatDoUongRepository, DatDoUongRepository>();
 builder.Services.AddTransient<IUuDaiRepository, UuDaiRepository>();
+builder.Services.AddTransient<IThongKeRepository, ThongKeRepository>();
 builder.Services.AddSingleton<CloudinaryService>();
 
 //  Thêm Controllers
