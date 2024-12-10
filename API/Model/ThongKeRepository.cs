@@ -3,6 +3,7 @@ using System.Linq;
 using System.Reflection.Metadata.Ecma335;
 using System.Threading.Tasks;
 using API.Data;
+using API.Dto;
 using API.Model;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,18 +18,57 @@ namespace API.Repositories
             _context = context;
         }
 
-        public async Task<List<tbPhim>> ThongKe()
+
+        public async Task<int> GetSoLuongPhimDaChieuTrongNam(string nam)
         {
-            var result = await (from p in _context.Phim
-                                where p.TinhTrang == true // Lọc các phim có TinhTrang = 1 (đang chiếu)
-                                select new tbPhim
-                                {
-                                    MaPhim = p.MaPhim,
-                                    TenPhim = p.TenPhim
-                                }).ToListAsync();
+            // Truy vấn sử dụng FromSqlRaw để gọi hàm fsoLuongPhimDaChieuTrongNam từ SQL
+            var result = await _context.Set<ThongKeDTO>()
+                .FromSqlRaw("SELECT dbo.fsoLuongPhimDaChieuTrongNam({0}) AS TongSoVe", nam)
+                .FirstOrDefaultAsync();
+
+            return result?.TongSoVe ?? 0; 
+        }
+        public async Task<int> GetTongVeTrongNam(string nam)
+        {
+            // Truy vấn sử dụng FromSqlRaw để gọi hàm ftongVeTrongNam từ SQL
+            var result = await _context.Set<ThongKeDTO>()
+           .FromSqlRaw("SELECT dbo.ftongVeTrongNam({0}) AS TongSoVe", nam)
+           .FirstOrDefaultAsync();
+
+            return result?.TongSoVe ?? 0;
+        }
+
+        public async Task<double> GetTongTienTheoNam(string nam)
+        {
+            // Truy vấn sử dụng FromSqlRaw để gọi hàm ftongDoanhThuTheoNam từ SQL
+            var result = await _context.Set<DoanhThuTrongNamDTO>()
+                .FromSqlRaw("SELECT dbo.ftongDoanhThuTheoNam({0}) AS TongTienTrongNam", nam)
+                .FirstOrDefaultAsync();
+
+            // Trả về giá trị kết quả (TongTienTrongNam), nếu không có giá trị trả về trả về 0
+            return result?.TongTienTrongNam ?? 0;
+        }
+
+        public async Task<List<TopCustomerDTO>> GetTopCustomersByYear(string nam)
+        {
+            // Truy vấn sử dụng FromSqlRaw để gọi hàm GetTopCustomersByYear từ SQL
+            var result = await _context.Set<TopCustomerDTO>()
+                .FromSqlRaw("SELECT * FROM dbo.GetTopCustomersByYear({0})", nam)
+                .ToListAsync();
 
             return result;
         }
+
+        public async Task<List<int>> GetVeBanTungThang(string nam)
+        {
+            var results = await _context.Set<ThongKeDTO>()
+                .FromSqlRaw("SELECT Thang, TongSoVe FROM dbo.fThongKeTungThangTrongNam({0})", nam)
+                .Select(dto => dto.TongSoVe)
+                .ToListAsync();
+
+            return results;
+        }
+     
 
 
         //public async Task<List<tbPhim>> ThongKe()
