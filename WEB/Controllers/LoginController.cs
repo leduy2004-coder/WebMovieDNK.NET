@@ -71,6 +71,8 @@ namespace WEB.Controllers
             if (isSent)
             {
                 TempData["Message"] = "Mã xác nhận đã được gửi đến email của bạn.";
+                TempData["MessageType"] = "success";
+
                 return RedirectToAction("Confirm", model);
             }
             else
@@ -88,6 +90,8 @@ namespace WEB.Controllers
             if (isSent)
             {
                 TempData["Message"] = "Mã xác nhận đã được gửi lại đến email của bạn.";
+                TempData["MessageType"] = "success";
+
                 return true;
             }
             else
@@ -118,6 +122,8 @@ namespace WEB.Controllers
             if (isRegistered)
             {
                 TempData["Message"] = "Đăng ký thành công!";
+                TempData["MessageType"] = "success";
+
                 return View("Login");  // Chuyển hướng đến trang đăng nhập
             }
 
