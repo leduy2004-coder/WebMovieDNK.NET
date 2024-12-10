@@ -5,7 +5,7 @@ var model = document.getElementById("modal");
 var form = document.getElementById("product-form");
 var submitButton = document.getElementById("submit");
 
-var maNhanVienInput = document.getElementById("maNhanVien");
+var maNhanVienInput = document.getElementById("maNhanVienForm");
 var labelMaNhanVien = document.getElementById("labelnhanvien");
 var tenNhanVienInput = document.getElementById("tenNhanVien");
 var sdtInput = document.getElementById("sdt");
@@ -65,6 +65,8 @@ function showNhanVienForm(maNV, hoTen, sdt, gioiTinh, ngaySinh, diaChi, cccd, ti
         tenTaiKhoanInput.value = tenTK;
         matKhauInput.value = matKhau;
 
+        maNhanVienInput.style.display = "block";
+        labelMaNhanVien.style.display = "block";
 
         // Thiết lập readonly cho trường mã nhân viên nếu chỉnh sửa
         maNhanVienInput.setAttribute("readonly", "readonly");

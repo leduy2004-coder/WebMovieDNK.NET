@@ -2,6 +2,7 @@
 using CloudinaryDotNet.Actions;
 using CloudinaryDotNet;
 using Microsoft.Extensions.Options;
+using System.Text.RegularExpressions;
 
 public class CloudinaryService
 {
@@ -45,5 +46,43 @@ public class CloudinaryService
             throw new ArgumentException("Public ID cannot be null or empty.");
 
         return _cloudinary.Api.UrlImgUp.BuildUrl(publicId);
+    }
+    // Phương thức xóa hình ảnh từ Cloudinary bằng SecureUrl
+    public async Task<bool> DeleteImageBySecureUrlAsync(string secureUrl)
+    {
+        if (string.IsNullOrEmpty(secureUrl))
+            throw new ArgumentException("Secure URL cannot be null or empty.");
+
+        // Trích xuất publicId từ SecureUrl
+        string publicId = ExtractPublicIdFromSecureUrl(secureUrl);
+
+        if (string.IsNullOrEmpty(publicId))
+            throw new ArgumentException("Could not extract publicId from Secure URL.");
+
+        // Xóa hình ảnh bằng publicId
+        var deleteParams = new DeletionParams(publicId);
+        var deletionResult = await _cloudinary.DestroyAsync(deleteParams);
+
+        if (deletionResult.StatusCode == System.Net.HttpStatusCode.OK)
+        {
+            return true; 
+        }
+
+        return false; 
+    }
+
+    // Trích xuất publicId từ Secure URL
+    private string ExtractPublicIdFromSecureUrl(string secureUrl)
+    {
+        // Sử dụng Regex để tìm publicId trong URL
+        var regex = new Regex(@"image\/upload\/v\d+\/(.+?)\.(jpg|jpeg|png|gif|bmp|webp|tiff|svg)", RegexOptions.IgnoreCase);
+        var match = regex.Match(secureUrl);
+
+        if (match.Success)
+        {
+            return match.Groups[1].Value;
+        }
+
+        return string.Empty; 
     }
 }

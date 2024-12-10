@@ -37,9 +37,23 @@ namespace API.Model
         // Lấy tất cả phim
         public async Task<IEnumerable<tbPhim>> GetPHIMs()
         {
-            return await _context.Phim.ToListAsync();
-        }
+            try
+            {
+                var danhSachPhim = await _context.Phim
+                .Include(p => p.TheLoaiPhim) // Eager Loading
+                .ToListAsync();
+                return danhSachPhim;
+            }catch(Exception e)
+            {
+                return null;
+            }
 
+        }
+        // Lấy tất cả loai phim
+        public async Task<IEnumerable<tbTheLoaiPhim>> GetTheLoaiPHIMs()
+        {
+            return await _context.TheLoaiPhim.ToListAsync();
+        }
         // Lấy chi tiết của một phim dựa trên mã phim
         public async Task<tbPhim> GetThongTinPhim(string maPhim)
         {
@@ -80,12 +94,9 @@ namespace API.Model
 
         public async Task<tbPhim> AddPHIM(tbPhim phim)
         {
-            if (phim == null)
-            {
-                throw new ArgumentNullException(nameof(phim));
-            }
             try
             {
+                phim.MaPhim = "";
                 await _context.Phim.AddAsync(phim);
 
                 await _context.SaveChangesAsync();
@@ -98,14 +109,8 @@ namespace API.Model
             }
         }
 
-        public async Task<tbPhim> UpdatePHIM(tbPhim p)
+        public async Task<tbPhim> UpdatePHIM(tbPhim phim)
         {
-            var phim = await _context.Phim.FindAsync(p.MaPhim);
-            if (phim == null)
-            {
-                throw new ArgumentNullException(nameof(phim));
-            }
-
             try
             {
                 var existingPhim = await _context.Phim.FirstOrDefaultAsync(p => p.MaPhim == phim.MaPhim);
@@ -135,8 +140,6 @@ namespace API.Model
             }
         }
 
-
-     
-
+ 
     }
 }

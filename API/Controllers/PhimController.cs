@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using API.Model;
 using API.Data;
+using API.Dto;
+using Mapster;
 
 namespace KTGiuaKi.Controllers
 {
@@ -10,11 +12,13 @@ namespace KTGiuaKi.Controllers
     {
         private readonly IPhimRepository _phimRepository;
         private readonly ISuatChieuRepository _suatChieuRepository;
+        private readonly CloudinaryService _cloudinary;
 
-        public PhimController(IPhimRepository phimRepository, ISuatChieuRepository suatChieuRepository)
+        public PhimController(IPhimRepository phimRepository, ISuatChieuRepository suatChieuRepository, CloudinaryService cloudinary)
         {
             _phimRepository = phimRepository;
             _suatChieuRepository = suatChieuRepository;
+            _cloudinary = cloudinary;
         }
 
         // GET: api/Phim/all
@@ -24,6 +28,7 @@ namespace KTGiuaKi.Controllers
             try
             {
                 var result = await _phimRepository.GetPHIMs();
+
                 return Ok(result);
             }
             catch (Exception ex)
@@ -33,7 +38,21 @@ namespace KTGiuaKi.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error retrieving data.");
             }
         }
+        // GET: api/TLPhim/all
+        [HttpGet("all-type")]
+        public async Task<IActionResult> GetTLPHIMS()
+        {
+            try
+            {
+                var result = await _phimRepository.GetTheLoaiPHIMs();
 
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error retrieving data.");
+            }
+        }
         // GET: api/Phim/dang-chieu
         [HttpGet("dang-chieu")]
         public async Task<IActionResult> GetPHIMDANGCHIEU()
@@ -91,6 +110,10 @@ namespace KTGiuaKi.Controllers
         {
             try
             {
+                var resultMovie = await _phimRepository.GetThongTinPhim(maPhim);
+
+                await _cloudinary.DeleteImageBySecureUrlAsync(resultMovie.HinhDaiDien);
+
                 var result = await _phimRepository.DeletePHIM(maPhim);
                 if (!result)
                     return NotFound($"Phim with ID {maPhim} not found.");
@@ -106,33 +129,48 @@ namespace KTGiuaKi.Controllers
 
         // POST: api/Phim
         [HttpPost]
-        public async Task<IActionResult> CreatePhim([FromBody] tbPhim phim)
+        public async Task<ActionResult<PhimDTO>> CreatePhim([FromForm] PhimDTO phim, [FromForm] IFormFile HinhDaiDienFile)
         {
-            if (!ModelState.IsValid)
+            if (phim == null)
                 return BadRequest(ModelState);
+            if (HinhDaiDienFile != null && HinhDaiDienFile.Length > 0)
+            {
+                // Giả sử bạn sử dụng Cloudinary để tải ảnh lên
+                var imageUrl = await _cloudinary.UploadImageAsync(HinhDaiDienFile);
+                phim.HinhDaiDien = imageUrl; 
+            }
 
+            var tbPhim = phim.Adapt<tbPhim>();
             try
             {
-                var createdPhim = await _phimRepository.AddPHIM(phim);
-                return CreatedAtAction(nameof(GetPHIM), new { maPhim = createdPhim.MaPhim }, createdPhim);
+                var createdPhim = await _phimRepository.AddPHIM(tbPhim);
+                return Ok(createdPhim);
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error: {ex.Message}");
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error creating data.");
             }
         }
 
         // PUT: api/Phim
         [HttpPut]
-        public async Task<IActionResult> UpdatePhim([FromBody] tbPhim phim)
+        public async Task<ActionResult<PhimDTO>> UpdatePhim([FromForm] PhimDTO phim, [FromForm] IFormFile? HinhDaiDienFile)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
+ 
+            if (HinhDaiDienFile != null && HinhDaiDienFile.Length > 0)
+            {
+                if (!string.IsNullOrEmpty(phim.HinhDaiDien))
+                {
+                    await _cloudinary.DeleteImageBySecureUrlAsync(phim.HinhDaiDien);
+                }
+                // Giả sử bạn sử dụng Cloudinary để tải ảnh lên
+                var imageUrl = await _cloudinary.UploadImageAsync(HinhDaiDienFile);
+                phim.HinhDaiDien = imageUrl;
+            }
+            var tbPhim = phim.Adapt<tbPhim>();
             try
             {
-                var updatedPhim = await _phimRepository.UpdatePHIM(phim);
+                var updatedPhim = await _phimRepository.UpdatePHIM(tbPhim);
                 if (updatedPhim == null)
                     return NotFound($"Phim with ID {phim.MaPhim} not found.");
 

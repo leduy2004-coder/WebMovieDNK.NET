@@ -43,6 +43,7 @@ function showSuatChieuForm(maSuat, maPhim, maPhong, maCa, ngayChieu, tinhTrang) 
         ngayChieuInput.value = ngayChieu;
         tinhTrangInput.value = tinhTrang;
 
+
         // Thiết lập readonly cho trường mã suất nếu chỉnh sửa
         maSuatInput.setAttribute("readonly", "readonly");
 

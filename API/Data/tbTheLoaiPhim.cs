@@ -14,9 +14,10 @@ namespace API.Data
 
         [Required]
         [StringLength(50)]
-        public string TenLPhim { get; set; }
+        public string? TenLPhim { get; set; }
 
         [StringLength(100)]
-        public string MoTaLP { get; set; }
+        public string? MoTaLP { get; set; }
+
     }
 }

@@ -30,6 +30,17 @@ namespace Web.Api
             response.EnsureSuccessStatusCode();
             return await response.Content.ReadFromJsonAsync<T>();
         }
+        public async Task<T> PostDataFormAsync<T>(string url, MultipartFormDataContent data)
+        {
+            // Gửi yêu cầu POST với multipart/form-data
+            var response = await _httpClient.PostAsync(url, data);
+
+            // Kiểm tra xem phản hồi có thành công không
+            response.EnsureSuccessStatusCode();
+
+            // Đọc nội dung trả về và chuyển đổi thành kiểu T
+            return await response.Content.ReadFromJsonAsync<T>();
+        }
 
         // PUT method
         public async Task<T> PutDataAsync<T>(string url, object data)
@@ -38,7 +49,13 @@ namespace Web.Api
             response.EnsureSuccessStatusCode();
             return await response.Content.ReadFromJsonAsync<T>();
         }
-
+        // PUT method
+        public async Task<T> PutDataFormAsync<T>(string url, MultipartFormDataContent data)
+        {
+            var response = await _httpClient.PutAsync(url, data);
+            response.EnsureSuccessStatusCode();
+            return await response.Content.ReadFromJsonAsync<T>();
+        }
         // DELETE method
         public async Task<bool> DeleteDataAsync(string url)
         {

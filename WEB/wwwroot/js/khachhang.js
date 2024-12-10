@@ -7,7 +7,7 @@ var submitButton = document.getElementById("submit");
 
 var lableMaKhachHang = document.getElementById("labelkhachhang");
 
-var maKHInput = document.getElementById("maKH");
+var maKHInput = document.getElementById("maKHForm");
 var hoTenInput = document.getElementById("hoTen");
 var sdtInput = document.getElementById("sdt");
 var ngaySinhInput = document.getElementById("ngaySinh");
@@ -55,6 +55,9 @@ function showKhachHangForm(maKH, hoTen, sdt, ngaySinh, email, tinhTrang, tenTK, 
         tinhTrangInput.value = tinhTrang;
         tenTKInput.value = tenTK;
         MKInput.value = mk;
+
+        maKHInput.style.display = "block";
+        lableMaKhachHang.style.display = "block";
 
         // Thiết lập readonly cho trường mã khách hàng nếu chỉnh sửa
         maKHInput.setAttribute("readonly", "readonly");

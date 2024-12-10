@@ -5,7 +5,7 @@ var model = document.getElementById("modal");
 var form = document.getElementById("product-form");
 var submitButton = document.getElementById("submit");
 
-var maPhimInput = document.getElementById("maPhim");
+var maPhimInput = document.getElementById("maPhimChieu");
 var maLoaiPhimInput = document.getElementById("maLoaiPhim");
 var tenPhimInput = document.getElementById("tenPhim");
 var daoDienInput = document.getElementById("daoDien");
@@ -14,6 +14,8 @@ var ngayKhoiChieuInput = document.getElementById("ngayKhoiChieu");
 var thoiLuongInput = document.getElementById("thoiLuong");
 var tinhTrangInput = document.getElementById("tinhTrang");
 var hinhDaiDienInput = document.getElementById("hinhDaiDien");
+var hinhDaiDienFileInput = document.getElementById("hinhDaiDienFile");
+var hinhImg = document.getElementById("hinhUp");
 var videoInput = document.getElementById("video");
 var moTaInput = document.getElementById("moTa");
 
@@ -42,43 +44,84 @@ if (gridButton && listButton && productsWrapper) {
 }
 
 function showPhimForm(maPhim, maLoaiPhim, tenPhim, daoDien, doTuoiYeuCau, ngayKhoiChieu, thoiLuong, tinhTrang, hinhDaiDien, video, moTa) {
+    hinhDaiDienFileInput.addEventListener('change', function (event) {
+        const file = event.target.files[0];
+
+        // Kiểm tra xem có file nào được chọn không
+        if (file) {
+            const reader = new FileReader();
+
+            // Khi file được đọc thành công, cập nhật src cho hình ảnh
+            reader.onload = function (e) {
+                hinhImg.src = e.target.result; // Đây là URL tạm thời của file đã chọn
+            };
+
+            reader.readAsDataURL(file);
+        } else {
+            hinhImg.style.display = "none";
+        }
+    });
+    hinhDaiDienFileInput.value = ""; 
     if (maPhim != null) {
         // Gán giá trị cho các input
         maPhimInput.value = maPhim;
-        maLoaiPhimInput.value = maLoaiPhim;
         tenPhimInput.value = tenPhim;
         daoDienInput.value = daoDien;
         doTuoiYeuCauInput.value = doTuoiYeuCau;
-        ngayKhoiChieuInput.value = ngayKhoiChieu;
+        hinhDaiDienInput.value = hinhDaiDien;
+        if (maLoaiPhim) {
+            for (var i = 0; i < maLoaiPhimInput.options.length; i++) {
+                var option = maLoaiPhimInput.options[i];
+
+                if (option.value === maLoaiPhim) {
+                    maLoaiPhimInput.selectedIndex = i; 
+                    break; 
+                }
+            }
+        }
+
         thoiLuongInput.value = thoiLuong;
         tinhTrangInput.checked = tinhTrang; // Checkbox
-        hinhDaiDienInput.value = hinhDaiDien;
+        hinhImg.src = hinhDaiDien;
+
         videoInput.value = video;
         moTaInput.value = moTa;
 
+        const [month, day, year] = ngayKhoiChieu.split(" ")[0].split("/");
+
+        const ngaySinhFormatted = `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
+
+        ngayKhoiChieuInput.value = ngaySinhFormatted;
+
+        maPhimInput.style.display = "block";
+        lableMaPhim.style.display = "block";
+
         // Thiết lập readonly cho trường mã phim nếu chỉnh sửa
-        maPhimInput.style.display = "none";
-        lableMaPhim.style.display = "none";
+        maPhimInput.setAttribute("readonly", "readonly");
 
         title.textContent = "Cập nhật phim";
         submitButton.textContent = "Lưu chỉnh sửa";
     } else {
         // Làm trống các input khi thêm mới
         maPhimInput.value = "";
-        maLoaiPhimInput.value = "";
+
+      
+        maLoaiPhimInput.selectedIndex = 0;
         tenPhimInput.value = "";
         daoDienInput.value = "";
         doTuoiYeuCauInput.value = "";
         ngayKhoiChieuInput.value = "";
         thoiLuongInput.value = "";
         tinhTrangInput.checked = false;
-        hinhDaiDienInput.value = "";
+
+        
+        hinhImg.src =  "";
+
         videoInput.value = "";
         moTaInput.value = "";
 
-        // Bỏ readonly cho trường mã phim
-        maPhimInput.style.display = "none"; // Hiển thị lại trường mã phim
-        lableMaPhim.style.display = "none"; // Hiển thị lại label mã phim
+        maPhimInput.style.display = "none"; 
+        lableMaPhim.style.display = "none"; 
 
         title.textContent = "Thêm mới phim";
         submitButton.textContent = "Lưu thông tin";

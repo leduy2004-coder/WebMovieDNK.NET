@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Web.Models;
 using WEB.Api;
 using WEB.Models;
 
@@ -16,42 +17,53 @@ namespace WEB.Controllers
         [Route("Index")]
         public async Task<IActionResult> Index()
         {
-            var listSC = await khService.GetListPhim();
-
-            return View("Index", listSC.ToList());
+            var listMovie = await khService.GetListPhim();
+            var listType = await khService.GetListTLPhim();
+            var model = new Admin_ViewMovie
+            {
+                ListMovies = listMovie.ToList(),
+                ListTypeMovie = listType,
+            };
+            return View("Index", model);
         }
 
         [HttpPost]
         [Route("LuuPhim")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> LuuPhim(Admin_QLPhimModel sp)
+        public async Task<IActionResult> LuuPhim(Admin_QLPhimModel md, IFormFile hinhDaiDienFile)
         {
-
-            if (sp.MaPhim != null)
+            try
             {
-                var NhanVien = khService.UpdatePhimAsync(sp);
+                if (md.MaPhim != null)
+                {
+                    var NhanVien = await khService.SaveOrUpdatePhimAsync(md, hinhDaiDienFile, "api/phim", HttpMethod.Put);
 
-                // Chuyển hướng đến trang Index với thông báo thành công
-                return RedirectToAction("Index", "Admin_QLPhim", new { actionType = "update", SaveSuccess = true });
+                    return RedirectToAction("Index", "Admin_QLPhim", new { actionType = "update", SaveSuccess = true });
+                }
+                else
+                {
+                    var sanPham = await khService.SaveOrUpdatePhimAsync(md, hinhDaiDienFile, "api/phim", HttpMethod.Post);
+
+                    return RedirectToAction("Index", "Admin_QLPhim", new { actionType = "create", SaveSuccess = true });
+                }
             }
-            else
+            catch (Exception ex)
             {
-                var sanPham = khService.LuuPhimListAsync(sp);
-                // Chuyển hướng đến trang Index với thông báo thành công
-                return RedirectToAction("Index", "Admin_QLPhim", new { actionType = "create", SaveSuccess = true });
+                return RedirectToAction("Index", "Admin_QLPhim", new { actionType = "create", SaveSuccess = false });
             }
+
         }
         [HttpPost]
         [Route("DeletePhim")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeletePhim(string maNV)
+        public async Task<IActionResult> DeletePhim(string maPhim)
         {
-            if (string.IsNullOrEmpty(maNV))
+            if (string.IsNullOrEmpty(maPhim))
             {
                 return RedirectToAction("Index", "Admin_QLPhim", new { actionType = "delete", SaveSuccess = false });
             }
 
-            bool deleteSuccess = await khService.DeletePhimAsync(maNV);
+            bool deleteSuccess = await khService.DeletePhimAsync(maPhim);
 
             if (deleteSuccess)
             {

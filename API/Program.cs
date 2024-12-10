@@ -29,7 +29,7 @@ builder.Services.AddTransient<IVeRepository, VeRepository>();
 builder.Services.AddTransient<IDatVeRepository, DatVeRepository>();
 builder.Services.AddTransient<IDatDoUongRepository, DatDoUongRepository>();
 builder.Services.AddTransient<IUuDaiRepository, UuDaiRepository>();
-
+builder.Services.AddSingleton<CloudinaryService>();
 
 //  Thêm Controllers
 builder.Services.AddControllers();

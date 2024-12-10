@@ -1,7 +1,8 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
-@model IEnumerable<WEB.Models.Admin_QLPhimModel>
+@model WEB.Models.Admin_ViewMovie
+
 
 
 
@@ -11,11 +12,10 @@
 
 <link href="~/css/main.css" rel="stylesheet" />
 
-
 <div class="app-content-header">
     <h1 class="app-content-headerText">Trang quản lý phim</h1>
 
-    <button class="app-content-headerButton" onclick="showPhimForm(null,null,null,null,null,null,null)">Thêm phim</button>
+    <button class="app-content-headerButton" onclick="showPhimForm(null,null,null,null,null,null,null,null,null,null,null)">Thêm phim</button>
 </div>
 
 <div class="app-content-actions">
@@ -55,7 +55,7 @@
         </div>
 
         <div class="product-cell category">
-            Mã loại phim <button class="sort-button">
+            Loại phim <button class="sort-button">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 512 512"><path fill="currentColor" d="M496.1 138.3L375.7 17.9c-7.9-7.9-20.6-7.9-28.5 0L226.9 138.3c-7.9 7.9-7.9 20.6 0 28.5 7.9 7.9 20.6 7.9 28.5 0l85.7-85.7v352.8c0 11.3 9.1 20.4 20.4 20.4 11.3 0 20.4-9.1 20.4-20.4V81.1l85.7 85.7c7.9 7.9 20.6 7.9 28.5 0 7.9-7.8 7.9-20.6 0-28.5zM287.1 347.2c-7.9-7.9-20.6-7.9-28.5 0l-85.7 85.7V80.1c0-11.3-9.1-20.4-20.4-20.4-11.3 0-20.4 9.1-20.4 20.4v352.8l-85.7-85.7c-7.9-7.9-20.6-7.9-28.5 0-7.9 7.9-7.9 20.6 0 28.5l120.4 120.4c7.9 7.9 20.6 7.9 28.5 0l120.4-120.4c7.8-7.9 7.8-20.7-.1-28.5z" /></svg>
             </button>
         </div>
@@ -108,12 +108,6 @@
             </button>
         </div>
 
-        <div class="product-cell category">
-            Mô tả<button class="sort-button">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 512 512"><path fill="currentColor" d="M496.1 138.3L375.7 17.9c-7.9-7.9-20.6-7.9-28.5 0L226.9 138.3c-7.9 7.9-7.9 20.6 0 28.5 7.9 7.9 20.6 7.9 28.5 0l85.7-85.7v352.8c0 11.3 9.1 20.4 20.4 20.4 11.3 0 20.4-9.1 20.4-20.4V81.1l85.7 85.7c7.9 7.9 20.6 7.9 28.5 0 7.9-7.8 7.9-20.6 0-28.5zM287.1 347.2c-7.9-7.9-20.6-7.9-28.5 0l-85.7 85.7V80.1c0-11.3-9.1-20.4-20.4-20.4-11.3 0-20.4 9.1-20.4 20.4v352.8l-85.7-85.7c-7.9-7.9-20.6-7.9-28.5 0-7.9 7.9-7.9 20.6 0 28.5l120.4 120.4c7.9 7.9 20.6 7.9 28.5 0l120.4-120.4c7.8-7.9 7.8-20.7-.1-28.5z" /></svg>
-            </button>
-        </div>
-
         <div class="product-cell sales">
             Chỉnh sửa<button class="sort-button">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 512 512"><path fill="currentColor" d="M496.1 138.3L375.7 17.9c-7.9-7.9-20.6-7.9-28.5 0L226.9 138.3c-7.9 7.9-7.9 20.6 0 28.5 7.9 7.9 20.6 7.9 28.5 0l85.7-85.7v352.8c0 11.3 9.1 20.4 20.4 20.4 11.3 0 20.4-9.1 20.4-20.4V81.1l85.7 85.7c7.9 7.9 20.6 7.9 28.5 0 7.9-7.8 7.9-20.6 0-28.5zM287.1 347.2c-7.9-7.9-20.6-7.9-28.5 0l-85.7 85.7V80.1c0-11.3-9.1-20.4-20.4-20.4-11.3 0-20.4 9.1-20.4 20.4v352.8l-85.7-85.7c-7.9-7.9-20.6-7.9-28.5 0-7.9 7.9-7.9 20.6 0 28.5l120.4 120.4c7.9 7.9 20.6 7.9 28.5 0l120.4-120.4c7.8-7.9 7.8-20.7-.1-28.5z" /></svg>
@@ -127,11 +121,11 @@
         </div>
     </div>
 
-    @foreach (var phim in Model)
+    @foreach (var phim in Model.ListMovies)
     {
         <div class="products-row">
             <div class="product-cell category"><span class="cell-label">Mã phim:</span>@phim.MaPhim</div>
-            <div class="product-cell sales"><span class="cell-label">Mã loại phim:</span>@phim.MaLPhim</div>
+            <div class="product-cell sales"><span class="cell-label">Loại phim:</span>@phim.TheLoaiPhim.TenLPhim</div>
             <div class="product-cell sales"><span class="cell-label">Tên phim:</span>@phim.TenPhim</div>
             <div class="product-cell sales"><span class="cell-label">Đạo diễn:</span>@phim.DaoDien</div>
             <div class="product-cell sales"><span class="cell-label">Độ tuổi yêu cầu:</span>@phim.DoTuoiYeuCau</div>
@@ -198,7 +192,7 @@
         <div class="container">
             <h2 class="text-uppercase" id="title-form"></h2>
 
-            <form method="post" action="@Url.Action("LuuPhim", "Admin_QLPhim")" id="productForm">
+            <form method="post" action="@Url.Action("LuuPhim", "Admin_QLPhim")" id="productForm" enctype="multipart/form-data">
                 @Html.AntiForgeryToken()
 
                 <div class="row form-row">
@@ -206,15 +200,17 @@
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label asp-for="MaPhim" class="form-label text-dark fw-600" id="labelphim">Mã phim</label>
-                            <input asp-for="MaPhim" name="MaPhim" class="form-control" placeholder="Nhập mã phim" id="maPhim" />
+                            <input asp-for="MaPhim" name="MaPhim" class="form-control" placeholder="Nhập mã phim" id="maPhimChieu" />
                             <span asp-validation-for="MaPhim" class="text-danger"></span>
                         </div>
-
+              
                         <div class="mb-3">
-                            <label asp-for="MaLoaiPhim" class="form-label text-dark fw-600">Mã loại phim</label>
-                            <input asp-for="MaLoaiPhim" name="MaLoaiPhim" class="form-control" placeholder="Nhập mã loại phim" id="maLoaiPhim" />
-                            <span asp-validation-for="MaLoaiPhim" class="text-danger"></span>
+                            <label asp-for="MaLPhim" class="form-label text-dark fw-600">Mã loại phim</label>
+                            @Html.DropDownList("MaLPhim", Model.ListTypeMovie, "-- Chọn loại phim --", new { @class = "form-control", @id = "maLoaiPhim" })
+
+                            <span asp-validation-for="MaLPhim" class="text-danger"></span>
                         </div>
+
 
                         <div class="mb-3">
                             <label asp-for="TenPhim" class="form-label text-dark fw-600">Tên phim</label>
@@ -257,8 +253,12 @@
 
                         <div class="mb-3">
                             <label asp-for="HinhDaiDien" class="form-label text-dark fw-600">Hình đại diện</label>
-                            <input asp-for="HinhDaiDien" name="HinhDaiDien" class="form-control" placeholder="Nhập URL hình đại diện" id="hinhDaiDien" />
-                            <span asp-validation-for="HinhDaiDien" class="text-danger"></span>
+                            <div class="mb-2">
+                                <img class="img-thumbnail" style="width: 50px; height: 50px;" id="hinhUp" />
+                            </div>
+                            <input asp-for="hinhDaiDienFile" name="hinhDaiDienFile" type="file" class="form-control" id="hinhDaiDienFile" />
+                            <input asp-for="HinhDaiDien" name="HinhDaiDien" type="hidden" class="form-control" id="hinhDaiDien" />
+                            <span asp-validation-for="hinhDaiDienFile" class="text-danger"></span>
                         </div>
 
                         <div class="mb-3">
@@ -286,6 +286,5 @@
 </main>
 
 
+
 <script src="~/js/phim.js"></script>
-
-
