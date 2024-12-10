@@ -1,13 +1,11 @@
-﻿namespace API.Dto
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
+
+namespace WEB.Models
 {
-
-    public class ThongKeVe
+    public class Admin_HomeView
     {
-        public int TongSoVe { get; set; }
-    }
 
-    public class ThongKeDTO
-    {
         public int TongVeTrongNam { get; set; }
         public List<int> VeBanTungThang { get; set; }
         public double TongTienTheoNam { get; set; }
@@ -15,10 +13,6 @@
         public List<TopCustomerDTO> topCustomerDTOs { get; set; }
     }
 
-    public class DoanhThuTrongNamDTO
-    {
-        public double TongTienTrongNam { get; set; }
-    }
     public class TopCustomerDTO
     {
         public string TenKhachHang { get; set; }

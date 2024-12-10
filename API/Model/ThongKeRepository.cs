@@ -22,7 +22,7 @@ namespace API.Repositories
         public async Task<int> GetSoLuongPhimDaChieuTrongNam(string nam)
         {
             // Truy vấn sử dụng FromSqlRaw để gọi hàm fsoLuongPhimDaChieuTrongNam từ SQL
-            var result = await _context.Set<ThongKeDTO>()
+            var result = await _context.Set<ThongKeVe>()
                 .FromSqlRaw("SELECT dbo.fsoLuongPhimDaChieuTrongNam({0}) AS TongSoVe", nam)
                 .FirstOrDefaultAsync();
 
@@ -31,7 +31,7 @@ namespace API.Repositories
         public async Task<int> GetTongVeTrongNam(string nam)
         {
             // Truy vấn sử dụng FromSqlRaw để gọi hàm ftongVeTrongNam từ SQL
-            var result = await _context.Set<ThongKeDTO>()
+            var result = await _context.Set<ThongKeVe>()
            .FromSqlRaw("SELECT dbo.ftongVeTrongNam({0}) AS TongSoVe", nam)
            .FirstOrDefaultAsync();
 
@@ -61,7 +61,7 @@ namespace API.Repositories
 
         public async Task<List<int>> GetVeBanTungThang(string nam)
         {
-            var results = await _context.Set<ThongKeDTO>()
+            var results = await _context.Set<ThongKeVe>()
                 .FromSqlRaw("SELECT Thang, TongSoVe FROM dbo.fThongKeTungThangTrongNam({0})", nam)
                 .Select(dto => dto.TongSoVe)
                 .ToListAsync();

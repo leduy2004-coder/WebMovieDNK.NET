@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using WEB.Models;
 using Web.Api;
+using System.Xml.Linq;
 
 namespace WEB.Api
 {
@@ -17,18 +18,18 @@ namespace WEB.Api
         }
 
         // Phương thức gọi API để lấy dữ liệu thống kê
-        public async Task<List<MovieModel>> GetThongKeAsync()
+        public async Task<List<Admin_HomeView>> GetThongKeAsync(string nam)
         {
-            // Gửi yêu cầu GET đến API Thống kê
-            var response = await _apiService.GetDataAsync<List<MovieModel>>("/api/thongke");
+            string url = $"api/thongke/{nam}"; ;
 
-            // Kiểm tra phản hồi từ API
+            var response = await _apiService.GetDataAsync<List<Admin_HomeView>>(url);
+    
             if (response != null)
             {
-                return response; // Trả về danh sách phim nếu thành công
+                return response; 
             }
 
-            return new List<MovieModel>(); // Trả về danh sách rỗng nếu thất bại
+            return new List<Admin_HomeView>(); 
         }
     }
 }

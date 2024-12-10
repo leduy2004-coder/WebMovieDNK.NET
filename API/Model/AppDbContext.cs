@@ -27,7 +27,7 @@ namespace API.Model
         public DbSet<tbBookVe> BookVe { get; set; }
         public DbSet<tbBookGhe> BookGhe { get; set; }
         public DbSet<GetPhimDangChieu> getPhimDangChieuDTOs { get; set; }
-        public DbSet<ThongKeDTO> ThongKeDTO { get; set; }
+        public DbSet<ThongKeVe> ThongKeVe { get; set; }
 
         public DbSet<GetNgayChieu> getNgayChieus { get; set; }
         public DbSet<GetCaChieu> getCaChieus { get; set; }
@@ -53,7 +53,7 @@ namespace API.Model
             modelBuilder.Entity<GetPhimDangChieu>().HasNoKey();
             modelBuilder.Entity<GetNgayChieu>().HasNoKey();
             modelBuilder.Entity<LichSuKhachHangDTO>().HasNoKey();
-            modelBuilder.Entity<ThongKeDTO>().HasNoKey();
+            modelBuilder.Entity<ThongKeVe>().HasNoKey();
             modelBuilder.Entity<DoanhThuTrongNamDTO>().HasNoKey();
             modelBuilder.Entity<TopCustomerDTO>().HasNoKey();
 

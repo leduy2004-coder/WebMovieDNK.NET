@@ -1,4 +1,5 @@
-﻿using API.Model;
+﻿using API.Dto;
+using API.Model;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -14,39 +15,26 @@ namespace API.Controllers
             _thongKeRepository = thongKeRepository;
         }
 
-        [HttpGet("VeBanTungThang/{nam}")]
+        [HttpGet("ThongKe/{nam}")]
         public async Task<IActionResult> GetVeBanTungThang(string nam)
         {
             var data = await _thongKeRepository.GetVeBanTungThang(nam);
-            return Ok(data);
-        }
+            var data1 = await _thongKeRepository.GetTongTienTheoNam(nam);
+            var result1 = await _thongKeRepository.GetTopCustomersByYear(nam);
+            var result2 = await _thongKeRepository.GetTongVeTrongNam(nam);
+            var result3 = await _thongKeRepository.GetSoLuongPhimDaChieuTrongNam(nam);
 
-        [HttpGet("TongTienTrongNam/{nam}")]
-        public async Task<IActionResult> GetTongTienTrongNam(string nam)
-        {
-            var data = await _thongKeRepository.GetTongTienTheoNam(nam);
-            return Ok(data);
-        }
 
-        [HttpGet("TopCustomers/{nam}")]
-        public async Task<IActionResult> GetTopCustomers(string nam)
-        {
-            var result = await _thongKeRepository.GetTopCustomersByYear(nam);
-            return Ok(result);
-        }
+            var model = new ThongKeDTO
+            {
+                SoLuongPhimDaChieuTrongNam = result3,
+                TongTienTheoNam = data1,
+                TongVeTrongNam = result2,
+                VeBanTungThang = data,
+                topCustomerDTOs = result1.ToList(),
+            };
 
-        [HttpGet("TongVeTrongNam/{nam}")]
-        public async Task<IActionResult> GetTongVeTrongNam(string nam)
-        {
-            var result = await _thongKeRepository.GetTongVeTrongNam(nam);
-            return Ok(result);
-        }
-         
-        [HttpGet("SoLuongPhimDaChieuTrongNam/{nam}")]
-        public async Task<IActionResult> GetSoLuongPhimDaChieuTrongNam(string nam)
-        {
-            var result = await _thongKeRepository.GetSoLuongPhimDaChieuTrongNam(nam);
-            return Ok(result);
+            return Ok(model);
         }
     }
 }
