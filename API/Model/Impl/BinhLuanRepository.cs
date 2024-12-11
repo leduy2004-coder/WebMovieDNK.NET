@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace API.Model
+namespace API.Model.Impl
 {
     public class BinhLuanRepository : IBinhLuanRepository
     {
@@ -19,8 +19,8 @@ namespace API.Model
         // Thêm bình luận
         public async Task<tbBinhLuan> AddBinhLuan(tbBinhLuan bl)
         {
-            _context.BinhLuan.Add(bl); 
-            await _context.SaveChangesAsync(); 
+            _context.BinhLuan.Add(bl);
+            await _context.SaveChangesAsync();
             return bl;
         }
 
@@ -43,11 +43,11 @@ namespace API.Model
         {
             if (string.IsNullOrEmpty(maPhim))
             {
-                return Enumerable.Empty<tbBinhLuan>(); 
+                return Enumerable.Empty<tbBinhLuan>();
             }
 
             return await _context.BinhLuan
-                                 .Where(bl => bl.MaPhim == maPhim && bl.TinhTrang) 
+                                 .Where(bl => bl.MaPhim == maPhim && bl.TinhTrang)
                                  .ToListAsync();
         }
 
@@ -60,6 +60,6 @@ namespace API.Model
                 .FirstOrDefaultAsync(bl => bl.MaBinhLuan == int.Parse(maPhim));
         }
 
-    
+
     }
 }

@@ -49,6 +49,23 @@ namespace API.Model
             }
 
         }
+
+        // Lấy tất cả phim co tinh trang 1
+        public async Task<IEnumerable<tbPhim>> GetPHIMStatus()
+        {
+            try
+            {
+                var danhSachPhim = await _context.Phim
+                    .Where(p => p.TinhTrang == true)
+                    .ToListAsync();
+                return danhSachPhim;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+
+        }
         // Lấy tất cả loai phim
         public async Task<IEnumerable<tbTheLoaiPhim>> GetTheLoaiPHIMs()
         {

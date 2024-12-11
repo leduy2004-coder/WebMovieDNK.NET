@@ -24,7 +24,7 @@ namespace WEB.Controllers
         public async Task<IActionResult> Index()
         {
             var listSC = await scService.GetAllSuatChieu();
-            var listPhim = await _movieService.GetPhimDangChieu();
+            var listPhim = await _movieService.GetPhimStatus();
 
             var model = new Admin_SuatChieuViewModel
             {

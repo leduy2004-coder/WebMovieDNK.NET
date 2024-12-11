@@ -1,5 +1,5 @@
 using API.Model;
-using API.Repositories;
+using API.Model.Impl;
 using CloudinaryDotNet;
 using Microsoft.EntityFrameworkCore;
 

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace API.Model
+namespace API.Model.Impl
 {
     public class NhanVienRepository : INhanVienRepository
     {
@@ -25,7 +25,7 @@ namespace API.Model
 
                 await _context.SaveChangesAsync();
 
-                return nv;  
+                return nv;
             }
             catch (Exception ex)
             {
@@ -62,17 +62,17 @@ namespace API.Model
         // Xóa nhân viên khỏi cơ sở dữ liệu dựa trên mã nhân viên
         public async Task<bool> DeleteNhanVien(string maNhanVien)
         {
-            var nhanVien = await _context.NhanVien.FindAsync(maNhanVien);  
+            var nhanVien = await _context.NhanVien.FindAsync(maNhanVien);
             if (nhanVien == null)
             {
-                return false;  
+                return false;
             }
 
-            nhanVien.TinhTrang = false;  
+            nhanVien.TinhTrang = false;
 
-            _context.NhanVien.Update(nhanVien);  
-            await _context.SaveChangesAsync();  
-            return true; 
+            _context.NhanVien.Update(nhanVien);
+            await _context.SaveChangesAsync();
+            return true;
         }
 
 
@@ -80,8 +80,8 @@ namespace API.Model
         public async Task<IEnumerable<tbNhanVien>> GetAllNhanVien()
         {
             return await _context.NhanVien
-                                 .Where(nv => nv.TinhTrang == true && nv.MaRole == 1) 
-                                 .ToListAsync(); 
+                                 .Where(nv => nv.TinhTrang == true && nv.MaRole == 1)
+                                 .ToListAsync();
         }
 
 
@@ -89,10 +89,10 @@ namespace API.Model
         public async Task<tbNhanVien> GetNhanVienById(string maNhanVien)
         {
             var nhanVien = await _context.NhanVien
-                .FirstOrDefaultAsync(nv => nv.MaNV == maNhanVien);  
-            return nhanVien;  
+                .FirstOrDefaultAsync(nv => nv.MaNV == maNhanVien);
+            return nhanVien;
         }
-        
+
         // Lấy tên nhân viên theo mã nhân viên
         public async Task<string> GetNhanVien(string maNhanVien)
         {

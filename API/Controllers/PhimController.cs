@@ -38,6 +38,24 @@ namespace KTGiuaKi.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error retrieving data.");
             }
         }
+
+        // GET: api/Phim/all/status
+        [HttpGet("all/status")]
+        public async Task<IActionResult> GetPHIMStatus()
+        {
+            try
+            {
+                var result = await _phimRepository.GetPHIMStatus();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                Console.WriteLine($"Error: {ex.Message}");
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error retrieving data.");
+            }
+        }
         // GET: api/TLPhim/all
         [HttpGet("all-type")]
         public async Task<IActionResult> GetTLPHIMS()

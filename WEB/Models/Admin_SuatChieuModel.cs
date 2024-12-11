@@ -18,8 +18,8 @@ namespace WEB.Models
 
         public DateTime NgayChieu { get; set; }
 
- 
-        public bool TinhTrang { get; set; }
+
+        public bool TinhTrang { get; set; } = true;
 
     }
 }

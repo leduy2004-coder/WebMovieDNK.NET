@@ -73,8 +73,7 @@ public class Admin_QLNhanVienController : Controller
     [HttpGet]
     public async Task<IActionResult> TimNhanVien(string searchTerm)
     {
-        searchTerm = searchTerm.Trim();
-        var listEmploy = string.IsNullOrEmpty(searchTerm)
+         var listEmploy = string.IsNullOrEmpty(searchTerm)
                ? await  nvService.GetNhanVienListAsync()
                : await nvService.SearchNVListAsync(searchTerm);
 

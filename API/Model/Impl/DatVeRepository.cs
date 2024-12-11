@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
-namespace API.Model
+namespace API.Model.Impl
 {
 
     public class DatVeRepository : IDatVeRepository
@@ -89,7 +89,7 @@ namespace API.Model
             var doUongs = await _context.BookDoUong
                 .Where(doUong => doUong.MaBook == maBook)
                 .ToListAsync();
-            List<DoUongDTO> listDrinks = new List<DoUongDTO>();  
+            List<DoUongDTO> listDrinks = new List<DoUongDTO>();
             foreach (var doUong in doUongs)
             {
                 var drink = await _context.DoUong

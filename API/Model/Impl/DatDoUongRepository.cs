@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
-namespace API.Model
+namespace API.Model.Impl
 {
 
     public class DatDoUongRepository : IDatDoUongRepository

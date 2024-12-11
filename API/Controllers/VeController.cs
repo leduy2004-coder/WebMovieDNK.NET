@@ -3,6 +3,7 @@ using API.Model;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using API.Dto;
 
 namespace API.Controllers
 {
@@ -19,15 +20,15 @@ namespace API.Controllers
 
         // Thêm vé
         [HttpPost]
-        public async Task<ActionResult<tbVe>> AddVe(tbVe ve)
+        public async Task<ActionResult<VeDTO>> AddVe(VeDTO ve)
         {
             if (ve == null)
             {
                 return BadRequest("Thông tin vé không hợp lệ.");
             }
-
+            
             var createdVe = await _veRepository.AddVe(ve);
-            return CreatedAtAction(nameof(GetVe), new { maVe = createdVe.MaVe }, createdVe);
+            return Ok(createdVe);
         }
 
         // Cập nhật vé

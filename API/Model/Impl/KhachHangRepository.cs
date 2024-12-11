@@ -9,7 +9,7 @@ using Microsoft.Extensions.Caching.Memory;
 using System.Net.Mail;
 using System.Net;
 
-namespace API.Model
+namespace API.Model.Impl
 {
 
     public class KhachHangRepository : IKhachHangRepository
@@ -22,8 +22,8 @@ namespace API.Model
             _cache = memoryCache;
         }
 
-     
-        
+
+
 
         // Thêm mới một khách hàng
         public async Task<tbKhachHang> AddKhachHang(tbKhachHang kh)
@@ -37,13 +37,13 @@ namespace API.Model
         // Xóa khách hàng dựa trên mã khách hàng
         public async Task<bool> DeleteKhachHang(string maKhachHang)
         {
-            var khachHang = await _context.KhachHang.FindAsync(maKhachHang); 
+            var khachHang = await _context.KhachHang.FindAsync(maKhachHang);
             if (khachHang == null) return false;
 
             khachHang.TinhTrang = false;
-            _context.KhachHang.Update(khachHang); 
+            _context.KhachHang.Update(khachHang);
             await _context.SaveChangesAsync();
-            return true; 
+            return true;
         }
 
 
@@ -51,8 +51,8 @@ namespace API.Model
         public async Task<IEnumerable<tbKhachHang>> GetDanhSachKhachHang()
         {
             return await _context.KhachHang
-                                 .Where(kh => kh.TinhTrang == true) 
-                                 .ToListAsync(); 
+                                 .Where(kh => kh.TinhTrang == true)
+                                 .ToListAsync();
         }
 
 
@@ -78,7 +78,7 @@ namespace API.Model
             existingKhachHang.TinhTrang = kh.TinhTrang;
             existingKhachHang.TenTK = kh.TenTK;
             existingKhachHang.MatKhau = kh.MatKhau;
-     
+
 
             await _context.SaveChangesAsync(); // Lưu thay đổi vào cơ sở dữ liệu
             return existingKhachHang; // Trả về khách hàng đã cập nhật

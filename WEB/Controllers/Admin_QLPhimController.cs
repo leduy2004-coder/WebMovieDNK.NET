@@ -76,7 +76,6 @@ namespace WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> TimPhim(string searchTerm)
         {
-            searchTerm = searchTerm.Trim();
             var listMovie = string.IsNullOrEmpty(searchTerm)
                 ? await phimService.GetListPhim()
                 : await phimService.SearchPhimListAsync(searchTerm);

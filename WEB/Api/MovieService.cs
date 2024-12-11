@@ -19,7 +19,10 @@ namespace Web.Api
         {
             return await _apiService.GetDataAsync<List<MovieModel>>("api/Phim/dang-chieu");
         }
-
+        public async Task<List<MovieModel>> GetPhimStatus()
+        {
+            return await _apiService.GetDataAsync<List<MovieModel>>("api/Phim/all/status");
+        }
         public async Task<List<MovieModel>> GetPhimSapChieu()
         {
             return await _apiService.GetDataAsync<List<MovieModel>>("api/Phim/sap-chieu");

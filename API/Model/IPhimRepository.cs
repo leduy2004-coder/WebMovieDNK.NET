@@ -14,7 +14,9 @@ namespace API.Model
         Task<bool> DeletePHIM(string maPhim);
         Task<tbPhim> AddPHIM(tbPhim phim);
         Task<tbPhim> UpdatePHIM(tbPhim phim);
+        Task<IEnumerable<tbPhim>> GetPHIMStatus();
 
-      
+
+
     }
 }

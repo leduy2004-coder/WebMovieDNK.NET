@@ -31,7 +31,12 @@ namespace WEB.Api
 
             return selectList;
         }
+        public async Task<VeModel> LuuVeListAsync(VeModel md)
+        {
+            md.MaVe = null; 
+            return await _apiService.PostDataAsync<VeModel>("api/ve", md);
 
+        }
         public async Task<Admin_QLPhimModel> SaveOrUpdatePhimAsync(Admin_QLPhimModel md, IFormFile hinhDaiDienFile, string apiEndpoint, HttpMethod method)
         {
             var formData = new MultipartFormDataContent();

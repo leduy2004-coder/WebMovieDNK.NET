@@ -166,3 +166,6 @@ a:hover {
     text-overflow: ellipsis;
     -webkit-line-clamp: 3;
 }
+.tab-box-item {
+    margin-bottom: 10px;
+}

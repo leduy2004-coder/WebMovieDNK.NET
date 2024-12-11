@@ -68,7 +68,7 @@ public class Admin_QLKhachHangController : Controller
     [HttpGet]
     public async Task<IActionResult> TimKhachHang(string searchTerm)
     {
-        searchTerm = searchTerm.Trim();
+
         var listEmploy = string.IsNullOrEmpty(searchTerm)
                ? await khService.GetListKhachHang()
                : await khService.SearchKHListAsync(searchTerm);

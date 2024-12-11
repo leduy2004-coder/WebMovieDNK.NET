@@ -3,7 +3,7 @@ using API.Dto;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
-namespace API.Model
+namespace API.Model.Impl
 {
     public class SuatChieuRepository : ISuatChieuRepository
     {
@@ -118,7 +118,7 @@ namespace API.Model
         {
             return await _context.SuatChieu
                 .Where(SC => SC.MaSuat == maSC)
-                .FirstOrDefaultAsync();  
+                .FirstOrDefaultAsync();
         }
 
         public async Task<List<tbSuatChieu>> GetAllSuatChieu()
@@ -151,7 +151,7 @@ namespace API.Model
             return await _context.Ghe.ToListAsync();
         }
 
-   
+
 
         public async Task<IEnumerable<tbCaChieu>> GetAvailableCaChieuForSuatChieu(string maPhim, DateTime ngayChieu)
         {

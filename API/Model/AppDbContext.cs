@@ -2,7 +2,7 @@
 using API.Data;
 using API.Dto;
 using Microsoft.EntityFrameworkCore;
-using static API.Model.SuatChieuRepository;
+using static API.Model.Impl.SuatChieuRepository;
 
 
 namespace API.Model

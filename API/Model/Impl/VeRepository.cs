@@ -1,9 +1,11 @@
 ﻿using API.Data;
+using API.Dto;
+using Mapster;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace API.Model
+namespace API.Model.Impl
 {
     public class VeRepository : IVeRepository
     {
@@ -15,11 +17,13 @@ namespace API.Model
         }
 
         // Thêm vé
-        public async Task<tbVe> AddVe(tbVe v)
+        public async Task<tbVe> AddVe(VeDTO ve)
         {
-            _context.Ve.Add(v);
+            var veDTOs = ve.Adapt<tbVe>();
+            veDTOs.MaVe = "";
+            _context.Ve.Add(veDTOs);
             await _context.SaveChangesAsync();
-            return v;
+            return veDTOs;
         }
 
         // Cập nhật vé

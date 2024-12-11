@@ -1,9 +1,9 @@
 ﻿using API.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace API.Model
+namespace API.Model.Impl
 {
-    public class UuDaiRepository : IUuDaiRepository 
+    public class UuDaiRepository : IUuDaiRepository
     {
         private readonly AppDbContext _context;
 

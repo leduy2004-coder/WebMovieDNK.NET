@@ -7,7 +7,7 @@ using API.Dto;
 using API.Model;
 using Microsoft.EntityFrameworkCore;
 
-namespace API.Repositories
+namespace API.Model.Impl
 {
     public class ThongKeRepository : IThongKeRepository
     {
@@ -26,7 +26,7 @@ namespace API.Repositories
                 .FromSqlRaw("SELECT dbo.fsoLuongPhimDaChieuTrongNam({0}) AS TongSoVe", nam)
                 .FirstOrDefaultAsync();
 
-            return result?.TongSoVe ?? 0; 
+            return result?.TongSoVe ?? 0;
         }
         public async Task<int> GetTongVeTrongNam(string nam)
         {
@@ -68,7 +68,7 @@ namespace API.Repositories
 
             return results;
         }
-     
+
 
 
         //public async Task<List<tbPhim>> ThongKe()
